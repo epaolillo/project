@@ -1,13 +1,13 @@
 .task-node {
   background: white;
-  border: 2px solid #e9ecef;
-  border-radius: 8px;
-  padding: 12px;
-  min-width: 220px;
-  max-width: 280px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid #e9ecef; /* Thicker border */
+  border-radius: 12px; /* Larger border radius */
+  padding: 20px; /* Much more padding */
+  min-width: 320px; /* Much wider */
+  max-width: 380px; /* Much wider */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); /* Stronger shadow */
   transition: all 0.3s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .task-node:hover {
@@ -38,19 +38,19 @@
 }
 
 .task-type-icon {
-  font-size: 16px;
-  width: 24px;
-  height: 24px;
+  font-size: 24px; /* Much larger icon */
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .task-priority {
-  padding: 2px 6px;
-  border-radius: 4px;
-  color: white;
-  font-size: 10px;
+  padding: 6px 12px; /* Much more padding */
+  border-radius: 6px; /* Larger radius */
+  color: white !important;
+  font-size: 14px; /* Much larger */
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -60,27 +60,27 @@
 }
 
 .task-title {
-  margin: 0 0 6px 0;
-  font-size: 14px;
+  margin: 0 0 5px 0; /* Much more margin */
+  font-size: 30px; /* Much larger title */
   font-weight: 600;
   color: #2c3e50;
-  line-height: 1.3;
+  line-height: 30px;
 }
 
 .task-description {
-  margin: 0 0 8px 0;
-  font-size: 12px;
+  margin: 0 0 5px 0; /* Much more margin */
+  font-size: 16px; /* Much larger */
   color: #5a6c7d;
-  line-height: 1.4;
+  line-height: 1.6; /* Better line height */
   overflow: hidden;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3; /* Show more lines */
   -webkit-box-orient: vertical;
 }
 
 .task-assignee {
-  margin-bottom: 8px;
-  font-size: 11px;
+  margin-bottom: 5px; /* Much more margin */
+  font-size: 15px; /* Larger */
 }
 
 .assignee-label {
@@ -94,21 +94,21 @@
 }
 
 .task-progress {
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
 
 .progress-info {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 14px; /* Much larger */
   color: #5a6c7d;
-  margin-bottom: 4px;
+  margin-bottom: 6px; /* More spacing */
 }
 
 .progress-bar-container {
-  height: 4px;
+  height: 8px; /* Much thicker progress bar */
   background-color: #e9ecef;
-  border-radius: 2px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -123,8 +123,8 @@
 }
 
 .incident-severity {
-  font-size: 11px;
-  margin-bottom: 4px;
+  font-size: 15px; /* Larger */
+  margin-bottom: 6px;
 }
 
 .severity-critical {
@@ -148,7 +148,7 @@
 }
 
 .affected-users {
-  font-size: 10px;
+  font-size: 14px; /* Larger */
   color: #dc3545;
   font-weight: 500;
 }
@@ -160,26 +160,26 @@
 }
 
 .task-status {
-  padding: 3px 8px;
-  border-radius: 12px;
+  padding: 6px 14px; /* Much more padding */
+  border-radius: 16px; /* Larger radius */
   color: white;
-  font-size: 10px;
+  font-size: 14px; /* Much larger */
   font-weight: 500;
   text-transform: capitalize;
 }
 
 .task-dependencies {
-  font-size: 10px;
+  font-size: 14px; /* Larger */
   color: #7f8c8d;
   font-weight: 500;
 }
 
 .task-handle {
-  width: 8px;
-  height: 8px;
+  width: 12px; /* Larger handle */
+  height: 12px;
   background: #007bff;
-  border: 2px solid white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border: 3px solid white; /* Thicker border */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Stronger shadow */
 }
 
 .task-handle.react-flow__handle-connecting {
@@ -211,16 +211,26 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .task-node {
-    min-width: 180px;
-    max-width: 220px;
-    padding: 10px;
+    min-width: 280px; /* Much larger for mobile */
+    max-width: 320px; /* Much larger */
+    padding: 18px; /* More padding */
   }
   
   .task-title {
-    font-size: 13px;
+    font-size: 18px; /* Much larger */
   }
   
   .task-description {
-    font-size: 11px;
+    font-size: 15px; /* Much larger */
+  }
+  
+  .task-priority {
+    font-size: 12px;
+    padding: 4px 10px;
+  }
+  
+  .task-status {
+    font-size: 12px;
+    padding: 4px 12px;
   }
 }

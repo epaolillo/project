@@ -7,9 +7,9 @@
 
 .progress-track {
   flex: 1;
-  height: 6px;
+  height: 10px; /* Much thicker */
   background-color: #e9ecef;
-  border-radius: 3px;
+  border-radius: 5px; /* Larger radius */
   overflow: hidden;
   position: relative;
 }
@@ -22,10 +22,10 @@
 }
 
 .progress-text {
-  font-size: 10px;
+  font-size: 14px; /* Even larger */
   font-weight: 500;
-  margin-left: 6px;
-  min-width: 30px;
+  margin-left: 8px;
+  min-width: 40px;
   text-align: right;
   color: #5a6c7d;
 }
@@ -57,23 +57,23 @@
 
 /* Size variants */
 .progress-small .progress-track {
-  height: 4px;
+  height: 8px; /* Thicker even for small */
 }
 
 .progress-small .progress-text {
-  font-size: 9px;
+  font-size: 13px; /* Larger */
 }
 
 .progress-medium .progress-track {
-  height: 6px;
+  height: 10px; /* Thicker */
 }
 
 .progress-large .progress-track {
-  height: 8px;
+  height: 14px; /* Much thicker */
 }
 
 .progress-large .progress-text {
-  font-size: 11px;
+  font-size: 16px; /* Much larger */
 }
 
 /* Animation for loading state */

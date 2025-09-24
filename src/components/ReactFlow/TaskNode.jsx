@@ -132,20 +132,6 @@ const TaskNode = ({ data, selected }) => {
         )}
       </div>
       
-      <div className="task-footer">
-        <div 
-          className="task-status"
-          style={{ backgroundColor: getStatusColor(data.status) }}
-        >
-          {data.status}
-        </div>
-        
-        {data.dependencies && data.dependencies.length > 0 && (
-          <div className="task-dependencies">
-            {data.dependencies.length} dependencias
-          </div>
-        )}
-      </div>
       
       <Handle
         type="source"

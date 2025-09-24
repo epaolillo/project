@@ -1,14 +1,14 @@
 .user-widget {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 10px;
-  margin-bottom: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.2); /* Thicker border */
+  border-radius: 12px; /* Larger radius */
+  padding: 16px; /* Much more padding */
+  margin-bottom: 12px; /* More spacing */
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  min-width: 260px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15); /* Stronger shadow */
+  min-width: 300px; /* Wider widget */
 }
 
 .user-widget:hover {
@@ -35,8 +35,8 @@
 }
 
 .avatar-placeholder {
-  width: 40px;
-  height: 40px;
+  width: 50px; /* Larger avatar */
+  height: 50px;
   border-radius: 50%;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   display: flex;
@@ -44,7 +44,7 @@
   justify-content: center;
   color: white;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 20px; /* Larger font */
 }
 
 .user-header {
@@ -54,14 +54,14 @@
 
 .user-name {
   margin: 0;
-  font-size: 15px;
+  font-size: 20px; /* Much larger */
   font-weight: 600;
   color: #2c3e50;
-  line-height: 1.2;
+  line-height: 1.3;
 }
 
 .user-role {
-  font-size: 11px;
+  font-size: 15px; /* Larger */
   color: #7f8c8d;
   font-weight: 500;
 }
@@ -82,10 +82,10 @@
 }
 
 .metric-label {
-  font-size: 10px;
+  font-size: 14px; /* Even larger */
   color: #5a6c7d;
   font-weight: 500;
-  min-width: 60px;
+  min-width: 80px; /* More space */
   text-align: left;
 }
 
@@ -97,20 +97,20 @@
 }
 
 .update-time {
-  font-size: 9px;
+  font-size: 13px; /* Larger */
   color: #7f8c8d;
-  margin-left: 6px;
-  min-width: 25px;
+  margin-left: 8px;
+  min-width: 35px;
   text-align: right;
 }
 
 .task-count {
-  font-size: 10px;
+  font-size: 14px; /* Larger */
   color: #34495e;
   text-align: center;
-  padding: 4px 8px;
+  padding: 8px 14px; /* More padding */
   background: rgba(52, 73, 94, 0.1);
-  border-radius: 8px;
+  border-radius: 10px; /* Larger radius */
   font-weight: 500;
 }
 
@@ -134,8 +134,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .user-widget {
-    min-width: 240px;
-    padding: 8px;
+    min-width: 280px; /* Much wider for mobile */
+    padding: 12px; /* More padding */
   }
   
   .user-main-info {
@@ -147,26 +147,30 @@
   }
   
   .avatar-placeholder {
-    width: 36px;
-    height: 36px;
-    font-size: 14px;
+    width: 44px; /* Larger mobile avatar */
+    height: 44px;
+    font-size: 18px; /* Larger font */
   }
   
   .user-name {
-    font-size: 13px;
+    font-size: 18px; /* Much larger for mobile */
   }
   
   .user-role {
-    font-size: 10px;
+    font-size: 14px; /* Larger */
   }
   
   .metric-label {
-    font-size: 9px;
-    min-width: 50px;
+    font-size: 13px; /* Larger */
+    min-width: 70px; /* More space */
   }
   
   .task-count {
-    font-size: 9px;
-    padding: 3px 6px;
+    font-size: 13px; /* Larger */
+    padding: 6px 10px; /* More padding */
+  }
+  
+  .update-time {
+    font-size: 12px; /* Larger */
   }
 }

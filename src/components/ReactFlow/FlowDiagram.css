@@ -41,7 +41,7 @@
 
 .loading-spinner p {
   color: #5a6c7d;
-  font-size: 14px;
+  font-size: 16px; /* Increased size */
   margin: 0;
 }
 
@@ -64,22 +64,23 @@
 .error-message h3 {
   color: #dc3545;
   margin: 0 0 8px 0;
-  font-size: 18px;
+  font-size: 20px; /* Increased size */
 }
 
 .error-message p {
   color: #5a6c7d;
   margin: 0 0 16px 0;
+  font-size: 15px; /* Added size */
 }
 
 .retry-button {
   background: #007bff;
   color: white;
   border: none;
-  padding: 8px 16px;
+  padding: 10px 18px; /* Increased padding */
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px; /* Increased size */
   transition: background-color 0.3s ease;
 }
 

@@ -96,7 +96,7 @@
 
 .login-title {
   margin: 0 0 8px 0;
-  font-size: 28px;
+  font-size: 32px; /* Increased size */
   font-weight: 700;
   color: #2c3e50;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -108,7 +108,7 @@
 .login-subtitle {
   margin: 0;
   color: #7f8c8d;
-  font-size: 14px;
+  font-size: 16px; /* Increased size */
   font-weight: 400;
 }
 
@@ -124,17 +124,17 @@
 .form-label {
   display: block;
   margin-bottom: 6px;
-  font-size: 14px;
+  font-size: 16px; /* Increased size */
   font-weight: 600;
   color: #34495e;
 }
 
 .form-input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 16px 18px; /* Increased padding */
   border: 2px solid #e1e5e9;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 18px; /* Increased size */
   transition: all 0.3s ease;
   background: rgba(255, 255, 255, 0.9);
   color: #2c3e50;
@@ -165,7 +165,7 @@
 .field-error {
   display: block;
   margin-top: 5px;
-  font-size: 12px;
+  font-size: 14px; /* Increased size */
   color: #e74c3c;
   font-weight: 500;
 }
@@ -201,19 +201,19 @@
 
 .error-text {
   color: #c0392b;
-  font-size: 14px;
+  font-size: 16px; /* Increased size */
   font-weight: 500;
 }
 
 /* Login Button */
 .login-button {
   width: 100%;
-  padding: 16px;
+  padding: 18px; /* Increased padding */
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   border: none;
   border-radius: 10px;
-  font-size: 16px;
+  font-size: 18px; /* Increased size */
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -285,7 +285,7 @@
 
 .demo-title {
   margin: 0 0 12px 0;
-  font-size: 13px;
+  font-size: 15px; /* Increased size */
   color: #7f8c8d;
   font-weight: 500;
 }
@@ -302,8 +302,8 @@
   color: #667eea;
   border: 1px solid rgba(102, 126, 234, 0.2);
   border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 12px;
+  padding: 8px 14px; /* Increased padding */
+  font-size: 14px; /* Increased size */
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -321,9 +321,9 @@
 }
 
 .demo-info {
-  font-size: 11px;
+  font-size: 13px; /* Increased size */
   color: #95a5a6;
-  line-height: 1.4;
+  line-height: 1.5; /* Better line height */
 }
 
 /* Footer */
@@ -336,7 +336,7 @@
 
 .footer-text {
   margin: 0;
-  font-size: 12px;
+  font-size: 14px; /* Increased size */
   color: #95a5a6;
 }
 
@@ -348,21 +348,21 @@
   }
 
   .login-title {
-    font-size: 24px;
+    font-size: 28px; /* Increased */
   }
 
   .login-subtitle {
-    font-size: 13px;
+    font-size: 15px; /* Increased */
   }
 
   .form-input {
-    padding: 12px 14px;
-    font-size: 16px; /* Prevent zoom on iOS */
+    padding: 14px 16px; /* Increased padding */
+    font-size: 18px; /* Increased size */
   }
 
   .login-button {
-    padding: 14px;
-    font-size: 15px;
+    padding: 16px; /* Increased padding */
+    font-size: 17px; /* Increased */
   }
 
   .demo-buttons {

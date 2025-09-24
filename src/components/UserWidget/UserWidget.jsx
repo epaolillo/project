@@ -106,9 +106,6 @@ const UserWidget = ({ user, onClick, className = '' }) => {
           </div>
       </div>
       
-      <div className="task-count">
-        {user.assignedTasks?.length || 0} tareas asignadas
-      </div>
     </div>
   );
 };
