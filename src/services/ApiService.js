@@ -180,6 +180,15 @@ class ApiService {
   }
 
   /**
+   * Delete task
+   */
+  async deleteTask(taskId) {
+    return await this.request(`/tasks/${taskId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  /**
    * Update task status
    */
   async updateTaskStatus(taskId, newStatus, completionNotes = '') {

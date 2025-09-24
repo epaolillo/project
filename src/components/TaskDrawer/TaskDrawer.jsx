@@ -30,7 +30,9 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
         task_type: task.task_type || 'task',
         // Incident specific fields
         severity: task.severity || 'medium',
-        affectedUsers: task.affectedUsers || 0
+        affectedUsers: task.affectedUsers || 0,
+        // Important: Copy the isNew flag
+        isNew: task.isNew || false
       });
       setHasChanges(false);
     }
@@ -106,34 +108,25 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     setHasChanges(true);
   }, []);
 
-  // Auto-save changes with debounce
+  // Auto-save changes with debounce (only for existing tasks)
   useEffect(() => {
     if (!editedTask || !hasChanges || isSaving) return;
-    // Don't auto-save if title is empty (for new tasks)
-    if (editedTask.isNew && !editedTask.title.trim()) return;
+    // Skip auto-save for new tasks - they need manual save
+    if (editedTask.isNew) return;
 
     const saveTimeout = setTimeout(async () => {
       try {
         setIsSaving(true);
         
-        let savedTask;
-        if (editedTask.isNew || editedTask.id.startsWith('task-')) {
-          // Create new task (either has isNew flag or temporary ID)
-          const taskToCreate = { ...editedTask };
-          delete taskToCreate.isNew; // Remove the isNew flag before sending to API
-          delete taskToCreate.id; // Remove temporary ID, let server generate real ID
-          savedTask = await apiService.createTask(taskToCreate);
-        } else {
-          // Update existing task
-          savedTask = await apiService.updateTask(editedTask.id, editedTask);
-        }
+        // Update existing task
+        const savedTask = await apiService.updateTask(editedTask.id, editedTask);
         
         // Notify parent component with the saved task
         if (onTaskUpdate) {
           onTaskUpdate(savedTask);
         }
         
-        // Update local state with the saved task (including server-generated ID)
+        // Update local state with the saved task
         setEditedTask(savedTask);
         setHasChanges(false);
       } catch (error) {
@@ -146,12 +139,89 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     return () => clearTimeout(saveTimeout);
   }, [editedTask, hasChanges, isSaving, onTaskUpdate]);
 
+  // Handle manual save for new tasks
+  const handleManualSave = useCallback(async () => {
+    if (!editedTask || !editedTask.isNew) return;
+    
+    // Validate required fields
+    if (!editedTask.title.trim()) {
+      alert('El título es requerido para crear la tarea.');
+      return;
+    }
+
+    try {
+      setIsSaving(true);
+      
+      // Create new task
+      const taskToCreate = { ...editedTask };
+      delete taskToCreate.isNew; // Remove the isNew flag before sending to API
+      delete taskToCreate.id; // Remove temporary ID, let server generate real ID
+      const savedTask = await apiService.createTask(taskToCreate);
+      
+      // Notify parent component with the saved task, marking it as new
+      if (onTaskUpdate) {
+        onTaskUpdate({ ...savedTask, isNew: true });
+      }
+      
+      // Close the drawer
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error('Error creating task:', error);
+      alert('Error al crear la tarea. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSaving(false);
+    }
+  }, [editedTask, onTaskUpdate, onClose]);
+
+  // Handle task deletion
+  const handleDelete = useCallback(async () => {
+    if (!editedTask || editedTask.isNew) return;
+    
+    const confirmDelete = window.confirm(
+      `¿Estás seguro de que quieres eliminar la tarea "${editedTask.title}"?\n\nEsta acción no se puede deshacer.`
+    );
+    
+    if (!confirmDelete) return;
+
+    try {
+      setIsSaving(true);
+      
+      // Delete task via API
+      await apiService.deleteTask(editedTask.id);
+      
+      // Notify parent component about the deletion
+      if (onTaskUpdate) {
+        onTaskUpdate({ ...editedTask, deleted: true });
+      }
+      
+      // Close the drawer
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error('Error deleting task:', error);
+      alert('Error al eliminar la tarea. Por favor, inténtalo de nuevo.');
+    } finally {
+      setIsSaving(false);
+    }
+  }, [editedTask, onTaskUpdate, onClose]);
+
   // Handle close
   const handleClose = useCallback(() => {
+    // For new tasks, ask for confirmation if there are unsaved changes
+    if (editedTask && editedTask.isNew && hasChanges && editedTask.title.trim()) {
+      const confirmClose = window.confirm('Tienes cambios sin guardar. ¿Estás seguro de que quieres cerrar sin guardar?');
+      if (!confirmClose) {
+        return;
+      }
+    }
+    
     if (onClose) {
       onClose();
     }
-  }, [onClose]);
+  }, [onClose, editedTask, hasChanges]);
 
   // Get status color
   const getStatusColor = (status) => {
@@ -432,6 +502,68 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Footer */}
+        <div className="drawer-footer">
+          <div className="footer-left">
+            {!editedTask.isNew && (
+              <button 
+                type="button"
+                className="footer-button delete-button" 
+                onClick={handleDelete}
+                disabled={isSaving}
+              >
+                {isSaving ? (
+                  <>
+                    <span className="button-spinner"></span>
+                    Eliminando...
+                  </>
+                ) : (
+                  '🗑️ Eliminar'
+                )}
+              </button>
+            )}
+          </div>
+          
+          <div className="footer-right">
+            {editedTask.isNew ? (
+              <>
+                <button 
+                  type="button"
+                  className="footer-button cancel-button" 
+                  onClick={handleClose}
+                  disabled={isSaving}
+                >
+                  Cancelar
+                </button>
+                <button 
+                  type="button"
+                  className="footer-button save-button" 
+                  onClick={handleManualSave}
+                  disabled={isSaving || !editedTask.title.trim()}
+                >
+                  {isSaving ? (
+                    <>
+                      <span className="button-spinner"></span>
+                      Guardando...
+                    </>
+                  ) : (
+                    '💾 Guardar Tarea'
+                  )}
+                </button>
+              </>
+            ) : (
+              <button 
+                type="button"
+                className="footer-button close-only-button" 
+                onClick={handleClose}
+                disabled={isSaving}
+              >
+                Cerrar
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

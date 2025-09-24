@@ -170,21 +170,29 @@ const ManagerLayout = () => {
   };
 
   const handleTaskUpdate = (updatedTask) => {
-    if (updatedTask.isNew) {
+    if (updatedTask.deleted) {
+      // This task was deleted, remove it from the list
+      setTasks(prev => prev.filter(task => task.id !== updatedTask.id));
+      setSelectedTask(null);
+      // Signal React Flow to remove the node
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
+    } else if (updatedTask.isNew) {
       // This is a new task, add it to the list
       setTasks(prev => [...prev, updatedTask]);
+      // Update selected task
+      setSelectedTask(updatedTask);
+      // Set updated task for React Flow to update specifically (avoids full reload)
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
     } else {
       // This is an existing task, update it
       setTasks(prev => prev.map(task => 
         task.id === updatedTask.id ? updatedTask : task
       ));
+      // Update selected task
+      setSelectedTask(updatedTask);
+      // Set updated task for React Flow to update specifically (avoids full reload)
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
     }
-    
-    // Update selected task
-    setSelectedTask(updatedTask);
-    
-    // Set updated task for React Flow to update specifically (avoids full reload)
-    setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
   };
 
   const handleCreateTask = () => {

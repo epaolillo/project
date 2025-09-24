@@ -227,6 +227,28 @@ app.put('/api/tasks/:id', authenticateToken, (req, res) => {
   });
 });
 
+app.delete('/api/tasks/:id', authenticateToken, (req, res) => {
+  const taskId = req.params.id;
+  
+  tasks.remove({ id: taskId }, (err, numRemoved) => {
+    if (err) {
+      console.error('Error deleting task:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (numRemoved === 0) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+    
+    console.log('Task deleted successfully:', taskId);
+    
+    // Emit to socket.io clients
+    io.emit('task_deleted', { taskId });
+    
+    res.json({ success: true, deleted: numRemoved, taskId });
+  });
+});
+
 // Persons endpoints
 app.get('/api/persons', authenticateToken, (req, res) => {
   persons.find({}).toArray((err, personsList) => {

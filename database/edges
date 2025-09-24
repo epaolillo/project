@@ -40,3 +40,12 @@
 {"k":"0000000080","o":"0000000370","v":"001"}
 {"_id":11,"_uid":12,"_dt":1758742415550,"_s":"78f929ab4ffef4b2080a4c400f0324ca"}
 {"type":"bezier","animated":false,"style":{"stroke":"#ff0000","strokeWidth":20},"source":"task-3","sourceHandle":"right","target":"incident-5","targetHandle":"left","id":"task-3-incident-5-1758742248624","createdAt":"2025-09-24T19:30:48.635Z","_id":11,"key":"task-3-incident-5-1758742248624-1758742415528","updatedAt":"2025-09-24T19:33:35.544Z","description":"Red line"}
+{"k":"0000000080","o":"0000000311","v":"001"}
+{"_id":13,"_uid":13,"_dt":1758742482458,"_s":"8274006331db5b3838ef0ec039dadd7a"}
+{"type":"bezier","animated":false,"style":{"stroke":"#4a90e2","strokeWidth":20},"source":"task-10","sourceHandle":"right","target":"task-1758742467969-7763ig2v1","targetHandle":"left","id":"task-10-task-1758742467969-7763ig2v1-1758742482448","createdAt":"2025-09-24T19:34:42.457Z","_id":{"$wrap":"$oid","v":13}}
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":13,"_uid":13,"_dt":1758743242601,"_a":"del"}
+
+{"k":"0000000080","o":"0000000311","v":"001"}
+{"_id":14,"_uid":14,"_dt":1758743247411,"_s":"7d3d2d5f8555ed0014043629fba8e201"}
+{"type":"bezier","animated":false,"style":{"stroke":"#4a90e2","strokeWidth":20},"source":"task-10","sourceHandle":"right","target":"task-1758742467969-7763ig2v1","targetHandle":"left","id":"task-10-task-1758742467969-7763ig2v1-1758743247394","createdAt":"2025-09-24T19:47:27.409Z","_id":{"$wrap":"$oid","v":14}}

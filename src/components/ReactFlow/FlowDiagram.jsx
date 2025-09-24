@@ -49,22 +49,65 @@ const FlowDiagram = ({
     const userMap = new Map(users.map(user => [user.id, user]));
     const assignedUser = updatedTask.assignedTo ? userMap.get(updatedTask.assignedTo) : null;
     
-    setNodes(currentNodes => 
-      currentNodes.map(node => {
-        if (node.id === updatedTask.id) {
-          return {
-            ...node,
-            data: {
-              ...updatedTask,
-              assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
-              isIncident: updatedTask.task_type === 'incident',
-            }
-          };
+    setNodes(currentNodes => {
+      // Check if this task was deleted
+      if (updatedTask.deleted) {
+        // Remove the node from the flow
+        return currentNodes.filter(node => node.id !== updatedTask.id);
+      }
+      
+      // Check if this is a new task
+      if (updatedTask.isNew) {
+        // Create a new node for the new task
+        const newNode = {
+          id: updatedTask.id,
+          type: 'task',
+          position: updatedTask.position || { x: 100, y: 100 },
+          data: {
+            ...updatedTask,
+            assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
+            isIncident: updatedTask.task_type === 'incident',
+          }
+        };
+        
+        // Check if node already exists (shouldn't happen, but just in case)
+        const existingNodeIndex = currentNodes.findIndex(node => node.id === updatedTask.id);
+        if (existingNodeIndex !== -1) {
+          // Replace existing node
+          const updatedNodes = [...currentNodes];
+          updatedNodes[existingNodeIndex] = newNode;
+          return updatedNodes;
+        } else {
+          // Add new node
+          return [...currentNodes, newNode];
         }
-        return node;
-      })
-    );
-  }, [updatedTask, users, setNodes]);
+      } else {
+        // Update existing task
+        return currentNodes.map(node => {
+          if (node.id === updatedTask.id) {
+            return {
+              ...node,
+              data: {
+                ...updatedTask,
+                assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
+                isIncident: updatedTask.task_type === 'incident',
+              }
+            };
+          }
+          return node;
+        });
+      }
+    });
+    
+    // Also remove any edges connected to deleted nodes
+    if (updatedTask.deleted) {
+      setEdges(currentEdges => 
+        currentEdges.filter(edge => 
+          edge.source !== updatedTask.id && edge.target !== updatedTask.id
+        )
+      );
+    }
+  }, [updatedTask, users, setNodes, setEdges]);
 
   const onConnect = useCallback(
     async (params) => {

@@ -198,9 +198,29 @@ const UserLayout = ({ userId = 'user-1' }) => {
   };
 
   const handleTaskUpdate = (updatedTask) => {
-    if (updatedTask.isNew) {
+    if (updatedTask.deleted) {
+      // This task was deleted, remove it from the list
+      setAllTasks(prev => prev.filter(task => task.id !== updatedTask.id));
+      setSelectedTask(null);
+      
+      // If this was the current task, find next task
+      if (currentTask && currentTask.id === updatedTask.id) {
+        const remainingTasks = allTasks.filter(task => 
+          task.assignedTo === userId && task.id !== updatedTask.id
+        );
+        const nextTask = getNextTask(remainingTasks, allTasks);
+        setCurrentTask(nextTask);
+      }
+      
+      // Signal React Flow to remove the node
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
+    } else if (updatedTask.isNew) {
       // This is a new task, add it to the list
       setAllTasks(prev => [...prev, updatedTask]);
+      // Update selected task
+      setSelectedTask(updatedTask);
+      // Set updated task for React Flow to update specifically (avoids full reload)
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
     } else {
       // This is an existing task, update it
       setAllTasks(prev => prev.map(task => 
@@ -211,13 +231,12 @@ const UserLayout = ({ userId = 'user-1' }) => {
       if (currentTask && currentTask.id === updatedTask.id) {
         setCurrentTask(updatedTask);
       }
+      
+      // Update selected task
+      setSelectedTask(updatedTask);
+      // Set updated task for React Flow to update specifically (avoids full reload)
+      setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
     }
-    
-    // Update selected task
-    setSelectedTask(updatedTask);
-    
-    // Set updated task for React Flow to update specifically (avoids full reload)
-    setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
   };
 
   const handleCreateTask = () => {
