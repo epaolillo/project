@@ -13,12 +13,13 @@ const EdgeModal = ({
   tasks = [] 
 }) => {
   const [edgeColor, setEdgeColor] = useState('#4a90e2');
-
+  const [description, setDescription] = useState('');
 
   // Initialize form with current edge data
   useEffect(() => {
     if (edge) {
       setEdgeColor(edge.style?.stroke || '#4a90e2');
+      setDescription(edge.description || '');
     }
   }, [edge]);
 
@@ -35,7 +36,8 @@ const EdgeModal = ({
       style: {
         stroke: edgeColor,
         strokeWidth: 20
-      }
+      },
+      description: description
     };
     onUpdateEdge(updatedEdge);
     onClose();
@@ -76,8 +78,20 @@ const EdgeModal = ({
                 value={edgeColor}
                 onChange={(e) => setEdgeColor(e.target.value)}
               />
-              <span className="color-label">Línea sólida de 20px</span>
             </div>
+          </div>
+
+          {/* Description */}
+          <div className="form-section">
+            <label htmlFor="edge-description">Descripción del Enlace</label>
+            <textarea
+              id="edge-description"
+              className="edge-description-textarea"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              placeholder="Describe la relación entre estas tareas..."
+              rows={4}
+            />
           </div>
 
           {/* Preview */}

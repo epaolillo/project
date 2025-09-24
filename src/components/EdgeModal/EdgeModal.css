@@ -230,6 +230,32 @@
   font-weight: 500;
 }
 
+.edge-description-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #495057;
+  background: white;
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+
+.edge-description-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+.edge-description-textarea::placeholder {
+  color: #6c757d;
+  font-style: italic;
+}
+
 .edge-preview {
   padding: 16px;
   background: #f8f9fa;
