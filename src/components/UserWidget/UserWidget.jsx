@@ -36,6 +36,42 @@ const UserWidget = ({ user, onClick, className = '' }) => {
     }
   };
 
+  // Get user display name and initials
+  const getDisplayName = (user) => {
+    if (user.firstName || user.lastName) {
+      return `${user.firstName || ''} ${user.lastName || ''}`.trim();
+    }
+    return user.name || 'Usuario Sin Nombre';
+  };
+
+  const getUserInitials = (user) => {
+    if (user.firstName || user.lastName) {
+      const first = user.firstName ? user.firstName[0] : '';
+      const last = user.lastName ? user.lastName[0] : '';
+      return (first + last).toUpperCase() || '?';
+    }
+    // Fallback to old name format
+    if (user.name) {
+      return user.name.split(' ').map(n => n[0]).join('').toUpperCase();
+    }
+    return '?';
+  };
+
+  // Get avatar source (localStorage or fallback)
+  const getAvatarSource = (user) => {
+    // First check if there's a localStorage avatar
+    const localAvatar = localStorage.getItem(`avatar_${user.id}`);
+    if (localAvatar) {
+      return localAvatar;
+    }
+    // Then check if user has avatar field
+    return user.avatar;
+  };
+
+  const displayName = getDisplayName(user);
+  const initials = getUserInitials(user);
+  const avatarSource = getAvatarSource(user);
+
   return (
     <div 
       className={`user-widget ${className}`}
@@ -50,13 +86,21 @@ const UserWidget = ({ user, onClick, className = '' }) => {
     >
       <div className="user-main-info">
         <div className="user-avatar">
-          <div className="avatar-placeholder">
-            {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
-          </div>
+          {avatarSource ? (
+            <img 
+              src={avatarSource} 
+              alt={displayName}
+              className="avatar-image"
+            />
+          ) : (
+            <div className="avatar-placeholder">
+              {initials}
+            </div>
+          )}
         </div>
         
         <div className="user-header">
-          <h3 className="user-name">{user.name}</h3>
+          <h3 className="user-name">{displayName}</h3>
           <span className="user-role">{user.role}</span>
         </div>
       </div>

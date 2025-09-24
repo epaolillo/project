@@ -109,3 +109,12 @@
 {"k":"0000000051","o":"0000000000","v":"001"}
 {"_id":26,"_uid":26,"_dt":1758743492716,"_a":"del"}
 
+{"k":"0000000079","o":"0000000390","v":"001"}
+{"_id":3,"_uid":26,"_dt":1758748169486,"_s":"11a8fb3345165515e977e15a7483bab2"}
+{"id":"task-2","task_type":"task","title":"Design Database Schema","description":"Create the complete database structure","status":"pending","assignedTo":"user-1","priority":"high","estimatedHours":12,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":449.2601853304868,"y":-146.37534934395222},"_id":{"$wrap":"$oid","v":3},"updatedAt":"2025-09-24T21:09:29.485Z"}
+{"k":"0000000079","o":"0000000456","v":"001"}
+{"_id":2,"_uid":26,"_dt":1758748725048,"_s":"d25538dbb78bb7cddccb52ff7e653068"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"security","position":{"x":-140,"y":-262},"_id":{"$wrap":"$oid","v":2},"updatedAt":"2025-09-24T21:18:45.048Z","assigneeName":"Alejandro Campo","severity":"medium","affectedUsers":0,"isNew":false}
+{"k":"0000000080","o":"0000000518","v":"001"}
+{"_id":14,"_uid":26,"_dt":1758748744736,"_s":"9a300adba6268e75856febaa8f274e46"}
+{"id":"incident-1","task_type":"incident","title":"Login Form Validation Bug","description":"Email validation not working properly on login form","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":"user-2","createdAt":"2024-01-14T15:30:00Z","updatedAt":"2025-09-24T21:19:04.735Z","affectedUsers":15,"reproductionSteps":["Go to login page","Enter invalid email format","Click login button","No validation message appears"],"position":{"x":1302,"y":-1115.9999999999995},"_id":{"$wrap":"$oid","v":14}}

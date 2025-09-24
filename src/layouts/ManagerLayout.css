@@ -427,15 +427,15 @@
 .create-task-button {
   position: fixed;
   top: 20px;
-  right: 50px;
+  right: 75px;
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  background: #363636;
   border: none;
   color: white;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
   z-index: 1000;
@@ -446,16 +446,6 @@
   line-height: 1;
 }
 
-.create-task-button:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 24px rgba(0, 123, 255, 0.4);
-  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
-}
-
-.create-task-button:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
-}
 
 /* Mobile adjustments for create button */
 @media (max-width: 768px) {

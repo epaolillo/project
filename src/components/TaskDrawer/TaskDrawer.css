@@ -7,7 +7,6 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
   z-index: 1000;
-  backdrop-filter: blur(4px);
   animation: fadeIn 0.3s ease-out;
 }
 
@@ -503,19 +502,21 @@
 }
 
 .delete-button {
-  background: #dc3545;
-  color: white;
+  background: #f8f9fa;
+  color: #6c757d;
+  border: 1px solid #e9ecef;
 }
 
 .delete-button:hover:not(:disabled) {
-  background: #c82333;
+  background: #e9ecef;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  box-shadow: 0 4px 12px rgba(108, 117, 125, 0.2);
 }
 
 .delete-button:disabled {
-  background: #f8d7da;
-  color: #721c24;
+  background: #f8f9fa;
+  color: #adb5bd;
+  border-color: #e9ecef;
 }
 
 .close-only-button {

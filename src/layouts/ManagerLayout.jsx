@@ -132,32 +132,24 @@ const ManagerLayout = () => {
     setDrawerUser(null);
   };
 
-  const handleTaskChange = (userId, taskId) => {
-    // Update user's current task in the local state
+  const handleUserUpdate = (updatedUser) => {
+    // Update user in the local state
     setUsers(prev => prev.map(user => 
-      user.id === userId 
-        ? { ...user, currentTaskId: taskId, lastUpdate: new Date().toISOString() }
+      user.id === updatedUser.id 
+        ? { ...updatedUser }
         : user
     ));
     
-    // Optionally, also update the task status
-    setTasks(prev => prev.map(task => 
-      task.id === taskId 
-        ? { ...task, status: 'in_progress' }
-        : task
-    ));
-  };
-
-  const handleBitacoraAdd = (userId, bitacoraEntry) => {
-    // Handle bitacora entry addition - could send to WebSocket or API
-    console.log('New bitacora entry for user', userId, ':', bitacoraEntry);
+    // If the user's current task changed, optionally update task status
+    if (updatedUser.currentTaskId) {
+      setTasks(prev => prev.map(task => 
+        task.id === updatedUser.currentTaskId 
+          ? { ...task, status: 'in_progress', updatedAt: new Date().toISOString() }
+          : task
+      ));
+    }
     
-    // Update user's last update time
-    setUsers(prev => prev.map(user => 
-      user.id === userId 
-        ? { ...user, lastUpdate: new Date().toISOString() }
-        : user
-    ));
+    console.log('User updated:', updatedUser);
   };
 
   const handleTaskSelect = (taskData) => {
@@ -307,8 +299,7 @@ const ManagerLayout = () => {
         tasks={tasks}
         isOpen={isDrawerOpen}
         onClose={handleDrawerClose}
-        onTaskChange={handleTaskChange}
-        onBitacoraAdd={handleBitacoraAdd}
+        onUserUpdate={handleUserUpdate}
       />
 
       {/* Task Drawer Modal */}
