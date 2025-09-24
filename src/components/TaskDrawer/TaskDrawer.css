@@ -248,6 +248,16 @@
 }
 
 /* Progress Section */
+/* Task type selector */
+.task-type-selector {
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.task-type-selector:focus {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
 .progress-section {
   margin-bottom: 24px;
   padding: 20px;

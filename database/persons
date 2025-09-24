@@ -28,3 +28,123 @@
 {"k":"0000000080","o":"0000000297","v":"001"}
 {"_id":51,"_uid":51,"_dt":1758736039166,"_s":"d1d2a4ebad15811c28a4d4a36f27b2cd"}
 {"id":"user-10","name":"Lisa Wang","role":"Security Engineer","avatar":"/avatars/lisa.jpg","fatigue":50,"taskClarity":78,"motivation":83,"lastUpdate":"2024-01-15T08:45:00Z","assignedTasks":["task-41","task-42","task-43","task-44","task-45"],"currentTaskId":"task-41","_id":{"$wrap":"$oid","v":51}}
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":42,"_uid":51,"_dt":1758736841809,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":43,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":44,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":45,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":46,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":47,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":48,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":49,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":50,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":51,"_uid":51,"_dt":1758736841810,"_a":"del"}
+
+{"k":"0000000080","o":"0000000286","v":"001"}
+{"_id":52,"_uid":52,"_dt":1758736841821,"_s":"61d3f722161500d1e129f28b26e355cd"}
+{"id":"user-1","name":"Alejandro Campo","role":"Mobile, Web","avatar":"/avatars/alejandro.jpg","fatigue":25,"taskClarity":85,"motivation":92,"lastUpdate":"2024-01-15T10:30:00Z","assignedTasks":["task-1","task-2","task-3","task-4"],"currentTaskId":"task-1","_id":{"$wrap":"$oid","v":52}}
+{"k":"0000000080","o":"0000000299","v":"001"}
+{"_id":53,"_uid":53,"_dt":1758736841821,"_s":"7336b0dd4fc189201a6b14499057cc7e"}
+{"id":"user-2","name":"María González","role":"Frontend Developer","avatar":"/avatars/maria.jpg","fatigue":40,"taskClarity":70,"motivation":88,"lastUpdate":"2024-01-15T09:45:00Z","assignedTasks":["task-5","task-6","task-7","task-8","task-9"],"currentTaskId":"task-5","_id":{"$wrap":"$oid","v":53}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":54,"_uid":54,"_dt":1758736841821,"_s":"17cc5f612010b636f488e41cad6879b7"}
+{"id":"user-3","name":"Carlos Rodriguez","role":"Backend Developer","avatar":"/avatars/carlos.jpg","fatigue":15,"taskClarity":95,"motivation":75,"lastUpdate":"2024-01-15T11:15:00Z","assignedTasks":["task-10","task-11","task-12","task-13"],"currentTaskId":"task-10","_id":{"$wrap":"$oid","v":54}}
+{"k":"0000000080","o":"0000000296","v":"001"}
+{"_id":55,"_uid":55,"_dt":1758736841821,"_s":"7352e791ba24067cf1a7448c980ee530"}
+{"id":"user-4","name":"Ana Martínez","role":"UI/UX Designer","avatar":"/avatars/ana.jpg","fatigue":60,"taskClarity":80,"motivation":90,"lastUpdate":"2024-01-15T08:20:00Z","assignedTasks":["task-14","task-15","task-16","task-17","task-18"],"currentTaskId":"task-14","_id":{"$wrap":"$oid","v":55}}
+{"k":"0000000080","o":"0000000286","v":"001"}
+{"_id":56,"_uid":56,"_dt":1758736841821,"_s":"5ff53e21ff8f153a44858b9e48d873d0"}
+{"id":"user-5","name":"David Chen","role":"DevOps Engineer","avatar":"/avatars/david.jpg","fatigue":35,"taskClarity":90,"motivation":85,"lastUpdate":"2024-01-15T10:00:00Z","assignedTasks":["task-19","task-20","task-21","task-22"],"currentTaskId":"task-19","_id":{"$wrap":"$oid","v":56}}
+{"k":"0000000080","o":"0000000294","v":"001"}
+{"_id":57,"_uid":57,"_dt":1758736841822,"_s":"9a7b12898d7efa9cfffad0e522b275ee"}
+{"id":"user-6","name":"Elena Petrov","role":"QA Engineer","avatar":"/avatars/elena.jpg","fatigue":20,"taskClarity":85,"motivation":95,"lastUpdate":"2024-01-15T11:30:00Z","assignedTasks":["task-23","task-24","task-25","task-26","task-27"],"currentTaskId":"task-23","_id":{"$wrap":"$oid","v":57}}
+{"k":"0000000080","o":"0000000296","v":"001"}
+{"_id":58,"_uid":58,"_dt":1758736841822,"_s":"6f120f7704da5d84f94cf3524acdf3db"}
+{"id":"user-7","name":"Roberto Silva","role":"Full Stack Developer","avatar":"/avatars/roberto.jpg","fatigue":45,"taskClarity":75,"motivation":80,"lastUpdate":"2024-01-15T09:10:00Z","assignedTasks":["task-28","task-29","task-30","task-31"],"currentTaskId":"task-28","_id":{"$wrap":"$oid","v":58}}
+{"k":"0000000080","o":"0000000302","v":"001"}
+{"_id":59,"_uid":59,"_dt":1758736841822,"_s":"42e92e7c4980ca719875dae6143f375f"}
+{"id":"user-8","name":"Sophie Laurent","role":"Mobile Developer","avatar":"/avatars/sophie.jpg","fatigue":30,"taskClarity":88,"motivation":92,"lastUpdate":"2024-01-15T10:45:00Z","assignedTasks":["task-32","task-33","task-34","task-35","task-36"],"currentTaskId":"task-32","_id":{"$wrap":"$oid","v":59}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":60,"_uid":60,"_dt":1758736841822,"_s":"dc65f24fece52af3e72dff92dcc46276"}
+{"id":"user-9","name":"Ahmad Hassan","role":"Database Administrator","avatar":"/avatars/ahmad.jpg","fatigue":25,"taskClarity":92,"motivation":87,"lastUpdate":"2024-01-15T11:00:00Z","assignedTasks":["task-37","task-38","task-39","task-40"],"currentTaskId":"task-37","_id":{"$wrap":"$oid","v":60}}
+{"k":"0000000080","o":"0000000297","v":"001"}
+{"_id":61,"_uid":61,"_dt":1758736841822,"_s":"b78cd1efb5caf8dc78e17d0d936d884a"}
+{"id":"user-10","name":"Lisa Wang","role":"Security Engineer","avatar":"/avatars/lisa.jpg","fatigue":50,"taskClarity":78,"motivation":83,"lastUpdate":"2024-01-15T08:45:00Z","assignedTasks":["task-41","task-42","task-43","task-44","task-45"],"currentTaskId":"task-41","_id":{"$wrap":"$oid","v":61}}
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":52,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":53,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":54,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":55,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":56,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":57,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":58,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":59,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":60,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":61,"_uid":61,"_dt":1758736904002,"_a":"del"}
+
+{"k":"0000000080","o":"0000000286","v":"001"}
+{"_id":62,"_uid":62,"_dt":1758736904011,"_s":"e371ffed7b253a98e3e8d428cfd1eda1"}
+{"id":"user-1","name":"Alejandro Campo","role":"Mobile, Web","avatar":"/avatars/alejandro.jpg","fatigue":25,"taskClarity":85,"motivation":92,"lastUpdate":"2024-01-15T10:30:00Z","assignedTasks":["task-1","task-2","task-3","task-4"],"currentTaskId":"task-1","_id":{"$wrap":"$oid","v":62}}
+{"k":"0000000080","o":"0000000299","v":"001"}
+{"_id":63,"_uid":63,"_dt":1758736904011,"_s":"2f74c74dfa0854ec13d07233bdd0dcf2"}
+{"id":"user-2","name":"María González","role":"Frontend Developer","avatar":"/avatars/maria.jpg","fatigue":40,"taskClarity":70,"motivation":88,"lastUpdate":"2024-01-15T09:45:00Z","assignedTasks":["task-5","task-6","task-7","task-8","task-9"],"currentTaskId":"task-5","_id":{"$wrap":"$oid","v":63}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":64,"_uid":64,"_dt":1758736904011,"_s":"e041ee462e30f49dff925dd414d8b371"}
+{"id":"user-3","name":"Carlos Rodriguez","role":"Backend Developer","avatar":"/avatars/carlos.jpg","fatigue":15,"taskClarity":95,"motivation":75,"lastUpdate":"2024-01-15T11:15:00Z","assignedTasks":["task-10","task-11","task-12","task-13"],"currentTaskId":"task-10","_id":{"$wrap":"$oid","v":64}}
+{"k":"0000000080","o":"0000000296","v":"001"}
+{"_id":65,"_uid":65,"_dt":1758736904011,"_s":"fc5498c6e0e2ebdc88cc6772cddb8ccd"}
+{"id":"user-4","name":"Ana Martínez","role":"UI/UX Designer","avatar":"/avatars/ana.jpg","fatigue":60,"taskClarity":80,"motivation":90,"lastUpdate":"2024-01-15T08:20:00Z","assignedTasks":["task-14","task-15","task-16","task-17","task-18"],"currentTaskId":"task-14","_id":{"$wrap":"$oid","v":65}}
+{"k":"0000000080","o":"0000000286","v":"001"}
+{"_id":66,"_uid":66,"_dt":1758736904012,"_s":"427573898678f447561d0abe764deacf"}
+{"id":"user-5","name":"David Chen","role":"DevOps Engineer","avatar":"/avatars/david.jpg","fatigue":35,"taskClarity":90,"motivation":85,"lastUpdate":"2024-01-15T10:00:00Z","assignedTasks":["task-19","task-20","task-21","task-22"],"currentTaskId":"task-19","_id":{"$wrap":"$oid","v":66}}
+{"k":"0000000080","o":"0000000294","v":"001"}
+{"_id":67,"_uid":67,"_dt":1758736904012,"_s":"0f185f574568dbac7a054bd66d1c7797"}
+{"id":"user-6","name":"Elena Petrov","role":"QA Engineer","avatar":"/avatars/elena.jpg","fatigue":20,"taskClarity":85,"motivation":95,"lastUpdate":"2024-01-15T11:30:00Z","assignedTasks":["task-23","task-24","task-25","task-26","task-27"],"currentTaskId":"task-23","_id":{"$wrap":"$oid","v":67}}
+{"k":"0000000080","o":"0000000296","v":"001"}
+{"_id":68,"_uid":68,"_dt":1758736904012,"_s":"80263408120e41097e1d5ba3aeabe399"}
+{"id":"user-7","name":"Roberto Silva","role":"Full Stack Developer","avatar":"/avatars/roberto.jpg","fatigue":45,"taskClarity":75,"motivation":80,"lastUpdate":"2024-01-15T09:10:00Z","assignedTasks":["task-28","task-29","task-30","task-31"],"currentTaskId":"task-28","_id":{"$wrap":"$oid","v":68}}
+{"k":"0000000080","o":"0000000302","v":"001"}
+{"_id":69,"_uid":69,"_dt":1758736904012,"_s":"6f54bdbbbc037f0709a055953a9204fb"}
+{"id":"user-8","name":"Sophie Laurent","role":"Mobile Developer","avatar":"/avatars/sophie.jpg","fatigue":30,"taskClarity":88,"motivation":92,"lastUpdate":"2024-01-15T10:45:00Z","assignedTasks":["task-32","task-33","task-34","task-35","task-36"],"currentTaskId":"task-32","_id":{"$wrap":"$oid","v":69}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":70,"_uid":70,"_dt":1758736904012,"_s":"ab85e8ad3b8be13b30b7085c3ea2609e"}
+{"id":"user-9","name":"Ahmad Hassan","role":"Database Administrator","avatar":"/avatars/ahmad.jpg","fatigue":25,"taskClarity":92,"motivation":87,"lastUpdate":"2024-01-15T11:00:00Z","assignedTasks":["task-37","task-38","task-39","task-40"],"currentTaskId":"task-37","_id":{"$wrap":"$oid","v":70}}
+{"k":"0000000080","o":"0000000297","v":"001"}
+{"_id":71,"_uid":71,"_dt":1758736904012,"_s":"f3164273ae1a46cc7b929a39e93bd3ac"}
+{"id":"user-10","name":"Lisa Wang","role":"Security Engineer","avatar":"/avatars/lisa.jpg","fatigue":50,"taskClarity":78,"motivation":83,"lastUpdate":"2024-01-15T08:45:00Z","assignedTasks":["task-41","task-42","task-43","task-44","task-45"],"currentTaskId":"task-41","_id":{"$wrap":"$oid","v":71}}

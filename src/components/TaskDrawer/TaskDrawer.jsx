@@ -71,6 +71,41 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     setHasChanges(true);
   }, [users]);
 
+  // Handle task type change (task <-> incident)
+  const handleTaskTypeChange = useCallback((newTaskType) => {
+    setEditedTask(prev => {
+      if (!prev) return null;
+      
+      const updated = { ...prev, task_type: newTaskType };
+      
+      // When changing to incident, set default incident fields
+      if (newTaskType === 'incident') {
+        updated.severity = updated.severity || 'medium';
+        updated.affectedUsers = updated.affectedUsers || 0;
+        // Clear task-specific fields that don't apply to incidents
+        updated.estimatedHours = 0;
+        updated.completedHours = 0;
+        // Adjust status to incident-appropriate values
+        if (['backlog', 'pending', 'completed'].includes(updated.status)) {
+          updated.status = updated.status === 'completed' ? 'resolved' : 'open';
+        }
+      } else if (newTaskType === 'task') {
+        // When changing to task, set default task fields
+        updated.estimatedHours = updated.estimatedHours || 0;
+        updated.completedHours = updated.completedHours || 0;
+        // Adjust status to task-appropriate values
+        if (['open', 'resolved', 'closed'].includes(updated.status)) {
+          updated.status = updated.status === 'resolved' ? 'completed' : 
+                          updated.status === 'closed' ? 'completed' : 'pending';
+        }
+        // Keep severity and affectedUsers in case user wants to switch back
+      }
+      
+      return updated;
+    });
+    setHasChanges(true);
+  }, []);
+
   // Auto-save changes with debounce
   useEffect(() => {
     if (!editedTask || !hasChanges || isSaving) return;
@@ -107,10 +142,13 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'completed':
+      case 'resolved':
+      case 'closed':
         return '#28a745';
       case 'in_progress':
         return '#ffc107';
       case 'pending':
+      case 'open':
         return '#6c757d';
       case 'backlog':
         return '#e9ecef';
@@ -200,10 +238,23 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
                 className="field-input select-input"
                 style={{ borderLeft: `4px solid ${getStatusColor(editedTask.status)}` }}
               >
-                <option value="backlog">Backlog</option>
-                <option value="pending">Pendiente</option>
-                <option value="in_progress">En progreso</option>
-                <option value="completed">Completada</option>
+                {isIncident ? (
+                  // Status options for incidents
+                  <>
+                    <option value="open">Abierto</option>
+                    <option value="in_progress">En progreso</option>
+                    <option value="resolved">Resuelto</option>
+                    <option value="closed">Cerrado</option>
+                  </>
+                ) : (
+                  // Status options for tasks
+                  <>
+                    <option value="backlog">Backlog</option>
+                    <option value="pending">Pendiente</option>
+                    <option value="in_progress">En progreso</option>
+                    <option value="completed">Completada</option>
+                  </>
+                )}
               </select>
             </div>
 
@@ -224,24 +275,41 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
             </div>
           </div>
 
-          {/* Type */}
-          <div className="field-group">
-            <label htmlFor="task-type">Tipo</label>
-            <select
-              id="task-type"
-              value={editedTask.type}
-              onChange={(e) => handleFieldChange('type', e.target.value)}
-              className="field-input select-input"
-            >
-              <option value="feature">Feature</option>
-              <option value="bug">Bug</option>
-              <option value="infrastructure">Infraestructura</option>
-              <option value="design">Diseño</option>
-              <option value="documentation">Documentación</option>
-              <option value="testing">Testing</option>
-              <option value="security">Seguridad</option>
-              <option value="optimization">Optimización</option>
-            </select>
+          <div className="fields-row">
+            {/* Task Type */}
+            <div className="field-group">
+              <label htmlFor="task-task-type">Categoría</label>
+              <select
+                id="task-task-type"
+                value={editedTask.task_type}
+                onChange={(e) => handleTaskTypeChange(e.target.value)}
+                className="field-input select-input task-type-selector"
+                style={{ borderLeft: `4px solid ${editedTask.task_type === 'incident' ? '#dc3545' : '#007bff'}` }}
+              >
+                <option value="task">📋 Tarea</option>
+                <option value="incident">🚨 Incident</option>
+              </select>
+            </div>
+
+            {/* Type */}
+            <div className="field-group">
+              <label htmlFor="task-type">Tipo</label>
+              <select
+                id="task-type"
+                value={editedTask.type}
+                onChange={(e) => handleFieldChange('type', e.target.value)}
+                className="field-input select-input"
+              >
+                <option value="feature">Feature</option>
+                <option value="bug">Bug</option>
+                <option value="infrastructure">Infraestructura</option>
+                <option value="design">Diseño</option>
+                <option value="documentation">Documentación</option>
+                <option value="testing">Testing</option>
+                <option value="security">Seguridad</option>
+                <option value="optimization">Optimización</option>
+              </select>
+            </div>
           </div>
 
           {/* Assigned To */}
