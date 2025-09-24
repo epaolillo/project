@@ -32,7 +32,9 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
         severity: task.severity || 'medium',
         affectedUsers: task.affectedUsers || 0,
         // Important: Copy the isNew flag
-        isNew: task.isNew || false
+        isNew: task.isNew || false,
+        // Copy archived status
+        archived: task.archived || false
       });
       setHasChanges(false);
     }
@@ -178,12 +180,6 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
   // Handle task deletion
   const handleDelete = useCallback(async () => {
     if (!editedTask || editedTask.isNew) return;
-    
-    const confirmDelete = window.confirm(
-      `¿Estás seguro de que quieres eliminar la tarea "${editedTask.title}"?\n\nEsta acción no se puede deshacer.`
-    );
-    
-    if (!confirmDelete) return;
 
     try {
       setIsSaving(true);
@@ -208,20 +204,44 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     }
   }, [editedTask, onTaskUpdate, onClose]);
 
+  // Handle task archiving
+  const handleArchive = useCallback(async () => {
+    if (!editedTask || editedTask.isNew) return;
+    
+    const isArchiving = !editedTask.archived;
+
+    try {
+      setIsSaving(true);
+      
+      // Archive/unarchive task via API
+      const result = await apiService.archiveTask(editedTask.id, isArchiving);
+      
+      // Update local state
+      setEditedTask(prev => prev ? { ...prev, archived: isArchiving } : null);
+      
+      // Notify parent component about the update
+      if (onTaskUpdate) {
+        onTaskUpdate({ ...editedTask, archived: isArchiving });
+      }
+      
+      // Close the drawer
+      if (onClose) {
+        onClose();
+      }
+    } catch (error) {
+      console.error(`Error archiving task:`, error);
+      alert(`Error al archivar la tarea. Por favor, inténtalo de nuevo.`);
+    } finally {
+      setIsSaving(false);
+    }
+  }, [editedTask, onTaskUpdate, onClose]);
+
   // Handle close
   const handleClose = useCallback(() => {
-    // For new tasks, ask for confirmation if there are unsaved changes
-    if (editedTask && editedTask.isNew && hasChanges && editedTask.title.trim()) {
-      const confirmClose = window.confirm('Tienes cambios sin guardar. ¿Estás seguro de que quieres cerrar sin guardar?');
-      if (!confirmClose) {
-        return;
-      }
-    }
-    
     if (onClose) {
       onClose();
     }
-  }, [onClose, editedTask, hasChanges]);
+  }, [onClose]);
 
   // Get status color
   const getStatusColor = (status) => {
@@ -276,7 +296,10 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
               {editedTask.isNew ? (
                 isIncident ? '🚨 Nuevo Incident' : '📋 Nueva Tarea'
               ) : (
-                isIncident ? '🚨 Incident' : '📋 Task'
+                <>
+                  {isIncident ? '🚨 Incident' : '📋 Task'}
+                  {editedTask.archived && <span style={{ marginLeft: '8px' }}>📁 Archivada</span>}
+                </>
               )}
             </div>
             <div className="save-indicator">
@@ -508,21 +531,38 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
         <div className="drawer-footer">
           <div className="footer-left">
             {!editedTask.isNew && (
-              <button 
-                type="button"
-                className="footer-button delete-button" 
-                onClick={handleDelete}
-                disabled={isSaving}
-              >
-                {isSaving ? (
-                  <>
-                    <span className="button-spinner"></span>
-                    Eliminando...
-                  </>
-                ) : (
-                  '🗑️ Eliminar'
-                )}
-              </button>
+              <>
+                <button 
+                  type="button"
+                  className={`footer-button ${editedTask.archived ? 'unarchive-button' : 'archive-button'}`}
+                  onClick={handleArchive}
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <>
+                      <span className="button-spinner"></span>
+                      {editedTask.archived ? 'Desarchivando...' : 'Archivando...'}
+                    </>
+                  ) : (
+                    editedTask.archived ? '📂 Desarchivar' : '📁 Archivar'
+                  )}
+                </button>
+                <button 
+                  type="button"
+                  className="footer-button delete-button" 
+                  onClick={handleDelete}
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <>
+                      <span className="button-spinner"></span>
+                      Eliminando...
+                    </>
+                  ) : (
+                    '🗑️ Eliminar'
+                  )}
+                </button>
+              </>
             )}
           </div>
           

@@ -56,51 +56,64 @@ const FlowDiagram = ({
         return currentNodes.filter(node => node.id !== updatedTask.id);
       }
       
+      // Check if this task is archived - remove it from the flow
+      if (updatedTask.archived) {
+        return currentNodes.filter(node => node.id !== updatedTask.id);
+      }
+      
       // Check if this is a new task
       if (updatedTask.isNew) {
-        // Create a new node for the new task
-        const newNode = {
-          id: updatedTask.id,
-          type: 'task',
-          position: updatedTask.position || { x: 100, y: 100 },
-          data: {
-            ...updatedTask,
-            assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
-            isIncident: updatedTask.task_type === 'incident',
+        // Create a new node for the new task (only if not archived)
+        if (!updatedTask.archived) {
+          const newNode = {
+            id: updatedTask.id,
+            type: 'task',
+            position: updatedTask.position || { x: 100, y: 100 },
+            data: {
+              ...updatedTask,
+              assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
+              isIncident: updatedTask.task_type === 'incident',
+            }
+          };
+          
+          // Check if node already exists (shouldn't happen, but just in case)
+          const existingNodeIndex = currentNodes.findIndex(node => node.id === updatedTask.id);
+          if (existingNodeIndex !== -1) {
+            // Replace existing node
+            const updatedNodes = [...currentNodes];
+            updatedNodes[existingNodeIndex] = newNode;
+            return updatedNodes;
+          } else {
+            // Add new node
+            return [...currentNodes, newNode];
           }
-        };
-        
-        // Check if node already exists (shouldn't happen, but just in case)
-        const existingNodeIndex = currentNodes.findIndex(node => node.id === updatedTask.id);
-        if (existingNodeIndex !== -1) {
-          // Replace existing node
-          const updatedNodes = [...currentNodes];
-          updatedNodes[existingNodeIndex] = newNode;
-          return updatedNodes;
-        } else {
-          // Add new node
-          return [...currentNodes, newNode];
         }
+        return currentNodes; // Don't add archived new tasks
       } else {
-        // Update existing task
-        return currentNodes.map(node => {
-          if (node.id === updatedTask.id) {
-            return {
-              ...node,
-              data: {
-                ...updatedTask,
-                assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
-                isIncident: updatedTask.task_type === 'incident',
-              }
-            };
-          }
-          return node;
-        });
+        // Update existing task (only if not archived)
+        if (!updatedTask.archived) {
+          return currentNodes.map(node => {
+            if (node.id === updatedTask.id) {
+              return {
+                ...node,
+                data: {
+                  ...updatedTask,
+                  assigneeName: assignedUser ? assignedUser.name : 'Sin asignar',
+                  isIncident: updatedTask.task_type === 'incident',
+                }
+              };
+            }
+            return node;
+          });
+        } else {
+          // If task is archived, remove it from the flow
+          return currentNodes.filter(node => node.id !== updatedTask.id);
+        }
       }
     });
     
-    // Also remove any edges connected to deleted nodes
-    if (updatedTask.deleted) {
+    // Also remove any edges connected to deleted or archived nodes
+    if (updatedTask.deleted || updatedTask.archived) {
       setEdges(currentEdges => 
         currentEdges.filter(edge => 
           edge.source !== updatedTask.id && edge.target !== updatedTask.id
@@ -178,8 +191,11 @@ const FlowDiagram = ({
         ]);
       }
 
-      // Filter tasks if showIncidents is false
-      const filteredTasks = showIncidents ? unifiedTasks : unifiedTasks.filter(t => t.task_type === 'task');
+      // Filter tasks if showIncidents is false and exclude archived tasks
+      let filteredTasks = showIncidents ? unifiedTasks : unifiedTasks.filter(t => t.task_type === 'task');
+      
+      // Always exclude archived tasks from the flow diagram
+      filteredTasks = filteredTasks.filter(t => !t.archived);
 
       const { nodes: flowNodes, edges: flowEdges } = createNodesAndEdges(
         filteredTasks,

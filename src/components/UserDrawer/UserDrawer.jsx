@@ -216,17 +216,10 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
 
   // Handle close
   const handleClose = useCallback(() => {
-    if (hasChanges && editedUser) {
-      const confirmClose = window.confirm('Tienes cambios sin guardar. ¿Estás seguro de que quieres cerrar sin guardar?');
-      if (!confirmClose) {
-        return;
-      }
-    }
-    
     if (onClose) {
       onClose();
     }
-  }, [onClose, hasChanges, editedUser]);
+  }, [onClose]);
 
   if (!isOpen || !editedUser) return null;
 

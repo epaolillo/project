@@ -118,3 +118,9 @@
 {"k":"0000000080","o":"0000000518","v":"001"}
 {"_id":14,"_uid":26,"_dt":1758748744736,"_s":"9a300adba6268e75856febaa8f274e46"}
 {"id":"incident-1","task_type":"incident","title":"Login Form Validation Bug","description":"Email validation not working properly on login form","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":"user-2","createdAt":"2024-01-14T15:30:00Z","updatedAt":"2025-09-24T21:19:04.735Z","affectedUsers":15,"reproductionSteps":["Go to login page","Enter invalid email format","Click login button","No validation message appears"],"position":{"x":1302,"y":-1115.9999999999995},"_id":{"$wrap":"$oid","v":14}}
+{"k":"0000000079","o":"0000000410","v":"001"}
+{"_id":7,"_uid":26,"_dt":1758748870618,"_s":"8420a949b988da3a92afcae071aed682"}
+{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":-121.33333333333334,"y":362.6666666666667},"_id":{"$wrap":"$oid","v":7},"updatedAt":"2025-09-24T21:21:10.616Z"}
+{"k":"0000000080","o":"0000000393","v":"001"}
+{"_id":13,"_uid":26,"_dt":1758749850120,"_s":"4bbdbce5a6ba71fb3014c7b57480902a"}
+{"id":"task-unassigned-2","task_type":"task","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":2138.0806807804993,"y":281.63172883385494},"_id":{"$wrap":"$oid","v":13},"updatedAt":"2025-09-24T21:37:30.119Z"}

@@ -519,6 +519,42 @@
   border-color: #e9ecef;
 }
 
+.archive-button {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.archive-button:hover:not(:disabled) {
+  background: #ffeaa7;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(133, 100, 4, 0.2);
+}
+
+.archive-button:disabled {
+  background: #fff3cd;
+  color: #adb5bd;
+  border-color: #ffeaa7;
+}
+
+.unarchive-button {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+.unarchive-button:hover:not(:disabled) {
+  background: #bee5eb;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(12, 84, 96, 0.2);
+}
+
+.unarchive-button:disabled {
+  background: #d1ecf1;
+  color: #adb5bd;
+  border-color: #bee5eb;
+}
+
 .close-only-button {
   background: #6c757d;
   color: white;
