@@ -73,12 +73,11 @@ const FlowDiagram = ({
       const newEdge = {
         ...params,
         id: `${params.source}-${params.target}-${Date.now()}`, // Generate unique ID
-        type: 'smoothstep',
-        animated: true,
-        className: 'animated',
+        type: 'bezier',
+        animated: false,
         style: {
           stroke: '#4a90e2',
-          strokeWidth: 18,
+          strokeWidth: 20,
         },
       };
       
@@ -209,17 +208,15 @@ const FlowDiagram = ({
   // Handle edge update
   const handleEdgeUpdate = useCallback(async (updatedEdge) => {
     try {
-      // Ensure style properties are properly formatted for React Flow
+      // Simplified edge processing - only color and 20px width
       const processedEdge = {
         ...updatedEdge,
         // Add a unique key to force re-render
         key: `${updatedEdge.id}-${Date.now()}`,
+        animated: false,
         style: {
-          ...updatedEdge.style,
-          // Force inline styles to override CSS classes
           stroke: updatedEdge.style?.stroke || '#4a90e2',
-          strokeWidth: updatedEdge.style?.strokeWidth || 18,
-          strokeDasharray: updatedEdge.style?.strokeDasharray === 'none' ? undefined : updatedEdge.style?.strokeDasharray
+          strokeWidth: 20
         }
       };
 
@@ -363,9 +360,9 @@ const FlowDiagram = ({
         connectionMode={ConnectionMode.Strict}
         connectOnClick={true}
         defaultEdgeOptions={{
-          type: 'smoothstep',
-          animated: true,
-          style: { strokeWidth: 18, stroke: '#4a90e2' }
+          type: 'bezier',
+          animated: false,
+          style: { strokeWidth: 20, stroke: '#4a90e2' }
         }}
         fitView
         fitViewOptions={{

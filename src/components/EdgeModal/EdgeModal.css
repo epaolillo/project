@@ -209,10 +209,25 @@
   color: #495057;
 }
 
-.checkbox-label input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
+.color-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.color-control input[type="color"] {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
   cursor: pointer;
+  padding: 2px;
+}
+
+.color-label {
+  font-size: 14px;
+  color: #6c757d;
+  font-weight: 500;
 }
 
 .edge-preview {

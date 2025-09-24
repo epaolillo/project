@@ -147,141 +147,22 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Default edge styles - lower specificity to allow inline overrides */
+/* Simplified edge styles - solid lines only */
 .react-flow__edge-path {
   stroke-linecap: round;
-  filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
+  stroke-width: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .react-flow__edge.selected .react-flow__edge-path {
-  stroke: #007bff;
-  stroke-width: 24;
-  filter: drop-shadow(0 4px 12px rgba(0, 123, 255, 0.5));
+  stroke-width: 24px;
+  filter: drop-shadow(0 4px 8px rgba(0, 123, 255, 0.3));
 }
 
-/* Animated flow edges */
-.react-flow__edge.animated .react-flow__edge-path {
-  stroke-dasharray: 60, 40;
-  animation: edgeFlow 2s linear infinite;
-}
-
-.react-flow__edge.flow-active .react-flow__edge-path {
-  stroke: #28a745;
-  stroke-width: 24;
-  stroke-dasharray: 75, 50;
-  animation: edgeFlowActive 1.5s linear infinite;
-  filter: drop-shadow(0 4px 12px rgba(40, 167, 69, 0.5));
-}
-
-.react-flow__edge.flow-pending .react-flow__edge-path {
-  stroke: #ffc107;
-  stroke-width: 20;
-  stroke-dasharray: 50, 30;
-  animation: edgeFlowPending 2.5s linear infinite;
-  filter: drop-shadow(0 4px 10px rgba(255, 193, 7, 0.4));
-}
-
-.react-flow__edge.flow-completed .react-flow__edge-path {
-  stroke: #28a745;
-  stroke-width: 18;
-  stroke-dasharray: 40, 20;
-  animation: edgeFlowCompleted 1s linear infinite;
-  filter: drop-shadow(0 3px 8px rgba(40, 167, 69, 0.4));
-}
-
-/* Edge flow animations with thick lines - corrected direction */
-@keyframes edgeFlow {
-  0% {
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes edgeFlowActive {
-  0% {
-    stroke-dashoffset: 125;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes edgeFlowPending {
-  0% {
-    stroke-dashoffset: 80;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes edgeFlowCompleted {
-  0% {
-    stroke-dashoffset: 60;
-    opacity: 0.8;
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.8;
-  }
-}
-
-/* Enhanced connection line - ultra thick */
+/* Connection line while creating new edges */
 .react-flow__connection-line {
   stroke: #4a90e2;
-  stroke-width: 20;
-  stroke-linecap: round;
-  stroke-dasharray: 60, 40;
-  animation: connectionPulse 1s ease-in-out infinite alternate;
-  filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
-}
-
-/* Custom edge styles - fallback when no inline styles override */
-.react-flow__edge.dependency-edge .react-flow__edge-path {
-  stroke: #4a90e2;
-  stroke-width: 20;
-  filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
-}
-
-.react-flow__edge.workflow-edge .react-flow__edge-path {
-  stroke: #28a745;
-  stroke-width: 18;
-  filter: drop-shadow(0 4px 8px rgba(40, 167, 69, 0.4));
-}
-
-.react-flow__edge.infrastructure-edge .react-flow__edge-path {
-  stroke: #fd7e14;
-  stroke-width: 16;
-  filter: drop-shadow(0 4px 8px rgba(253, 126, 20, 0.4));
-}
-
-.react-flow__edge.critical-edge .react-flow__edge-path {
-  stroke: #dc3545;
-  stroke-width: 22;
-  filter: drop-shadow(0 4px 10px rgba(220, 53, 69, 0.5));
-}
-
-.react-flow__edge.optional-edge .react-flow__edge-path {
-  stroke: #6c757d;
-  stroke-width: 12;
-  stroke-dasharray: 10, 5;
-  filter: drop-shadow(0 2px 4px rgba(108, 117, 125, 0.3));
-}
-
-.react-flow__edge.blocking-edge .react-flow__edge-path {
-  stroke: #e83e8c;
-  stroke-width: 24;
-  filter: drop-shadow(0 4px 12px rgba(232, 62, 140, 0.5));
-}
-
-/* Custom edge class - minimal styling to allow inline overrides */
-.react-flow__edge.custom-edge .react-flow__edge-path {
-  /* Inline styles will override any properties set here */
+  stroke-width: 20px;
   stroke-linecap: round;
 }
 
@@ -300,39 +181,6 @@
   cursor: pointer;
 }
 
-/* Edge animations */
-@keyframes criticalPulse {
-  0%, 100% {
-    stroke-width: 22;
-    opacity: 0.8;
-  }
-  50% {
-    stroke-width: 26;
-    opacity: 1;
-  }
-}
-
-@keyframes blockingPulse {
-  0%, 100% {
-    stroke-width: 24;
-    opacity: 0.9;
-  }
-  50% {
-    stroke-width: 28;
-    opacity: 1;
-  }
-}
-
-@keyframes connectionPulse {
-  0% {
-    stroke-width: 20;
-    opacity: 0.7;
-  }
-  100% {
-    stroke-width: 24;
-    opacity: 1;
-  }
-}
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

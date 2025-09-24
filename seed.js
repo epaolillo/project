@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const tingodb = require('tingodb')();
+const bcrypt = require('bcryptjs');
 
 // Database configuration
 const DB_PATH = path.join(__dirname, 'database');
@@ -12,6 +13,7 @@ console.log('🌱 Seeding database with mock data...');
 const db = new tingodb.Db(DB_PATH, {});
 
 // Collections
+const usersCollection = db.collection('users'); // Collection for authentication
 const tasksCollection = db.collection('tasks'); // Collection for tasks and incidents
 const persons = db.collection('persons');
 const edges = db.collection('edges'); // Flow edges/connections
@@ -86,6 +88,7 @@ async function seed() {
     // Clear existing data
     console.log('🧹 Clearing existing data...');
     
+    await clearCollection(usersCollection, 'users');
     await clearCollection(tasksCollection, 'tasks');
     await clearCollection(persons, 'persons');
     await clearCollection(edges, 'edges');
@@ -97,6 +100,18 @@ async function seed() {
 
     // Insert mock data
     console.log('📤 Inserting mock data...');
+
+    // Create admin user for authentication
+    console.log('👤 Creating admin user...');
+    const adminPassword = await bcrypt.hash('admin123', 10);
+    const adminUser = {
+      username: 'admin',
+      password: adminPassword,
+      role: 'admin',
+      createdAt: new Date().toISOString()
+    };
+    
+    const adminInserted = await insertData(usersCollection, [adminUser], 'admin user');
 
     // Insert all tasks (tasks + incidents)
     const tasksInserted = await insertData(tasksCollection, allTasks, 'tasks');
@@ -168,9 +183,8 @@ async function seed() {
             id: `${depId}-${task.id}`,
             source: depId,
             target: task.id,
-            type: 'smoothstep',
-            animated: true,
-            className: 'dependency-edge',
+            type: 'bezier',
+            animated: false,
             style: {
               stroke: '#4a90e2',
               strokeWidth: 20
@@ -187,36 +201,33 @@ async function seed() {
         id: 'task-5-task-6',
         source: 'task-5',
         target: 'task-6',
-        type: 'smoothstep',
-        animated: true,
-        className: 'workflow-edge',
+        type: 'bezier',
+        animated: false,
         style: {
           stroke: '#28a745',
-          strokeWidth: 18
+          strokeWidth: 20
         }
       },
       {
         id: 'task-6-task-8',
         source: 'task-6',
         target: 'task-8',
-        type: 'smoothstep',
-        animated: true,
-        className: 'workflow-edge',
+        type: 'bezier',
+        animated: false,
         style: {
-          stroke: '#28a745',
-          strokeWidth: 18
+          stroke: '#dc3545',
+          strokeWidth: 20
         }
       },
       {
         id: 'task-7-task-3',
         source: 'task-7',
         target: 'task-3',
-        type: 'smoothstep',
-        animated: true,
-        className: 'infrastructure-edge',
+        type: 'bezier',
+        animated: false,
         style: {
           stroke: '#fd7e14',
-          strokeWidth: 16
+          strokeWidth: 20
         }
       }
     ];
@@ -231,6 +242,11 @@ async function seed() {
     // Verify data insertion
     console.log('🔍 Verifying data insertion...');
     
+    usersCollection.count({}, (err, userCount) => {
+      if (err) console.error('Error counting users:', err);
+      else console.log(`🔐 Total users in database: ${userCount}`);
+    });
+
     tasksCollection.count({}, (err, totalCount) => {
       if (err) console.error('Error counting total tasks:', err);
       else console.log(`📋 Total items in tasks collection: ${totalCount}`);
@@ -257,6 +273,7 @@ async function seed() {
       console.log('🎉 Database seeding completed successfully!');
       console.log('');
       console.log('Summary:');
+      console.log(`- Users (Authentication): ${adminInserted} records`);
       console.log(`- Tasks Collection: ${tasksInserted + additionalTasks.length} records`);
       console.log(`  - Tasks: ${tasks.length + additionalTasks.length} records`);
       console.log(`  - Incidents: ${incidents.length} records`);

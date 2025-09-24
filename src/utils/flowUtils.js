@@ -26,76 +26,19 @@ export const createNodesAndEdges = (unifiedTasks = [], edges = [], users = []) =
     nodes.push(node);
   });
   
-  // Process edges (now they come from the database)
+  // Process edges - simplified to only color and 20px width
   const processedEdges = edges.map(edge => ({
     ...edge,
-    className: getEdgeClass(edge),
+    animated: false,
     style: {
-      stroke: edge.style?.stroke || getEdgeColor(edge),
-      strokeWidth: edge.style?.strokeWidth || 20,
-      ...edge.style
+      stroke: edge.style?.stroke || '#4a90e2',
+      strokeWidth: 20
     }
   }));
   
   return { nodes, edges: processedEdges };
 };
 
-/**
- * Get edge color based on edge or task data
- */
-const getEdgeColor = (edgeOrTask) => {
-  // If it's an edge with style, use that
-  if (edgeOrTask.style?.stroke) {
-    return edgeOrTask.style.stroke;
-  }
-  
-  // Otherwise determine by status or default
-  const status = edgeOrTask.status || edgeOrTask.targetStatus || 'default';
-  
-  switch (status) {
-    case 'completed':
-      return '#28a745';
-    case 'in_progress':
-      return '#28a745'; // Green for active flow
-    case 'pending':
-      return '#ffc107'; // Yellow for pending
-    default:
-      return '#4a90e2'; // Blue default
-  }
-};
-
-/**
- * Get edge class based on edge data or task status
- */
-const getEdgeClass = (edge) => {
-  // If edge already has a className, use it
-  if (edge.className) {
-    return edge.className;
-  }
-  
-  // If we have source and target status information
-  if (edge.sourceStatus && edge.targetStatus) {
-    const { sourceStatus, targetStatus } = edge;
-    
-    // If source is completed and target is in progress, show active flow
-    if (sourceStatus === 'completed' && targetStatus === 'in_progress') {
-      return 'flow-active';
-    }
-    
-    // If source is completed and target is pending, show pending flow
-    if (sourceStatus === 'completed' && targetStatus === 'pending') {
-      return 'flow-pending';
-    }
-    
-    // If both are completed, show completed flow
-    if (sourceStatus === 'completed' && targetStatus === 'completed') {
-      return 'flow-completed';
-    }
-  }
-  
-  // Default animated flow
-  return 'animated';
-};
 
 /**
  * Auto-layout nodes using a simple grid approach (preserves saved positions)

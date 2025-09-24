@@ -1,120 +1,162 @@
-{"k":"0000000082","o":"0000000400","v":"001"}
-{"_id":125,"_uid":145,"_dt":1758737674343,"_s":"112c122843a2e3f5af574b72861b7932"}
-{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"feature","position":{"x":546.0438908659548,"y":-1473.9383155397388},"_id":{"$wrap":"$oid","v":125},"updatedAt":"2025-09-24T18:14:34.342Z"}
-{"k":"0000000082","o":"0000000392","v":"001"}
-{"_id":126,"_uid":145,"_dt":1758737676531,"_s":"2eb1142d22ff1708e91fbc92718c3b11"}
-{"id":"task-2","task_type":"task","title":"Design Database Schema","description":"Create the complete database structure","status":"pending","assignedTo":"user-1","priority":"high","estimatedHours":12,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":1416.985765124555,"y":-1432.7378410438907},"_id":{"$wrap":"$oid","v":126},"updatedAt":"2025-09-24T18:14:36.529Z"}
-{"k":"0000000082","o":"0000000384","v":"001"}
-{"_id":127,"_uid":145,"_dt":1758737690541,"_s":"6d16d0fef9717de20668b23b61870a8d"}
-{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":1490.9371293001186,"y":-1783.6120996441282},"_id":{"$wrap":"$oid","v":127},"updatedAt":"2025-09-24T18:14:50.540Z"}
-{"k":"0000000082","o":"0000000320","v":"001"}
-{"_id":128,"_uid":128,"_dt":1758737406603,"_s":"2ff921e391a640f40fbc62dfa44ac021"}
-{"id":"task-4","task_type":"task","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","position":{"x":1300,"y":100},"_id":{"$wrap":"$oid","v":128}}
-{"k":"0000000082","o":"0000000387","v":"001"}
-{"_id":129,"_uid":145,"_dt":1758737700921,"_s":"8741ac5738d1d49317864b7fef88fee6"}
-{"id":"task-5","task_type":"task","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","position":{"x":-16.441281138790004,"y":-1067.7876631079478},"_id":{"$wrap":"$oid","v":129},"updatedAt":"2025-09-24T18:15:00.920Z"}
-{"k":"0000000082","o":"0000000412","v":"001"}
-{"_id":130,"_uid":145,"_dt":1758737699911,"_s":"fbb8e51c9119dfb6e7861c15ff347fa2"}
-{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":621.1803084223014,"y":-1084.0035587188613},"_id":{"$wrap":"$oid","v":130},"updatedAt":"2025-09-24T18:14:59.910Z"}
-{"k":"0000000082","o":"0000000394","v":"001"}
-{"_id":131,"_uid":145,"_dt":1758737655992,"_s":"67e057a3b3f4fd0d55a57e8518e1d6bb"}
-{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":-97.20640569395007,"y":-1297.8054567022539},"_id":{"$wrap":"$oid","v":131},"updatedAt":"2025-09-24T18:14:15.991Z"}
-{"k":"0000000082","o":"0000000365","v":"001"}
-{"_id":132,"_uid":145,"_dt":1758737644537,"_s":"30f8e3f4fc291132fff634ad4db2f3fa"}
-{"id":"task-8","task_type":"task","title":"Create Form Components","description":"Build reusable form input components","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":14,"completedHours":0,"dependencies":["task-6"],"type":"feature","position":{"x":1196,"y":-1120},"_id":{"$wrap":"$oid","v":132},"updatedAt":"2025-09-24T18:14:04.536Z"}
-{"k":"0000000082","o":"0000000416","v":"001"}
-{"_id":133,"_uid":145,"_dt":1758737687274,"_s":"fe534241fcfedef186c6e352315c368b"}
-{"id":"task-9","task_type":"task","title":"Implement Search Functionality","description":"Add search capabilities to the application","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":18,"completedHours":0,"dependencies":["task-2","task-8"],"type":"feature","position":{"x":2268.4036180308412,"y":-1043.2737247924083},"_id":{"$wrap":"$oid","v":133},"updatedAt":"2025-09-24T18:14:47.273Z"}
-{"k":"0000000082","o":"0000000413","v":"001"}
-{"_id":134,"_uid":145,"_dt":1758737682523,"_s":"20db2599354541c771bb28c6ae5516df"}
-{"id":"task-10","task_type":"task","title":"Setup Database Indexes","description":"Optimize database performance with proper indexes","status":"completed","assignedTo":"user-3","priority":"high","estimatedHours":10,"completedHours":10,"dependencies":["task-2"],"type":"optimization","position":{"x":2148.9323843416373,"y":-1717.2145610913403},"_id":{"$wrap":"$oid","v":134},"updatedAt":"2025-09-24T18:14:42.523Z"}
-{"k":"0000000082","o":"0000000346","v":"001"}
-{"_id":135,"_uid":135,"_dt":1758737406604,"_s":"b9086babfb1616bb82d88e7b4cb40bd8"}
-{"id":"task-unassigned-1","task_type":"task","title":"Implement Email Notifications","description":"Create email notification system for important events","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":100,"y":850},"_id":{"$wrap":"$oid","v":135}}
-{"k":"0000000082","o":"0000000325","v":"001"}
-{"_id":136,"_uid":136,"_dt":1758737406604,"_s":"6850f58e3336cea0e0d1cca4d457e44e"}
-{"id":"task-unassigned-2","task_type":"task","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":500,"y":850},"_id":{"$wrap":"$oid","v":136}}
-{"k":"0000000082","o":"0000000499","v":"001"}
-{"_id":137,"_uid":137,"_dt":1758737406604,"_s":"16e29d99973553aa839f22e7588a5884"}
-{"id":"incident-1","task_type":"incident","title":"Login Form Validation Bug","description":"Email validation not working properly on login form","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":"user-2","createdAt":"2024-01-14T15:30:00Z","updatedAt":"2024-01-15T09:00:00Z","affectedUsers":15,"reproductionSteps":["Go to login page","Enter invalid email format","Click login button","No validation message appears"],"position":{"x":1600,"y":100},"_id":{"$wrap":"$oid","v":137}}
-{"k":"0000000082","o":"0000000516","v":"001"}
-{"_id":138,"_uid":138,"_dt":1758737406604,"_s":"925f58ee42b2e1bfa34a4b87efdea6af"}
-{"id":"incident-2","task_type":"incident","title":"Database Connection Timeout","description":"Intermittent database connection timeouts during peak hours","severity":"high","status":"in_progress","reportedBy":"user-5","assignedTo":"user-3","createdAt":"2024-01-13T10:15:00Z","updatedAt":"2024-01-15T08:45:00Z","affectedUsers":200,"reproductionSteps":["Access application during 2-4 PM","Perform any database operation","Connection fails intermittently"],"position":{"x":1600,"y":350},"_id":{"$wrap":"$oid","v":138}}
-{"k":"0000000082","o":"0000000488","v":"001"}
-{"_id":139,"_uid":139,"_dt":1758737406605,"_s":"25eb4ed48263caa2cf7dd5a6eda58950"}
-{"id":"incident-3","task_type":"incident","title":"Mobile UI Layout Issues","description":"Navigation menu overlaps content on mobile devices","severity":"medium","status":"open","reportedBy":"user-4","assignedTo":"user-8","createdAt":"2024-01-15T07:20:00Z","updatedAt":"2024-01-15T07:20:00Z","affectedUsers":50,"reproductionSteps":["Access application on mobile device","Open navigation menu","Menu covers main content area"],"position":{"x":1600,"y":600},"_id":{"$wrap":"$oid","v":139}}
-{"k":"0000000082","o":"0000000521","v":"001"}
-{"_id":140,"_uid":140,"_dt":1758737406605,"_s":"ba93ec62feb69125d42ab9bf794772aa"}
-{"id":"incident-4","task_type":"incident","title":"Search Results Not Loading","description":"Search functionality returns empty results for valid queries","severity":"high","status":"open","reportedBy":"user-1","assignedTo":null,"createdAt":"2024-01-15T11:45:00Z","updatedAt":"2024-01-15T11:45:00Z","affectedUsers":80,"reproductionSteps":["Navigate to search page","Enter valid search term","Click search button","No results displayed despite data existing"],"position":{"x":1600,"y":850},"_id":{"$wrap":"$oid","v":140}}
-{"k":"0000000082","o":"0000000541","v":"001"}
-{"_id":141,"_uid":141,"_dt":1758737406605,"_s":"44867da13d80f90aeba4669060ac215a"}
-{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2024-01-15T10:20:00Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1900,"y":200},"_id":{"$wrap":"$oid","v":141}}
-{"k":"0000000082","o":"0000000460","v":"001"}
-{"_id":142,"_uid":145,"_dt":1758737697165,"_s":"aecf4b2f114fe9d8eaaba4dfefeb0d98"}
-{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":2028.9916963226574,"y":-545.6049822064056},"completedAt":"2025-09-23T18:10:06.607Z","_id":{"$wrap":"$oid","v":142},"updatedAt":"2025-09-24T18:14:57.162Z"}
-{"k":"0000000082","o":"0000000376","v":"001"}
-{"_id":143,"_uid":145,"_dt":1758737636124,"_s":"4118dc728b63244d2879e433cd355bf3"}
-{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","task_type":"task","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":1186,"y":1046},"_id":{"$wrap":"$oid","v":143},"updatedAt":"2025-09-24T18:13:56.123Z"}
-{"k":"0000000082","o":"0000000399","v":"001"}
-{"_id":144,"_uid":145,"_dt":1758737695815,"_s":"a6a6678084d64bc180cceb060a7d75bb"}
-{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":2061.0616844602614,"y":-178.34519572953738},"_id":{"$wrap":"$oid","v":144},"updatedAt":"2025-09-24T18:14:55.813Z"}
-{"k":"0000000082","o":"0000000433","v":"001"}
-{"_id":145,"_uid":145,"_dt":1758737705902,"_s":"a3981f679ed5543149267daf0cdfe200"}
-{"title":"Prueba de tarea","description":"","status":"pending","priority":"medium","type":"feature","assignedTo":"","assigneeName":"","estimatedHours":0,"completedHours":0,"task_type":"task","severity":"medium","affectedUsers":0,"id":"task-1758737607632-22s4p82t3","position":{"x":1431.9098457888495,"y":-713.0308422301305},"createdAt":"2025-09-24T18:13:27.632Z","updatedAt":"2025-09-24T18:15:05.902Z","_id":{"$wrap":"$oid","v":145}}
-{"k":"0000000082","o":"0000000432","v":"001"}
-{"_id":145,"_uid":145,"_dt":1758737716675,"_s":"f7a85441c8882b52380bd47423524c6a"}
-{"title":"Prueba de tarea","description":"","status":"pending","priority":"medium","type":"feature","assignedTo":"","assigneeName":"","estimatedHours":0,"completedHours":0,"task_type":"task","severity":"medium","affectedUsers":0,"id":"task-1758737607632-22s4p82t3","position":{"x":1595.250533164386,"y":-741.9949055730432},"createdAt":"2025-09-24T18:13:27.632Z","updatedAt":"2025-09-24T18:15:16.667Z","_id":{"$wrap":"$oid","v":145}}
-{"k":"0000000082","o":"0000000432","v":"001"}
-{"_id":145,"_uid":145,"_dt":1758737732514,"_s":"e00e148b91a60b3c5a8c9ae0dc4e8488"}
-{"title":"Prueba de tarea","description":"","status":"pending","priority":"medium","type":"feature","assignedTo":"","assigneeName":"","estimatedHours":0,"completedHours":0,"task_type":"task","severity":"medium","affectedUsers":0,"id":"task-1758737607632-22s4p82t3","position":{"x":1321.250533164386,"y":-763.9949055730432},"createdAt":"2025-09-24T18:13:27.632Z","updatedAt":"2025-09-24T18:15:32.513Z","_id":{"$wrap":"$oid","v":145}}
-{"k":"0000000082","o":"0000000459","v":"001"}
-{"_id":142,"_uid":145,"_dt":1758737752734,"_s":"27e20c74e64cefb1749abe05ad885552"}
-{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":428.9916963226574,"y":-587.6049822064056},"completedAt":"2025-09-23T18:10:06.607Z","_id":{"$wrap":"$oid","v":142},"updatedAt":"2025-09-24T18:15:52.733Z"}
-{"k":"0000000082","o":"0000000459","v":"001"}
-{"_id":142,"_uid":145,"_dt":1758737755865,"_s":"6aae0b6a4bb8183c0f5abc2a74b1cd39"}
-{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":670.9916963226574,"y":-541.6049822064056},"completedAt":"2025-09-23T18:10:06.607Z","_id":{"$wrap":"$oid","v":142},"updatedAt":"2025-09-24T18:15:55.865Z"}
-{"k":"0000000082","o":"0000000393","v":"001"}
-{"_id":131,"_uid":145,"_dt":1758737806285,"_s":"ab5ab1fd1240caff5e82e4dc3e36af84"}
-{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":553.6745543967064,"y":-1796.6760014851136},"_id":{"$wrap":"$oid","v":131},"updatedAt":"2025-09-24T18:16:46.284Z"}
-{"k":"0000000082","o":"0000000398","v":"001"}
-{"_id":144,"_uid":145,"_dt":1758737905404,"_s":"e52d3eb31993d35e5cd058d3c0684444"}
-{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":1514.3950177935947,"y":-461.6785290628707},"_id":{"$wrap":"$oid","v":144},"updatedAt":"2025-09-24T18:18:25.402Z"}
-{"k":"0000000082","o":"0000000398","v":"001"}
-{"_id":144,"_uid":145,"_dt":1758737909577,"_s":"6a25d711d5ae77cc760366158073d37b"}
-{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":1304.3950177935944,"y":-541.6785290628707},"_id":{"$wrap":"$oid","v":144},"updatedAt":"2025-09-24T18:18:29.576Z"}
-{"k":"0000000082","o":"0000000399","v":"001"}
-{"_id":144,"_uid":145,"_dt":1758737911790,"_s":"a0c73cd41a634c89f8f73bb9542cadfa"}
-{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":1438.4405658377423,"y":-433.88932548097847},"_id":{"$wrap":"$oid","v":144},"updatedAt":"2025-09-24T18:18:31.789Z"}
-{"k":"0000000082","o":"0000000398","v":"001"}
-{"_id":144,"_uid":145,"_dt":1758737915026,"_s":"c3bc3540a1ca6e32e630ddd4056b29f3"}
-{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":1340.3247523208918,"y":-399.3415038201156},"_id":{"$wrap":"$oid","v":144},"updatedAt":"2025-09-24T18:18:35.025Z"}
-{"k":"0000000082","o":"0000000433","v":"001"}
-{"_id":145,"_uid":145,"_dt":1758737933635,"_s":"38e309e1cc197771c81d8b9301323ffd"}
-{"title":"Prueba de tarea","description":"","status":"pending","priority":"medium","type":"feature","assignedTo":"","assigneeName":"","estimatedHours":0,"completedHours":0,"task_type":"task","severity":"medium","affectedUsers":0,"id":"task-1758737607632-22s4p82t3","position":{"x":1317.9255815960958,"y":-773.9697602779141},"createdAt":"2025-09-24T18:13:27.632Z","updatedAt":"2025-09-24T18:18:53.634Z","_id":{"$wrap":"$oid","v":145}}
-{"k":"0000000082","o":"0000000544","v":"001"}
-{"_id":141,"_uid":145,"_dt":1758738000888,"_s":"ef73e275f75ada104721bf7ddb5ecd55"}
-{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2025-09-24T18:20:00.888Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":2362,"y":86},"_id":{"$wrap":"$oid","v":141}}
-{"k":"0000000082","o":"0000000519","v":"001"}
-{"_id":138,"_uid":145,"_dt":1758738002884,"_s":"e5cfa9186b819c8e0e870ef9a81a2e00"}
-{"id":"incident-2","task_type":"incident","title":"Database Connection Timeout","description":"Intermittent database connection timeouts during peak hours","severity":"high","status":"in_progress","reportedBy":"user-5","assignedTo":"user-3","createdAt":"2024-01-13T10:15:00Z","updatedAt":"2025-09-24T18:20:02.877Z","affectedUsers":200,"reproductionSteps":["Access application during 2-4 PM","Perform any database operation","Connection fails intermittently"],"position":{"x":2940,"y":76},"_id":{"$wrap":"$oid","v":138}}
-{"k":"0000000082","o":"0000000548","v":"001"}
-{"_id":138,"_uid":145,"_dt":1758738005682,"_s":"27ec5300aaa0be6d285d7680f7c6d94e"}
-{"id":"incident-2","task_type":"incident","title":"Database Connection Timeout","description":"Intermittent database connection timeouts during peak hours","severity":"high","status":"in_progress","reportedBy":"user-5","assignedTo":"user-3","createdAt":"2024-01-13T10:15:00Z","updatedAt":"2025-09-24T18:20:05.681Z","affectedUsers":200,"reproductionSteps":["Access application during 2-4 PM","Perform any database operation","Connection fails intermittently"],"position":{"x":2643.3333333333335,"y":92.66666666666666},"_id":{"$wrap":"$oid","v":138}}
-{"k":"0000000082","o":"0000000506","v":"001"}
-{"_id":139,"_uid":145,"_dt":1758738007325,"_s":"3292853e8d5d413b2e590e8f61428b2e"}
-{"id":"incident-3","task_type":"incident","title":"Mobile UI Layout Issues","description":"Navigation menu overlaps content on mobile devices","severity":"medium","status":"open","reportedBy":"user-4","assignedTo":"user-8","createdAt":"2024-01-15T07:20:00Z","updatedAt":"2025-09-24T18:20:07.324Z","affectedUsers":50,"reproductionSteps":["Access application on mobile device","Open navigation menu","Menu covers main content area"],"position":{"x":3140,"y":99.99999999999994},"_id":{"$wrap":"$oid","v":139}}
-{"k":"0000000082","o":"0000000552","v":"001"}
-{"_id":140,"_uid":145,"_dt":1758738008966,"_s":"0fe1e2672a05ff11bf3695f0dbc80d24"}
-{"id":"incident-4","task_type":"incident","title":"Search Results Not Loading","description":"Search functionality returns empty results for valid queries","severity":"high","status":"open","reportedBy":"user-1","assignedTo":null,"createdAt":"2024-01-15T11:45:00Z","updatedAt":"2025-09-24T18:20:08.965Z","affectedUsers":80,"reproductionSteps":["Navigate to search page","Enter valid search term","Click search button","No results displayed despite data existing"],"position":{"x":3696.666666666667,"y":96.66666666666663},"_id":{"$wrap":"$oid","v":140}}
-{"k":"0000000082","o":"0000000389","v":"001"}
-{"_id":143,"_uid":145,"_dt":1758738011800,"_s":"086d33b7dcd921176c131dfe43fac287"}
-{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","task_type":"task","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":2089.3333333333335,"y":566},"_id":{"$wrap":"$oid","v":143},"updatedAt":"2025-09-24T18:20:11.799Z"}
-{"k":"0000000082","o":"0000000393","v":"001"}
-{"_id":136,"_uid":145,"_dt":1758738012982,"_s":"0aa073f87b872e93f5b6a31dbd61597a"}
-{"id":"task-unassigned-2","task_type":"task","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":1623.3333333333335,"y":613.3333333333334},"_id":{"$wrap":"$oid","v":136},"updatedAt":"2025-09-24T18:20:12.982Z"}
-{"k":"0000000082","o":"0000000358","v":"001"}
-{"_id":128,"_uid":145,"_dt":1758738030667,"_s":"7d3485ecc1facc73d1c37117ea708c35"}
-{"id":"task-4","task_type":"task","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","position":{"x":502,"y":-64},"_id":{"$wrap":"$oid","v":128},"updatedAt":"2025-09-24T18:20:30.666Z"}
-{"k":"0000000082","o":"0000000359","v":"001"}
-{"_id":128,"_uid":145,"_dt":1758738034559,"_s":"ae49371106653acd9ceb7b36c3321fcc"}
-{"id":"task-4","task_type":"task","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","position":{"x":688,"y":-176},"_id":{"$wrap":"$oid","v":128},"updatedAt":"2025-09-24T18:20:34.558Z"}
+{"k":"0000000078","o":"0000000329","v":"001"}
+{"_id":2,"_uid":2,"_dt":1758742180985,"_s":"e9328ecbb8d869541f92fea58b81d203"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"feature","position":{"x":100,"y":100},"_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000321","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758742180986,"_s":"a4f0cb7ca00e00409f5772b069d28e16"}
+{"id":"task-2","task_type":"task","title":"Design Database Schema","description":"Create the complete database structure","status":"pending","assignedTo":"user-1","priority":"high","estimatedHours":12,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":500,"y":100},"_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000312","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758742180986,"_s":"839bcef1f476c9aa185cc290c3132025"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":900,"y":100},"_id":{"$wrap":"$oid","v":4}}
+{"k":"0000000078","o":"0000000318","v":"001"}
+{"_id":5,"_uid":5,"_dt":1758742180986,"_s":"31103544f331be0cd5d5fca1ee9db70d"}
+{"id":"task-4","task_type":"task","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","position":{"x":1300,"y":100},"_id":{"$wrap":"$oid","v":5}}
+{"k":"0000000078","o":"0000000314","v":"001"}
+{"_id":6,"_uid":6,"_dt":1758742180986,"_s":"cdd11170aea3e5a26e8e5c8e8bbe3b52"}
+{"id":"task-5","task_type":"task","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","position":{"x":100,"y":350},"_id":{"$wrap":"$oid","v":6}}
+{"k":"0000000078","o":"0000000341","v":"001"}
+{"_id":7,"_uid":7,"_dt":1758742180987,"_s":"9508e61bd9dec775f0c01ebcda1cd451"}
+{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":500,"y":350},"_id":{"$wrap":"$oid","v":7}}
+{"k":"0000000078","o":"0000000322","v":"001"}
+{"_id":8,"_uid":8,"_dt":1758742180987,"_s":"712424b3bb12ad2faacfc9b7e9ae119a"}
+{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":900,"y":350},"_id":{"$wrap":"$oid","v":8}}
+{"k":"0000000078","o":"0000000321","v":"001"}
+{"_id":9,"_uid":9,"_dt":1758742180987,"_s":"3a903ae3559e9e1f77a1832c22263a02"}
+{"id":"task-8","task_type":"task","title":"Create Form Components","description":"Build reusable form input components","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":14,"completedHours":0,"dependencies":["task-6"],"type":"feature","position":{"x":500,"y":600},"_id":{"$wrap":"$oid","v":9}}
+{"k":"0000000080","o":"0000000345","v":"001"}
+{"_id":10,"_uid":10,"_dt":1758742180987,"_s":"78d0018a0f32dd98f40f97bb8ce73e8a"}
+{"id":"task-9","task_type":"task","title":"Implement Search Functionality","description":"Add search capabilities to the application","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":18,"completedHours":0,"dependencies":["task-2","task-8"],"type":"feature","position":{"x":900,"y":600},"_id":{"$wrap":"$oid","v":10}}
+{"k":"0000000080","o":"0000000342","v":"001"}
+{"_id":11,"_uid":11,"_dt":1758742180987,"_s":"fc20f80075a9cb858c950b65f00c1b4b"}
+{"id":"task-10","task_type":"task","title":"Setup Database Indexes","description":"Optimize database performance with proper indexes","status":"completed","assignedTo":"user-3","priority":"high","estimatedHours":10,"completedHours":10,"dependencies":["task-2"],"type":"optimization","position":{"x":700,"y":350},"_id":{"$wrap":"$oid","v":11}}
+{"k":"0000000080","o":"0000000345","v":"001"}
+{"_id":12,"_uid":12,"_dt":1758742180988,"_s":"1357871849fd65fd68596a7cc58aab32"}
+{"id":"task-unassigned-1","task_type":"task","title":"Implement Email Notifications","description":"Create email notification system for important events","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":100,"y":850},"_id":{"$wrap":"$oid","v":12}}
+{"k":"0000000080","o":"0000000324","v":"001"}
+{"_id":13,"_uid":13,"_dt":1758742180988,"_s":"b09651e090b587d72b7dc54c0e76a275"}
+{"id":"task-unassigned-2","task_type":"task","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":500,"y":850},"_id":{"$wrap":"$oid","v":13}}
+{"k":"0000000080","o":"0000000498","v":"001"}
+{"_id":14,"_uid":14,"_dt":1758742180988,"_s":"b0816dca1241b13f40d4772de73df002"}
+{"id":"incident-1","task_type":"incident","title":"Login Form Validation Bug","description":"Email validation not working properly on login form","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":"user-2","createdAt":"2024-01-14T15:30:00Z","updatedAt":"2024-01-15T09:00:00Z","affectedUsers":15,"reproductionSteps":["Go to login page","Enter invalid email format","Click login button","No validation message appears"],"position":{"x":1600,"y":100},"_id":{"$wrap":"$oid","v":14}}
+{"k":"0000000080","o":"0000000515","v":"001"}
+{"_id":15,"_uid":15,"_dt":1758742180988,"_s":"bb6ffc94baf75e264c76089483fa946c"}
+{"id":"incident-2","task_type":"incident","title":"Database Connection Timeout","description":"Intermittent database connection timeouts during peak hours","severity":"high","status":"in_progress","reportedBy":"user-5","assignedTo":"user-3","createdAt":"2024-01-13T10:15:00Z","updatedAt":"2024-01-15T08:45:00Z","affectedUsers":200,"reproductionSteps":["Access application during 2-4 PM","Perform any database operation","Connection fails intermittently"],"position":{"x":1600,"y":350},"_id":{"$wrap":"$oid","v":15}}
+{"k":"0000000080","o":"0000000487","v":"001"}
+{"_id":16,"_uid":16,"_dt":1758742180988,"_s":"cb1a4c9eb0096023e33be05e5e51f5a6"}
+{"id":"incident-3","task_type":"incident","title":"Mobile UI Layout Issues","description":"Navigation menu overlaps content on mobile devices","severity":"medium","status":"open","reportedBy":"user-4","assignedTo":"user-8","createdAt":"2024-01-15T07:20:00Z","updatedAt":"2024-01-15T07:20:00Z","affectedUsers":50,"reproductionSteps":["Access application on mobile device","Open navigation menu","Menu covers main content area"],"position":{"x":1600,"y":600},"_id":{"$wrap":"$oid","v":16}}
+{"k":"0000000080","o":"0000000520","v":"001"}
+{"_id":17,"_uid":17,"_dt":1758742180988,"_s":"922419448831ab5b114636deb572d2bf"}
+{"id":"incident-4","task_type":"incident","title":"Search Results Not Loading","description":"Search functionality returns empty results for valid queries","severity":"high","status":"open","reportedBy":"user-1","assignedTo":null,"createdAt":"2024-01-15T11:45:00Z","updatedAt":"2024-01-15T11:45:00Z","affectedUsers":80,"reproductionSteps":["Navigate to search page","Enter valid search term","Click search button","No results displayed despite data existing"],"position":{"x":1600,"y":850},"_id":{"$wrap":"$oid","v":17}}
+{"k":"0000000080","o":"0000000540","v":"001"}
+{"_id":18,"_uid":18,"_dt":1758742180988,"_s":"f07fbaacac72c27a00e441832e18105b"}
+{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2024-01-15T10:20:00Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1900,"y":200},"_id":{"$wrap":"$oid","v":18}}
+{"k":"0000000080","o":"0000000390","v":"001"}
+{"_id":19,"_uid":19,"_dt":1758742180990,"_s":"c6d0f97d3c67a47722904e16ddbe29ce"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":400,"y":200},"completedAt":"2025-09-23T19:29:40.990Z","_id":{"$wrap":"$oid","v":19}}
+{"k":"0000000080","o":"0000000334","v":"001"}
+{"_id":20,"_uid":20,"_dt":1758742180990,"_s":"b286877af74e45293abd2f6f2e1a779e"}
+{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","task_type":"task","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":600,"y":300},"_id":{"$wrap":"$oid","v":20}}
+{"k":"0000000080","o":"0000000328","v":"001"}
+{"_id":21,"_uid":21,"_dt":1758742180990,"_s":"491116e021fb81518fb48ac90d4c88a9"}
+{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":800,"y":100},"_id":{"$wrap":"$oid","v":21}}
+{"k":"0000000080","o":"0000000396","v":"001"}
+{"_id":21,"_uid":21,"_dt":1758742191406,"_s":"b96370fdbafc681b7c9b263234048175"}
+{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":732.2598870056497,"y":-257.1751412429378},"_id":{"$wrap":"$oid","v":21},"updatedAt":"2025-09-24T19:29:51.405Z"}
+{"k":"0000000079","o":"0000000380","v":"001"}
+{"_id":4,"_uid":21,"_dt":1758742192301,"_s":"82eb8900ba089e1ac64c61aef93c5259"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":1471.172316384181,"y":-212.5282485875706},"_id":{"$wrap":"$oid","v":4},"updatedAt":"2025-09-24T19:29:52.300Z"}
+{"k":"0000000079","o":"0000000370","v":"001"}
+{"_id":2,"_uid":21,"_dt":1758742198280,"_s":"76aa841acafb64da78c9b8c72adbe285"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"feature","position":{"x":-140,"y":-262},"_id":{"$wrap":"$oid","v":2},"updatedAt":"2025-09-24T19:29:58.279Z"}
+{"k":"0000000079","o":"0000000354","v":"001"}
+{"_id":6,"_uid":21,"_dt":1758742199048,"_s":"6730b1054ddbe510a862fb10b7b1d219"}
+{"id":"task-5","task_type":"task","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","position":{"x":-222,"y":588},"_id":{"$wrap":"$oid","v":6},"updatedAt":"2025-09-24T19:29:59.047Z"}
+{"k":"0000000080","o":"0000000429","v":"001"}
+{"_id":19,"_uid":21,"_dt":1758742200061,"_s":"563cea04a5fc491fd4835684060fcf97"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":-70,"y":102},"completedAt":"2025-09-23T19:29:40.990Z","_id":{"$wrap":"$oid","v":19},"updatedAt":"2025-09-24T19:30:00.060Z"}
+{"k":"0000000080","o":"0000000430","v":"001"}
+{"_id":19,"_uid":21,"_dt":1758742201009,"_s":"4f7e64e535c4281055cdcf81c5997c24"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":318,"y":-580},"completedAt":"2025-09-23T19:29:40.990Z","_id":{"$wrap":"$oid","v":19},"updatedAt":"2025-09-24T19:30:01.008Z"}
+{"k":"0000000080","o":"0000000375","v":"001"}
+{"_id":20,"_uid":21,"_dt":1758742202395,"_s":"f4f289b7d0f7a542de663da55064656a"}
+{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","task_type":"task","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":1030,"y":-420},"_id":{"$wrap":"$oid","v":20},"updatedAt":"2025-09-24T19:30:02.395Z"}
+{"k":"0000000080","o":"0000000383","v":"001"}
+{"_id":11,"_uid":21,"_dt":1758742203472,"_s":"cd1447531c5e21c484d09c1290cb73dc"}
+{"id":"task-10","task_type":"task","title":"Setup Database Indexes","description":"Optimize database performance with proper indexes","status":"completed","assignedTo":"user-3","priority":"high","estimatedHours":10,"completedHours":10,"dependencies":["task-2"],"type":"optimization","position":{"x":1612,"y":-320},"_id":{"$wrap":"$oid","v":11},"updatedAt":"2025-09-24T19:30:03.470Z"}
+{"k":"0000000079","o":"0000000380","v":"001"}
+{"_id":7,"_uid":21,"_dt":1758742207676,"_s":"5b6c1985377f98785ebf18569a71feaa"}
+{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":230,"y":352},"_id":{"$wrap":"$oid","v":7},"updatedAt":"2025-09-24T19:30:07.675Z"}
+{"k":"0000000079","o":"0000000354","v":"001"}
+{"_id":6,"_uid":21,"_dt":1758742209115,"_s":"06f31c007421dd103f92d830ab40a037"}
+{"id":"task-5","task_type":"task","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","position":{"x":-432,"y":748},"_id":{"$wrap":"$oid","v":6},"updatedAt":"2025-09-24T19:30:09.115Z"}
+{"k":"0000000079","o":"0000000379","v":"001"}
+{"_id":7,"_uid":21,"_dt":1758742209871,"_s":"a21d6dc7b419e8c7cd76599d207b1265"}
+{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":34,"y":436},"_id":{"$wrap":"$oid","v":7},"updatedAt":"2025-09-24T19:30:09.871Z"}
+{"k":"0000000079","o":"0000000360","v":"001"}
+{"_id":9,"_uid":21,"_dt":1758742210765,"_s":"0ad9f486fd1a191b4de5a9699d68bcc1"}
+{"id":"task-8","task_type":"task","title":"Create Form Components","description":"Build reusable form input components","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":14,"completedHours":0,"dependencies":["task-6"],"type":"feature","position":{"x":520,"y":386},"_id":{"$wrap":"$oid","v":9},"updatedAt":"2025-09-24T19:30:10.765Z"}
+{"k":"0000000079","o":"0000000362","v":"001"}
+{"_id":8,"_uid":21,"_dt":1758742213028,"_s":"d69456c9fd9eb14b6a8d2b20bacd8a07"}
+{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":906,"y":-110},"_id":{"$wrap":"$oid","v":8},"updatedAt":"2025-09-24T19:30:13.028Z"}
+{"k":"0000000079","o":"0000000380","v":"001"}
+{"_id":4,"_uid":21,"_dt":1758742215299,"_s":"104cd3d91814563b9069ea785be5cad7"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":1585.172316384181,"y":-814.5282485875706},"_id":{"$wrap":"$oid","v":4},"updatedAt":"2025-09-24T19:30:15.298Z"}
+{"k":"0000000079","o":"0000000362","v":"001"}
+{"_id":8,"_uid":21,"_dt":1758742216723,"_s":"6709cd81956342d2521b831ba97bc26c"}
+{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":932,"y":-784},"_id":{"$wrap":"$oid","v":8},"updatedAt":"2025-09-24T19:30:16.722Z"}
+{"k":"0000000079","o":"0000000360","v":"001"}
+{"_id":9,"_uid":21,"_dt":1758742219088,"_s":"a9d9609b364a29df2bddda5eefeefc3d"}
+{"id":"task-8","task_type":"task","title":"Create Form Components","description":"Build reusable form input components","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":14,"completedHours":0,"dependencies":["task-6"],"type":"feature","position":{"x":452,"y":424},"_id":{"$wrap":"$oid","v":9},"updatedAt":"2025-09-24T19:30:19.087Z"}
+{"k":"0000000080","o":"0000000385","v":"001"}
+{"_id":10,"_uid":21,"_dt":1758742220394,"_s":"b8811c13e8307aca7af9920caaf1aacf"}
+{"id":"task-9","task_type":"task","title":"Implement Search Functionality","description":"Add search capabilities to the application","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":18,"completedHours":0,"dependencies":["task-2","task-8"],"type":"feature","position":{"x":1142,"y":352},"_id":{"$wrap":"$oid","v":10},"updatedAt":"2025-09-24T19:30:20.393Z"}
+{"k":"0000000079","o":"0000000354","v":"001"}
+{"_id":6,"_uid":21,"_dt":1758742222218,"_s":"0d67e2c87305342d30b24c7d1347a556"}
+{"id":"task-5","task_type":"task","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","position":{"x":-532,"y":770},"_id":{"$wrap":"$oid","v":6},"updatedAt":"2025-09-24T19:30:22.217Z"}
+{"k":"0000000079","o":"0000000379","v":"001"}
+{"_id":7,"_uid":21,"_dt":1758742223996,"_s":"f81204b0f5ec26d0104b7108fdda614e"}
+{"id":"task-6","task_type":"task","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","position":{"x":-8,"y":426},"_id":{"$wrap":"$oid","v":7},"updatedAt":"2025-09-24T19:30:23.995Z"}
+{"k":"0000000080","o":"0000000384","v":"001"}
+{"_id":12,"_uid":21,"_dt":1758742224676,"_s":"6dc6e48e8cb73fbb55d05e10b6e97907"}
+{"id":"task-unassigned-1","task_type":"task","title":"Implement Email Notifications","description":"Create email notification system for important events","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":-62,"y":968},"_id":{"$wrap":"$oid","v":12},"updatedAt":"2025-09-24T19:30:24.675Z"}
+{"k":"0000000080","o":"0000000385","v":"001"}
+{"_id":12,"_uid":21,"_dt":1758742227021,"_s":"e12c08f5974af7e0404d59ccae39aee8"}
+{"id":"task-unassigned-1","task_type":"task","title":"Implement Email Notifications","description":"Create email notification system for important events","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":1986,"y":604},"_id":{"$wrap":"$oid","v":12},"updatedAt":"2025-09-24T19:30:27.015Z"}
+{"k":"0000000080","o":"0000000364","v":"001"}
+{"_id":13,"_uid":21,"_dt":1758742228368,"_s":"4e99f8abd3693d33f82a3404130d185e"}
+{"id":"task-unassigned-2","task_type":"task","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","position":{"x":2022,"y":880},"_id":{"$wrap":"$oid","v":13},"updatedAt":"2025-09-24T19:30:28.366Z"}
+{"k":"0000000079","o":"0000000358","v":"001"}
+{"_id":5,"_uid":21,"_dt":1758742230504,"_s":"20cd22eedb0dfce7ed8c41e513c88749"}
+{"id":"task-4","task_type":"task","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","position":{"x":1988,"y":1060},"_id":{"$wrap":"$oid","v":5},"updatedAt":"2025-09-24T19:30:30.504Z"}
+{"k":"0000000080","o":"0000000374","v":"001"}
+{"_id":20,"_uid":21,"_dt":1758742232887,"_s":"1971247d6f5e9bc6aa435ec198de37b7"}
+{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","task_type":"task","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":2428,"y":568},"_id":{"$wrap":"$oid","v":20},"updatedAt":"2025-09-24T19:30:32.886Z"}
+{"k":"0000000080","o":"0000000394","v":"001"}
+{"_id":21,"_uid":21,"_dt":1758742234164,"_s":"e655e7bc4b6dca790ce5dbe97bde298d"}
+{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","task_type":"task","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":2314.25988700565,"y":220.8248587570622},"_id":{"$wrap":"$oid","v":21},"updatedAt":"2025-09-24T19:30:34.163Z"}
+{"k":"0000000080","o":"0000000431","v":"001"}
+{"_id":19,"_uid":21,"_dt":1758742235595,"_s":"784d509938b23a6d4d7d879da9cbfb39"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":2336,"y":-146},"completedAt":"2025-09-23T19:29:40.990Z","_id":{"$wrap":"$oid","v":19},"updatedAt":"2025-09-24T19:30:35.594Z"}
+{"k":"0000000079","o":"0000000362","v":"001"}
+{"_id":8,"_uid":21,"_dt":1758742237908,"_s":"8c7f7e7cb7ec63b9f1409c9181bb10e5"}
+{"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":-66,"y":-672},"_id":{"$wrap":"$oid","v":8},"updatedAt":"2025-09-24T19:30:37.906Z"}
+{"k":"0000000079","o":"0000000380","v":"001"}
+{"_id":4,"_uid":21,"_dt":1758742239527,"_s":"9afa3f3c0ff811382a58668fd6ff0f12"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":877.1723163841809,"y":-782.5282485875706},"_id":{"$wrap":"$oid","v":4},"updatedAt":"2025-09-24T19:30:39.526Z"}
+{"k":"0000000080","o":"0000000545","v":"001"}
+{"_id":18,"_uid":21,"_dt":1758742241453,"_s":"39c134b971bf69fd7465aaa0e1a144ca"}
+{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2025-09-24T19:30:41.451Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1374,"y":-798},"_id":{"$wrap":"$oid","v":18}}
+{"k":"0000000079","o":"0000000380","v":"001"}
+{"_id":4,"_uid":21,"_dt":1758742243623,"_s":"94c41aff62e8255710da91f7ae43dd62"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":731.1723163841809,"y":-746.5282485875706},"_id":{"$wrap":"$oid","v":4},"updatedAt":"2025-09-24T19:30:43.622Z"}
+{"k":"0000000079","o":"0000000379","v":"001"}
+{"_id":4,"_uid":21,"_dt":1758742246875,"_s":"96a99e64559e68aec08cea22fbd293b5"}
+{"id":"task-3","task_type":"task","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","position":{"x":576.487979580383,"y":-732.2056248094411},"_id":{"$wrap":"$oid","v":4},"updatedAt":"2025-09-24T19:30:46.874Z"}
+{"k":"0000000080","o":"0000000459","v":"001"}
+{"_id":19,"_uid":21,"_dt":1758742251193,"_s":"15133c2a569820196d7db51da11c8cca"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","task_type":"task","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","position":{"x":2010.1547463075508,"y":-767.7659432702859},"completedAt":"2025-09-23T19:29:40.990Z","_id":{"$wrap":"$oid","v":19},"updatedAt":"2025-09-24T19:30:51.192Z"}
+{"k":"0000000080","o":"0000000573","v":"001"}
+{"_id":18,"_uid":21,"_dt":1758742253249,"_s":"5bf3f9502b26415653efe5b0ebbe0290"}
+{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2025-09-24T19:30:53.247Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1069.7669315014377,"y":-778.0502905902582},"_id":{"$wrap":"$oid","v":18}}
+{"k":"0000000080","o":"0000000573","v":"001"}
+{"_id":18,"_uid":21,"_dt":1758742256366,"_s":"a7ac77b0a413f863b03f00a03b6f350a"}
+{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2025-09-24T19:30:56.365Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1287.5512592244522,"y":-794.6750484317097},"_id":{"$wrap":"$oid","v":18}}
