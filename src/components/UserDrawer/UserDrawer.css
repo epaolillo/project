@@ -267,22 +267,112 @@
   margin-bottom: 15px;
 }
 
-.task-dropdown {
+.task-selector .autocomplete-container {
   width: 100%;
-  padding: 14px; /* Increased padding */
+}
+
+.task-selector .autocomplete-input {
+  padding: 14px 16px;
   border: 2px solid #e1e5e9;
   border-radius: 8px;
-  font-size: 16px; /* Increased size */
+  font-size: 16px;
   background: white;
   color: #2c3e50;
-  cursor: pointer;
   transition: border-color 0.3s ease;
 }
 
-.task-dropdown:focus {
+.task-selector .autocomplete-input:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.task-selector .autocomplete-dropdown {
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.task-selector .autocomplete-option {
+  padding: 12px 16px;
+}
+
+.task-selector .option-avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.task-selector .option-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.task-selector .option-role {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Custom styling for task options */
+.task-selector .autocomplete-option .option-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.task-selector .autocomplete-option .option-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.task-selector .autocomplete-option .option-role {
+  font-size: 12px;
+  color: #6c757d;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.task-selector .autocomplete-option .task-status {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.task-selector .autocomplete-option .task-status.pending {
+  background: #e9ecef;
+  color: #6c757d;
+}
+
+.task-selector .autocomplete-option .task-status.in_progress {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.task-selector .autocomplete-option .task-status.completed {
+  background: #d4edda;
+  color: #155724;
+}
+
+.task-selector .autocomplete-option .task-priority {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.task-selector .autocomplete-option .task-priority.high {
+  color: #dc3545;
+}
+
+.task-selector .autocomplete-option .task-priority.medium {
+  color: #fd7e14;
+}
+
+.task-selector .autocomplete-option .task-priority.low {
+  color: #17a2b8;
 }
 
 /* Current Task Details */

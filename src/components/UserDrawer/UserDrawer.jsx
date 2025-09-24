@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import apiService from '../../services/ApiService';
+import AutocompleteInput from '../TaskDrawer/AutocompleteInput';
 import './UserDrawer.css';
 
 /**
@@ -199,10 +200,11 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
     return date.toISOString().split('T')[0];
   };
 
-  // Get user's assigned tasks
-  const userTasks = tasks.filter(task => 
-    editedUser && editedUser.assignedTasks && editedUser.assignedTasks.includes(task.id)
-  );
+  // Get all available tasks (not archived) with formatted role info
+  const availableTasks = tasks.filter(task => !task.archived).map(task => ({
+    ...task,
+    role: `${task.status} • ${task.priority} • ${task.task_type === 'incident' ? '🚨' : '📋'}`
+  }));
 
   // Get current task details
   const currentTask = tasks.find(task => task.id === editedUser?.currentTaskId);
@@ -380,36 +382,18 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
           <div className="drawer-section">
             <h3>🎯 Tarea Actual</h3>
             <div className="task-selector">
-              <select 
-                value={editedUser.currentTaskId} 
-                onChange={(e) => handleCurrentTaskChange(e.target.value)}
-                className="task-dropdown"
-              >
-                <option value="">Seleccionar tarea...</option>
-                {userTasks.map(task => (
-                  <option key={task.id} value={task.id}>
-                    {task.title} ({task.status})
-                  </option>
-                ))}
-              </select>
+              <AutocompleteInput
+                id="current-task"
+                value={editedUser.currentTaskId}
+                displayValue={currentTask ? `${currentTask.title} (${currentTask.status})` : ''}
+                options={availableTasks}
+                onSelect={(task) => handleCurrentTaskChange(task ? task.id : '')}
+                placeholder="Buscar tarea..."
+                getOptionLabel={(task) => task.title}
+                getOptionValue={(task) => task.id}
+                className="field-input"
+              />
             </div>
-            {currentTask && (
-              <div className="current-task-details">
-                <h4>{currentTask.title}</h4>
-                <p className="task-description">{currentTask.description}</p>
-                <div className="task-meta">
-                  <span className={`task-status ${currentTask.status}`}>
-                    {currentTask.status}
-                  </span>
-                  <span className="task-priority">
-                    Prioridad: {currentTask.priority}
-                  </span>
-                  <span className="task-hours">
-                    {currentTask.completedHours}/{currentTask.estimatedHours}h
-                  </span>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Vacations Section */}
