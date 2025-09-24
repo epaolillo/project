@@ -1,0 +1,69 @@
+{"k":"0000000078","o":"0000000281","v":"001"}
+{"_id":2,"_uid":2,"_dt":1758722114276,"_s":"e6e879b5054954847a8026b5d30af9e8"}
+{"id":"task-1","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000273","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758722114277,"_s":"16d039628a3af877b59e3fc81b66d5b4"}
+{"id":"task-2","title":"Design Database Schema","description":"Create the complete database structure","status":"pending","assignedTo":"user-1","priority":"high","estimatedHours":12,"completedHours":0,"dependencies":["task-1"],"type":"feature","_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000264","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758722114278,"_s":"ebc92a4e5898573f105f33359cb446ce"}
+{"id":"task-3","title":"Setup CI/CD Pipeline","description":"Configure automated deployment","status":"pending","assignedTo":"user-1","priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"infrastructure","_id":{"$wrap":"$oid","v":4}}
+{"k":"0000000078","o":"0000000269","v":"001"}
+{"_id":5,"_uid":5,"_dt":1758722114278,"_s":"848da2898f15633805758685955c2268"}
+{"id":"task-4","title":"Create API Documentation","description":"Document all REST API endpoints","status":"completed","assignedTo":"user-1","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":[],"type":"documentation","_id":{"$wrap":"$oid","v":5}}
+{"k":"0000000078","o":"0000000266","v":"001"}
+{"_id":6,"_uid":6,"_dt":1758722114280,"_s":"4be1b17a03b55ac23368ac452b6d5110"}
+{"id":"task-5","title":"Design Landing Page","description":"Create attractive landing page mockups","status":"in_progress","assignedTo":"user-2","priority":"high","estimatedHours":24,"completedHours":12,"dependencies":[],"type":"design","_id":{"$wrap":"$oid","v":6}}
+{"k":"0000000078","o":"0000000293","v":"001"}
+{"_id":7,"_uid":7,"_dt":1758722114281,"_s":"206e6ddb9bfc64635d2485a1da9da69e"}
+{"id":"task-6","title":"Implement Responsive Navigation","description":"Create mobile-friendly navigation component","status":"in_progress","assignedTo":"user-2","priority":"medium","estimatedHours":16,"completedHours":8,"dependencies":["task-5"],"type":"feature","_id":{"$wrap":"$oid","v":7}}
+{"k":"0000000078","o":"0000000274","v":"001"}
+{"_id":8,"_uid":8,"_dt":1758722114281,"_s":"7b8547cbedf670e5f3c3882630fe7505"}
+{"id":"task-7","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","_id":{"$wrap":"$oid","v":8}}
+{"k":"0000000078","o":"0000000273","v":"001"}
+{"_id":9,"_uid":9,"_dt":1758722114281,"_s":"577eaa4d420c371e74be492908523d6e"}
+{"id":"task-8","title":"Create Form Components","description":"Build reusable form input components","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":14,"completedHours":0,"dependencies":["task-6"],"type":"feature","_id":{"$wrap":"$oid","v":9}}
+{"k":"0000000080","o":"0000000297","v":"001"}
+{"_id":10,"_uid":10,"_dt":1758722114282,"_s":"d589fef1c087a899379606d2d5a9017a"}
+{"id":"task-9","title":"Implement Search Functionality","description":"Add search capabilities to the application","status":"pending","assignedTo":"user-2","priority":"medium","estimatedHours":18,"completedHours":0,"dependencies":["task-2","task-8"],"type":"feature","_id":{"$wrap":"$oid","v":10}}
+{"k":"0000000080","o":"0000000294","v":"001"}
+{"_id":11,"_uid":11,"_dt":1758722114282,"_s":"f7d5056dd250f2af4a7d35e7399f3521"}
+{"id":"task-10","title":"Setup Database Indexes","description":"Optimize database performance with proper indexes","status":"completed","assignedTo":"user-3","priority":"high","estimatedHours":10,"completedHours":10,"dependencies":["task-2"],"type":"optimization","_id":{"$wrap":"$oid","v":11}}
+{"k":"0000000080","o":"0000000297","v":"001"}
+{"_id":12,"_uid":12,"_dt":1758722114282,"_s":"4d52867bc42424ce6b4e4e5f4c8ec7db"}
+{"id":"task-unassigned-1","title":"Implement Email Notifications","description":"Create email notification system for important events","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":20,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":12}}
+{"k":"0000000080","o":"0000000276","v":"001"}
+{"_id":13,"_uid":13,"_dt":1758722114282,"_s":"96fdf58fed48eafcc74681456d0bc263"}
+{"id":"task-unassigned-2","title":"Add Dark Mode Support","description":"Implement dark theme across the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":15,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":13}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":14,"_uid":14,"_dt":1758722114283,"_s":"f49c3314f0841a19bff982d3ab6c35ff"}
+{"id":"task-unassigned-3","title":"Setup Monitoring Dashboard","description":"Create system monitoring and alerting dashboard","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":25,"completedHours":0,"dependencies":[],"type":"infrastructure","_id":{"$wrap":"$oid","v":14}}
+{"k":"0000000080","o":"0000000281","v":"001"}
+{"_id":15,"_uid":15,"_dt":1758722114283,"_s":"995620e228278d8a68d963b6d49c4901"}
+{"id":"task-unassigned-4","title":"Implement Two-Factor Authentication","description":"Add 2FA security feature","status":"backlog","assignedTo":null,"priority":"high","estimatedHours":18,"completedHours":0,"dependencies":["task-1"],"type":"security","_id":{"$wrap":"$oid","v":15}}
+{"k":"0000000080","o":"0000000281","v":"001"}
+{"_id":16,"_uid":16,"_dt":1758722114283,"_s":"fd3319e03ac0317df1f24110acb2523d"}
+{"id":"task-unassigned-5","title":"Create Mobile App Prototype","description":"Design and prototype mobile application","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":30,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":16}}
+{"k":"0000000080","o":"0000000285","v":"001"}
+{"_id":17,"_uid":17,"_dt":1758722114283,"_s":"2a84e5ba4e0ec53fa8e95bda2aef200e"}
+{"id":"task-unassigned-6","title":"Setup Load Balancer","description":"Configure load balancing for high availability","status":"backlog","assignedTo":null,"priority":"high","estimatedHours":12,"completedHours":0,"dependencies":[],"type":"infrastructure","_id":{"$wrap":"$oid","v":17}}
+{"k":"0000000080","o":"0000000295","v":"001"}
+{"_id":18,"_uid":18,"_dt":1758722114283,"_s":"23037c95217ab096787e6e02a06fbecc"}
+{"id":"task-unassigned-7","title":"Implement Data Export Feature","description":"Allow users to export their data in various formats","status":"backlog","assignedTo":null,"priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":18}}
+{"k":"0000000080","o":"0000000289","v":"001"}
+{"_id":19,"_uid":19,"_dt":1758722114283,"_s":"c1342b54f2b2d8e22b3b30d5afdb903f"}
+{"id":"task-unassigned-8","title":"Add Internationalization Support","description":"Support multiple languages in the application","status":"backlog","assignedTo":null,"priority":"low","estimatedHours":22,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":19}}
+{"k":"0000000080","o":"0000000283","v":"001"}
+{"_id":20,"_uid":20,"_dt":1758722114283,"_s":"fbd25032bbdfc5bb9bf5b90913a5ebfb"}
+{"id":"task-unassigned-9","title":"Create Admin Panel","description":"Build administrative interface for system management","status":"backlog","assignedTo":null,"priority":"high","estimatedHours":35,"completedHours":0,"dependencies":[],"type":"feature","_id":{"$wrap":"$oid","v":20}}
+{"k":"0000000080","o":"0000000287","v":"001"}
+{"_id":21,"_uid":21,"_dt":1758722114283,"_s":"ba89dc6330c94424be8172e2301b5f0a"}
+{"id":"task-unassigned-10","title":"Setup Automated Testing","description":"Implement comprehensive test suite with automation","status":"backlog","assignedTo":null,"priority":"high","estimatedHours":40,"completedHours":0,"dependencies":[],"type":"testing","_id":{"$wrap":"$oid","v":21}}
+{"k":"0000000080","o":"0000000342","v":"001"}
+{"_id":22,"_uid":22,"_dt":1758722114288,"_s":"c5033687599b4bc477264eb4463d0d30"}
+{"id":"task-11","title":"Implement Password Reset","description":"Create password reset functionality with email verification","status":"completed","assignedTo":"user-3","priority":"medium","estimatedHours":8,"completedHours":8,"dependencies":["task-1"],"type":"feature","completedAt":"2025-09-23T13:55:14.288Z","_id":{"$wrap":"$oid","v":22}}
+{"k":"0000000080","o":"0000000286","v":"001"}
+{"_id":23,"_uid":23,"_dt":1758722114288,"_s":"9533f725f8eda489cd9415e20128d1d8"}
+{"id":"task-12","title":"Setup Error Monitoring","description":"Integrate error tracking and monitoring system","status":"in_progress","assignedTo":"user-3","priority":"high","estimatedHours":12,"completedHours":6,"dependencies":[],"type":"infrastructure","_id":{"$wrap":"$oid","v":23}}
+{"k":"0000000080","o":"0000000280","v":"001"}
+{"_id":24,"_uid":24,"_dt":1758722114288,"_s":"05565f4b6c5d1bbed794ef2a510c98af"}
+{"id":"task-13","title":"Create User Profile Page","description":"Build user profile management interface","status":"pending","assignedTo":"user-3","priority":"medium","estimatedHours":16,"completedHours":0,"dependencies":["task-1"],"type":"feature","_id":{"$wrap":"$oid","v":24}}

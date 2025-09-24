@@ -1,0 +1,172 @@
+.user-widget {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  min-width: 260px;
+}
+
+.user-widget:hover {
+  background: rgba(255, 255, 255, 0.98);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.user-widget:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.user-main-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.user-header {
+  flex: 1;
+  padding: 0;
+}
+
+.user-name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 11px;
+  color: #7f8c8d;
+  font-weight: 500;
+}
+
+.user-metrics {
+  margin-bottom: 8px;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.metric-item:last-child {
+  margin-bottom: 0;
+}
+
+.metric-label {
+  font-size: 10px;
+  color: #5a6c7d;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: left;
+}
+
+.update-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.update-time {
+  font-size: 9px;
+  color: #7f8c8d;
+  margin-left: 6px;
+  min-width: 25px;
+  text-align: right;
+}
+
+.task-count {
+  font-size: 10px;
+  color: #34495e;
+  text-align: center;
+  padding: 4px 8px;
+  background: rgba(52, 73, 94, 0.1);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+/* Animation for new notifications */
+.user-widget.has-notification {
+  animation: pulse-notification 2s ease-in-out infinite;
+}
+
+@keyframes pulse-notification {
+  0% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(255, 152, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .user-widget {
+    min-width: 240px;
+    padding: 8px;
+  }
+  
+  .user-main-info {
+    margin-bottom: 6px;
+  }
+  
+  .user-avatar {
+    margin-right: 6px;
+  }
+  
+  .avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+  
+  .user-name {
+    font-size: 13px;
+  }
+  
+  .user-role {
+    font-size: 10px;
+  }
+  
+  .metric-label {
+    font-size: 9px;
+    min-width: 50px;
+  }
+  
+  .task-count {
+    font-size: 9px;
+    padding: 3px 6px;
+  }
+}

@@ -1,0 +1,40 @@
+---
+alwaysApply: true
+---
+Project es una aplicativo que convierte multiples fuentes de datos (como por ejemplo Nocobase o Monday) en un frontend capaz de mostrar y desplegar actividades. Al mismo tiempo, presenta un frontend capaz de ser utilizado por los usaurios para poder hacer seguimiento de las tareas.
+
+El proceso esta basado en ciertas componentes de gamificacion. Por un lado, tomamos las tareas asignadas a las personas, y las mostramos en un sistema facil de visualizar. La idea es para los administradores del sistema poder ver las asignaciones y estados de cada persona asi como el impacto en el roadmap.
+
+La premisa es simple, un equipo que conoce bien la mision no solo se puede autogestionar, sino que ademas funciona mejor, con mas determinacion, y tiene la vision clara.
+
+El proyecto estructuralmente consta de dos partes
+
+1. manager
+2. user
+
+### Manager
+
+1. Manager consta de un layout landscape. Donde en la pantalla tenemos a la izquierda los widgets del personal. Y en el medio de todo la UI tenemos un digrama de flujos construido en React Flow.
+2. El frontend debera tener un servicio que vaya a buscar la data de la siguiente forma a su API:
+    1. /users: Listado de usuarios, esto incluye tambien su metadata asociada
+        1. Cansancio
+        2. Claridad en la tarea
+        3. Motivacion
+        4. Ultima Actualizacion
+        Como progress bar todas ellas
+    
+    1. /tasks: Listado de tareas, no necesariamente asignadas, pero deben presentarse en el layout de React Flow.
+    2. /incidents: Listado de bugs abiertos, se incluyen en el layout de flujos pero con un borde rojo de highlight. 
+
+Dejar este servicio con un mock configurable (para que sea facil sacar y poner) en caso de aun no disponer de data real, con suficiente datos mockeaos para representar claramente la aplicacion. Al menos 10 Desarrolladores, cada uno con 4 o 5 tareas ya asignadas, Con un backlog de 10 incidents. y Unas 10 tareas sin asignar.
+
+### User
+
+1. User consta de una UI donde vemos el React Flow como en manager, pero a la derecha vemos un sidebar con un titulo con nuestra actual tarea asignada. Y tres botones
+    1. Solicitar Ayuda
+    2. Feedback: Permite responder un cuestionario simple
+        1. Esta mi tarea clara?
+        2. Porcentaje de avance?
+    3. Terminar tarea.
+2. Bitacora. Se ṕermiten ir escribiendo anotaciones, a fin de ayudar en caso de requerir ayuda, o como memoria temporal.
+3. Cuando se termina una tarea, en el flow react se marca con borde verde de terminada. Y aparece como tarea actual, la siguiente asignada. Notificar mediante websocket a los administradores de que el usuario marco esta tarea como terminada. Al finalizar la tarea se solicita completar un breve texto de que fue lo que se hizo.

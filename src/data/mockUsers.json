@@ -1,0 +1,122 @@
+[
+  {
+    "id": "user-1",
+    "name": "Alejandro Campo",
+    "role": "Mobile, Web",
+    "avatar": "/avatars/alejandro.jpg",
+    "fatigue": 25,
+    "taskClarity": 85,
+    "motivation": 92,
+    "lastUpdate": "2024-01-15T10:30:00Z",
+    "assignedTasks": ["task-1", "task-2", "task-3", "task-4"],
+    "currentTaskId": "task-1"
+  },
+  {
+    "id": "user-2",
+    "name": "María González",
+    "role": "Frontend Developer",
+    "avatar": "/avatars/maria.jpg",
+    "fatigue": 40,
+    "taskClarity": 70,
+    "motivation": 88,
+    "lastUpdate": "2024-01-15T09:45:00Z",
+    "assignedTasks": ["task-5", "task-6", "task-7", "task-8", "task-9"],
+    "currentTaskId": "task-5"
+  },
+  {
+    "id": "user-3",
+    "name": "Carlos Rodriguez",
+    "role": "Backend Developer",
+    "avatar": "/avatars/carlos.jpg",
+    "fatigue": 15,
+    "taskClarity": 95,
+    "motivation": 75,
+    "lastUpdate": "2024-01-15T11:15:00Z",
+    "assignedTasks": ["task-10", "task-11", "task-12", "task-13"],
+    "currentTaskId": "task-10"
+  },
+  {
+    "id": "user-4",
+    "name": "Ana Martínez",
+    "role": "UI/UX Designer",
+    "avatar": "/avatars/ana.jpg",
+    "fatigue": 60,
+    "taskClarity": 80,
+    "motivation": 90,
+    "lastUpdate": "2024-01-15T08:20:00Z",
+    "assignedTasks": ["task-14", "task-15", "task-16", "task-17", "task-18"],
+    "currentTaskId": "task-14"
+  },
+  {
+    "id": "user-5",
+    "name": "David Chen",
+    "role": "DevOps Engineer",
+    "avatar": "/avatars/david.jpg",
+    "fatigue": 35,
+    "taskClarity": 90,
+    "motivation": 85,
+    "lastUpdate": "2024-01-15T10:00:00Z",
+    "assignedTasks": ["task-19", "task-20", "task-21", "task-22"],
+    "currentTaskId": "task-19"
+  },
+  {
+    "id": "user-6",
+    "name": "Elena Petrov",
+    "role": "QA Engineer",
+    "avatar": "/avatars/elena.jpg",
+    "fatigue": 20,
+    "taskClarity": 85,
+    "motivation": 95,
+    "lastUpdate": "2024-01-15T11:30:00Z",
+    "assignedTasks": ["task-23", "task-24", "task-25", "task-26", "task-27"],
+    "currentTaskId": "task-23"
+  },
+  {
+    "id": "user-7",
+    "name": "Roberto Silva",
+    "role": "Full Stack Developer",
+    "avatar": "/avatars/roberto.jpg",
+    "fatigue": 45,
+    "taskClarity": 75,
+    "motivation": 80,
+    "lastUpdate": "2024-01-15T09:10:00Z",
+    "assignedTasks": ["task-28", "task-29", "task-30", "task-31"],
+    "currentTaskId": "task-28"
+  },
+  {
+    "id": "user-8",
+    "name": "Sophie Laurent",
+    "role": "Mobile Developer",
+    "avatar": "/avatars/sophie.jpg",
+    "fatigue": 30,
+    "taskClarity": 88,
+    "motivation": 92,
+    "lastUpdate": "2024-01-15T10:45:00Z",
+    "assignedTasks": ["task-32", "task-33", "task-34", "task-35", "task-36"],
+    "currentTaskId": "task-32"
+  },
+  {
+    "id": "user-9",
+    "name": "Ahmad Hassan",
+    "role": "Database Administrator",
+    "avatar": "/avatars/ahmad.jpg",
+    "fatigue": 25,
+    "taskClarity": 92,
+    "motivation": 87,
+    "lastUpdate": "2024-01-15T11:00:00Z",
+    "assignedTasks": ["task-37", "task-38", "task-39", "task-40"],
+    "currentTaskId": "task-37"
+  },
+  {
+    "id": "user-10",
+    "name": "Lisa Wang",
+    "role": "Security Engineer",
+    "avatar": "/avatars/lisa.jpg",
+    "fatigue": 50,
+    "taskClarity": 78,
+    "motivation": 83,
+    "lastUpdate": "2024-01-15T08:45:00Z",
+    "assignedTasks": ["task-41", "task-42", "task-43", "task-44", "task-45"],
+    "currentTaskId": "task-41"
+  }
+]

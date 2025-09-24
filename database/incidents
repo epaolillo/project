@@ -1,0 +1,30 @@
+{"k":"0000000078","o":"0000000444","v":"001"}
+{"_id":2,"_uid":2,"_dt":1758722114286,"_s":"98de622b9e30226346082858659d9168"}
+{"id":"incident-1","title":"Login Form Validation Bug","description":"Email validation not working properly on login form","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":"user-2","createdAt":"2024-01-14T15:30:00Z","updatedAt":"2024-01-15T09:00:00Z","affectedUsers":15,"reproductionSteps":["Go to login page","Enter invalid email format","Click login button","No validation message appears"],"_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000078","o":"0000000461","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758722114287,"_s":"649b5fb2ac0790742df1fd8c5ce2634d"}
+{"id":"incident-2","title":"Database Connection Timeout","description":"Intermittent database connection timeouts during peak hours","severity":"high","status":"in_progress","reportedBy":"user-5","assignedTo":"user-3","createdAt":"2024-01-13T10:15:00Z","updatedAt":"2024-01-15T08:45:00Z","affectedUsers":200,"reproductionSteps":["Access application during 2-4 PM","Perform any database operation","Connection fails intermittently"],"_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000433","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758722114287,"_s":"325a9d9b979058472e0b0cc7fb3fcbb8"}
+{"id":"incident-3","title":"Mobile UI Layout Issues","description":"Navigation menu overlaps content on mobile devices","severity":"medium","status":"open","reportedBy":"user-4","assignedTo":"user-8","createdAt":"2024-01-15T07:20:00Z","updatedAt":"2024-01-15T07:20:00Z","affectedUsers":50,"reproductionSteps":["Access application on mobile device","Open navigation menu","Menu covers main content area"],"_id":{"$wrap":"$oid","v":4}}
+{"k":"0000000078","o":"0000000466","v":"001"}
+{"_id":5,"_uid":5,"_dt":1758722114287,"_s":"9be49a1bf08c4e11eca312b5db2df642"}
+{"id":"incident-4","title":"Search Results Not Loading","description":"Search functionality returns empty results for valid queries","severity":"high","status":"open","reportedBy":"user-1","assignedTo":null,"createdAt":"2024-01-15T11:45:00Z","updatedAt":"2024-01-15T11:45:00Z","affectedUsers":80,"reproductionSteps":["Navigate to search page","Enter valid search term","Click search button","No results displayed despite data existing"],"_id":{"$wrap":"$oid","v":5}}
+{"k":"0000000078","o":"0000000486","v":"001"}
+{"_id":6,"_uid":6,"_dt":1758722114287,"_s":"db5c787fe73c54b81f4a23b29d518d54"}
+{"id":"incident-5","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","assignedTo":"user-7","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2024-01-15T10:20:00Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"_id":{"$wrap":"$oid","v":6}}
+{"k":"0000000078","o":"0000000464","v":"001"}
+{"_id":7,"_uid":7,"_dt":1758722114287,"_s":"fb45a2c5fd1a3d682e83a8772950aac1"}
+{"id":"incident-6","title":"Notification System Delay","description":"Push notifications are delayed by 5-10 minutes","severity":"medium","status":"open","reportedBy":"user-6","assignedTo":null,"createdAt":"2024-01-14T16:45:00Z","updatedAt":"2024-01-14T16:45:00Z","affectedUsers":120,"reproductionSteps":["Trigger an event that should send notification","Wait for notification to arrive","Notification arrives with significant delay"],"_id":{"$wrap":"$oid","v":7}}
+{"k":"0000000078","o":"0000000465","v":"001"}
+{"_id":8,"_uid":8,"_dt":1758722114287,"_s":"4eba93c2c002cb4d6834bae632431649"}
+{"id":"incident-7","title":"API Rate Limiting Too Aggressive","description":"API rate limits block legitimate user requests","severity":"medium","status":"in_progress","reportedBy":"user-3","assignedTo":"user-3","createdAt":"2024-01-11T09:15:00Z","updatedAt":"2024-01-15T11:10:00Z","affectedUsers":40,"reproductionSteps":["Make multiple API calls in sequence","After 10 calls, requests are blocked","Rate limit persists for 5 minutes"],"_id":{"$wrap":"$oid","v":8}}
+{"k":"0000000078","o":"0000000458","v":"001"}
+{"_id":9,"_uid":9,"_dt":1758722114287,"_s":"113f96c2748ea7f4e2d99768994f0f05"}
+{"id":"incident-8","title":"CSS Styles Not Loading","description":"Stylesheets fail to load on some browser versions","severity":"low","status":"open","reportedBy":"user-4","assignedTo":null,"createdAt":"2024-01-15T12:00:00Z","updatedAt":"2024-01-15T12:00:00Z","affectedUsers":25,"reproductionSteps":["Access application on older browser versions","Page loads without CSS styling","Functionality works but appearance is broken"],"_id":{"$wrap":"$oid","v":9}}
+{"k":"0000000080","o":"0000000460","v":"001"}
+{"_id":10,"_uid":10,"_dt":1758722114287,"_s":"5d152ce45bad408946190f07ec2374d2"}
+{"id":"incident-9","title":"Session Timeout Too Short","description":"User sessions expire after 15 minutes of inactivity","severity":"low","status":"open","reportedBy":"user-2","assignedTo":"user-1","createdAt":"2024-01-13T13:20:00Z","updatedAt":"2024-01-15T09:30:00Z","affectedUsers":100,"reproductionSteps":["Login to application","Leave browser idle for 15 minutes","Try to interact with application","Forced to login again"],"_id":{"$wrap":"$oid","v":10}}
+{"k":"0000000080","o":"0000000475","v":"001"}
+{"_id":11,"_uid":11,"_dt":1758722114287,"_s":"523d17bc15a2081c98b79f7db2ade23c"}
+{"id":"incident-10","title":"Data Export Corruption","description":"Exported CSV files contain corrupted special characters","severity":"medium","status":"open","reportedBy":"user-9","assignedTo":null,"createdAt":"2024-01-14T11:30:00Z","updatedAt":"2024-01-14T11:30:00Z","affectedUsers":35,"reproductionSteps":["Navigate to data export page","Export data with special characters","Download and open CSV file","Special characters are corrupted"],"_id":{"$wrap":"$oid","v":11}}

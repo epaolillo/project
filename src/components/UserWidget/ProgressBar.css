@@ -1,0 +1,117 @@
+.progress-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  margin-left: 8px;
+}
+
+.progress-track {
+  flex: 1;
+  height: 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.progress-text {
+  font-size: 10px;
+  font-weight: 500;
+  margin-left: 6px;
+  min-width: 30px;
+  text-align: right;
+  color: #5a6c7d;
+}
+
+/* Color variants */
+.progress-primary .progress-fill {
+  background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+}
+
+.progress-success .progress-fill {
+  background: linear-gradient(90deg, #28a745 0%, #1e7e34 100%);
+}
+
+.progress-warning .progress-fill {
+  background: linear-gradient(90deg, #ffc107 0%, #d39e00 100%);
+}
+
+.progress-danger .progress-fill {
+  background: linear-gradient(90deg, #dc3545 0%, #bd2130 100%);
+}
+
+.progress-info .progress-fill {
+  background: linear-gradient(90deg, #17a2b8 0%, #117a8b 100%);
+}
+
+.progress-secondary .progress-fill {
+  background: linear-gradient(90deg, #6c757d 0%, #545b62 100%);
+}
+
+/* Size variants */
+.progress-small .progress-track {
+  height: 4px;
+}
+
+.progress-small .progress-text {
+  font-size: 9px;
+}
+
+.progress-medium .progress-track {
+  height: 6px;
+}
+
+.progress-large .progress-track {
+  height: 8px;
+}
+
+.progress-large .progress-text {
+  font-size: 11px;
+}
+
+/* Animation for loading state */
+.progress-bar.loading .progress-fill {
+  animation: progress-loading 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-loading {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .progress-track {
+    background-color: #000;
+    border: 1px solid #fff;
+  }
+  
+  .progress-fill {
+    background: #fff !important;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .progress-fill {
+    transition: none;
+  }
+  
+  .progress-bar.loading .progress-fill {
+    animation: none;
+  }
+}
