@@ -200,6 +200,16 @@ class ApiService {
   }
 
   /**
+   * Archive or unarchive a task
+   */
+  async archiveTask(taskId, archived = true) {
+    return await this.request(`/tasks/${taskId}/archive`, {
+      method: 'PUT',
+      body: JSON.stringify({ archived })
+    });
+  }
+
+  /**
    * Create a new person
    */
   async createPerson(personData) {

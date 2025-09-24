@@ -149,8 +149,13 @@ app.get('/api/auth/status', authenticateToken, (req, res) => {
 
 // Tasks endpoints (for tasks and incidents)
 app.get('/api/tasks', authenticateToken, (req, res) => {
-  const { task_type } = req.query;
-  const filter = task_type ? { task_type } : {};
+  const { task_type, include_archived } = req.query;
+  const filter = { task_type: task_type || { $exists: true } };
+  
+  // By default, exclude archived tasks unless explicitly requested
+  if (include_archived !== 'true') {
+    filter.archived = { $ne: true };
+  }
   
   tasks.find(filter).toArray((err, tasksList) => {
     if (err) {
@@ -545,6 +550,39 @@ app.put('/api/edges/batch', authenticateToken, (req, res) => {
       res.json({ success: true, edges: result });
     });
   });
+});
+
+// Archive/Unarchive task endpoint
+app.put('/api/tasks/:id/archive', authenticateToken, (req, res) => {
+  const taskId = req.params.id;
+  const { archived = true } = req.body;
+  
+  tasks.update(
+    { id: taskId },
+    { $set: { archived, updatedAt: new Date().toISOString() } },
+    (err, numReplaced) => {
+      if (err) {
+        console.error('Error updating task archive status:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (numReplaced === 0) {
+        return res.status(404).json({ error: 'Task not found' });
+      }
+      
+      // Get updated task
+      tasks.findOne({ id: taskId }, (err, updatedTask) => {
+        if (err) {
+          return res.status(500).json({ error: 'Database error' });
+        }
+        
+        // Emit to socket.io clients
+        io.emit('task_updated', updatedTask);
+        
+        res.json({ success: true, task: updatedTask });
+      });
+    }
+  );
 });
 
 // Bitacora endpoints (for user notes)
