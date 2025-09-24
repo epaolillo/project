@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import FlowDiagram from '../components/ReactFlow/FlowDiagram';
 import UserWidget from '../components/UserWidget/UserWidget';
 import UserDrawer from '../components/UserDrawer/UserDrawer';
+import TaskDrawer from '../components/TaskDrawer/TaskDrawer';
 import apiService from '../services/ApiService';
 import webSocketService from '../services/WebSocketService';
 import { getTaskStatistics } from '../utils/flowUtils';
@@ -24,6 +25,10 @@ const ManagerLayout = () => {
   // UserDrawer state
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [drawerUser, setDrawerUser] = useState(null);
+  
+  // TaskDrawer state
+  const [isTaskDrawerOpen, setIsTaskDrawerOpen] = useState(false);
+  const [lastUpdatedTask, setLastUpdatedTask] = useState(null);
 
   // Load all data
   const loadData = useCallback(async () => {
@@ -157,6 +162,24 @@ const ManagerLayout = () => {
 
   const handleTaskSelect = (taskData) => {
     setSelectedTask(taskData);
+    setIsTaskDrawerOpen(true);
+  };
+
+  const handleTaskDrawerClose = () => {
+    setIsTaskDrawerOpen(false);
+  };
+
+  const handleTaskUpdate = (updatedTask) => {
+    // Update local tasks state
+    setTasks(prev => prev.map(task => 
+      task.id === updatedTask.id ? updatedTask : task
+    ));
+    
+    // Update selected task
+    setSelectedTask(updatedTask);
+    
+    // Set updated task for React Flow to update specifically (avoids full reload)
+    setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
   };
 
   const dismissNotification = (notificationId) => {
@@ -200,73 +223,12 @@ const ManagerLayout = () => {
             onTaskSelect={handleTaskSelect}
             selectedTaskId={selectedTask?.id}
             showIncidents={true}
+            tasks={tasks}
+            users={users}
+            updatedTask={lastUpdatedTask}
           />
         </div>
 
-        {/* Task details sidebar */}
-        {selectedTask && (
-          <div className="task-details-sidebar">
-            <div className="sidebar-header">
-              <h3>Detalles de la tarea</h3>
-              <button 
-                onClick={() => setSelectedTask(null)}
-                className="close-button"
-              >
-                ×
-              </button>
-            </div>
-            
-            <div className="sidebar-content">
-              <h4>{selectedTask.title}</h4>
-              <p className="task-description">{selectedTask.description}</p>
-              
-              <div className="task-meta">
-                <div className="meta-item">
-                  <label>Estado:</label>
-                  <span className={`status-badge ${selectedTask.status}`}>
-                    {selectedTask.status}
-                  </span>
-                </div>
-                
-                <div className="meta-item">
-                  <label>Asignado a:</label>
-                  <span>{selectedTask.assigneeName}</span>
-                </div>
-                
-                <div className="meta-item">
-                  <label>Prioridad:</label>
-                  <span className={`priority-badge ${selectedTask.priority}`}>
-                    {selectedTask.priority}
-                  </span>
-                </div>
-                
-                {!selectedTask.isIncident && (
-                  <div className="meta-item">
-                    <label>Progreso:</label>
-                    <span>
-                      {selectedTask.completedHours}h / {selectedTask.estimatedHours}h
-                    </span>
-                  </div>
-                )}
-                
-                {selectedTask.isIncident && (
-                  <>
-                    <div className="meta-item">
-                      <label>Severidad:</label>
-                      <span className={`severity-badge ${selectedTask.severity}`}>
-                        {selectedTask.severity}
-                      </span>
-                    </div>
-                    <div className="meta-item">
-                      <label>Usuarios afectados:</label>
-                      <span>{selectedTask.affectedUsers}</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Notifications panel */}
@@ -302,6 +264,14 @@ const ManagerLayout = () => {
         onClose={handleDrawerClose}
         onTaskChange={handleTaskChange}
         onBitacoraAdd={handleBitacoraAdd}
+      />
+
+      {/* Task Drawer Modal */}
+      <TaskDrawer
+        task={selectedTask}
+        isOpen={isTaskDrawerOpen}
+        onClose={handleTaskDrawerClose}
+        onTaskUpdate={handleTaskUpdate}
       />
     </div>
   );

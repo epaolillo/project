@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import FlowDiagram from '../components/ReactFlow/FlowDiagram';
+import TaskDrawer from '../components/TaskDrawer/TaskDrawer';
 import apiService from '../services/ApiService';
 import webSocketService from '../services/WebSocketService';
 import { getNextTask, calculateUserWorkload } from '../utils/flowUtils';
@@ -11,6 +12,7 @@ import './UserLayout.css';
  */
 const UserLayout = ({ userId = 'user-1' }) => {
   const [user, setUser] = useState(null);
+  const [allUsers, setAllUsers] = useState([]);
   const [currentTask, setCurrentTask] = useState(null);
   const [allTasks, setAllTasks] = useState([]);
   const [logEntries, setLogEntries] = useState([]);
@@ -25,25 +27,32 @@ const UserLayout = ({ userId = 'user-1' }) => {
   });
   const [helpMessage, setHelpMessage] = useState('');
   const [completionNotes, setCompletionNotes] = useState('');
+  
+  // TaskDrawer state
+  const [selectedTask, setSelectedTask] = useState(null);
+  const [isTaskDrawerOpen, setIsTaskDrawerOpen] = useState(false);
+  const [lastUpdatedTask, setLastUpdatedTask] = useState(null);
 
   // Load user data and tasks
   const loadUserData = useCallback(async () => {
     try {
       setLoading(true);
-      const [userData, unifiedTasksData] = await Promise.all([
+      const [userData, tasksData, usersData] = await Promise.all([
         apiService.getUserById(userId),
-        apiService.getAllTasks()
+        apiService.getAllTasks(),
+        apiService.getUsers()
       ]);
 
       setUser(userData);
-      setAllTasks(unifiedTasksData);
+      setAllTasks(tasksData);
+      setAllUsers(usersData);
 
       // Get user's assigned tasks (both tasks and incidents)
-      const userTasks = unifiedTasksData.filter(task => task.assignedTo === userId);
+      const userTasks = tasksData.filter(task => task.assignedTo === userId);
       
       // Find current task (first in progress task or next available task)
       const inProgressTask = userTasks.find(task => task.status === 'in_progress');
-      const nextTask = inProgressTask || getNextTask(userTasks, unifiedTasksData);
+      const nextTask = inProgressTask || getNextTask(userTasks, tasksData);
       
       setCurrentTask(nextTask);
       
@@ -180,7 +189,30 @@ const UserLayout = ({ userId = 'user-1' }) => {
   };
 
   const handleTaskSelect = (taskData) => {
-    // Optional: Show task details or update current task view
+    setSelectedTask(taskData);
+    setIsTaskDrawerOpen(true);
+  };
+
+  const handleTaskDrawerClose = () => {
+    setIsTaskDrawerOpen(false);
+  };
+
+  const handleTaskUpdate = (updatedTask) => {
+    // Update local tasks state
+    setAllTasks(prev => prev.map(task => 
+      task.id === updatedTask.id ? updatedTask : task
+    ));
+    
+    // If this is the current task, update it too
+    if (currentTask && currentTask.id === updatedTask.id) {
+      setCurrentTask(updatedTask);
+    }
+    
+    // Update selected task
+    setSelectedTask(updatedTask);
+    
+    // Set updated task for React Flow to update specifically (avoids full reload)
+    setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
   };
 
   if (loading) {
@@ -226,6 +258,9 @@ const UserLayout = ({ userId = 'user-1' }) => {
             onTaskSelect={handleTaskSelect}
             selectedTaskId={currentTask?.id}
             showIncidents={false}
+            tasks={allTasks}
+            users={allUsers}
+            updatedTask={lastUpdatedTask}
           />
         </div>
 
@@ -433,6 +468,14 @@ const UserLayout = ({ userId = 'user-1' }) => {
           </div>
         </div>
       )}
+
+      {/* Task Drawer Modal */}
+      <TaskDrawer
+        task={selectedTask}
+        isOpen={isTaskDrawerOpen}
+        onClose={handleTaskDrawerClose}
+        onTaskUpdate={handleTaskUpdate}
+      />
     </div>
   );
 };

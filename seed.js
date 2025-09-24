@@ -12,9 +12,9 @@ console.log('🌱 Seeding database with mock data...');
 const db = new tingodb.Db(DB_PATH, {});
 
 // Collections
-const tasks = db.collection('tasks');
+const tasksCollection = db.collection('tasks'); // Collection for tasks and incidents
 const persons = db.collection('persons');
-const incidents = db.collection('incidents');
+const edges = db.collection('edges'); // Flow edges/connections
 
 // Helper function to read JSON files
 const readJsonFile = (fileName) => {
@@ -72,32 +72,37 @@ async function seed() {
     // Read mock data files
     const mockTasks = readJsonFile('mockTasks.json');
     const mockUsers = readJsonFile('mockUsers.json');
-    const mockIncidents = readJsonFile('mockIncidents.json');
 
-    if (!mockTasks || !mockUsers || !mockIncidents) {
+    if (!mockTasks || !mockUsers) {
       throw new Error('Failed to read one or more mock data files');
     }
 
-    console.log(`📊 Found ${mockTasks.length} tasks, ${mockUsers.length} users, ${mockIncidents.length} incidents`);
+    // Separate tasks and incidents from the single file
+    const tasks = mockTasks.filter(item => item.task_type === 'task');
+    const incidents = mockTasks.filter(item => item.task_type === 'incident');
+
+    console.log(`📊 Found ${tasks.length} tasks, ${mockUsers.length} users, ${incidents.length} incidents`);
 
     // Clear existing data
     console.log('🧹 Clearing existing data...');
     
-    await clearCollection(tasks, 'tasks');
+    await clearCollection(tasksCollection, 'tasks');
     await clearCollection(persons, 'persons');
-    await clearCollection(incidents, 'incidents');
+    await clearCollection(edges, 'edges');
+
+    // Use all tasks from the single file (task_type already included)
+    const allTasks = mockTasks;
+
+    console.log(`📦 Using ${allTasks.length} items (${tasks.length} tasks + ${incidents.length} incidents)`);
 
     // Insert mock data
     console.log('📤 Inserting mock data...');
 
-    // Insert tasks
-    const tasksInserted = await insertData(tasks, mockTasks, 'tasks');
+    // Insert all tasks (tasks + incidents)
+    const tasksInserted = await insertData(tasksCollection, allTasks, 'tasks');
 
     // Insert persons (users)
     const personsInserted = await insertData(persons, mockUsers, 'persons');
-
-    // Insert incidents
-    const incidentsInserted = await insertData(incidents, mockIncidents, 'incidents');
 
     // Create some additional computed data
     console.log('🔧 Creating additional computed data...');
@@ -108,6 +113,7 @@ async function seed() {
         "id": "task-11",
         "title": "Implement Password Reset",
         "description": "Create password reset functionality with email verification",
+        "task_type": "task",
         "status": "completed",
         "assignedTo": "user-3",
         "priority": "medium",
@@ -115,52 +121,134 @@ async function seed() {
         "completedHours": 8,
         "dependencies": ["task-1"],
         "type": "feature",
+        "position": { "x": 400, "y": 200 },
         "completedAt": new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString() // 1 day ago
       },
       {
         "id": "task-12",
         "title": "Setup Error Monitoring",
         "description": "Integrate error tracking and monitoring system",
+        "task_type": "task",
         "status": "in_progress",
         "assignedTo": "user-3",
         "priority": "high",
         "estimatedHours": 12,
         "completedHours": 6,
         "dependencies": [],
-        "type": "infrastructure"
+        "type": "infrastructure",
+        "position": { "x": 600, "y": 300 }
       },
       {
         "id": "task-13",
         "title": "Create User Profile Page",
         "description": "Build user profile management interface",
+        "task_type": "task",
         "status": "pending",
         "assignedTo": "user-3",
         "priority": "medium",
         "estimatedHours": 16,
         "completedHours": 0,
         "dependencies": ["task-1"],
-        "type": "feature"
+        "type": "feature",
+        "position": { "x": 800, "y": 100 }
       }
     ];
 
-    await insertData(tasks, additionalTasks, 'additional tasks');
+    await insertData(tasksCollection, additionalTasks, 'additional tasks');
+
+    // Create edges based on task dependencies
+    console.log('🔗 Creating task dependencies edges...');
+    const taskEdges = [];
+    
+    // Process all tasks to create edges from dependencies
+    allTasks.forEach(task => {
+      if (task.dependencies && task.dependencies.length > 0) {
+        task.dependencies.forEach(depId => {
+          const edge = {
+            id: `${depId}-${task.id}`,
+            source: depId,
+            target: task.id,
+            type: 'smoothstep',
+            animated: true,
+            className: 'dependency-edge',
+            style: {
+              stroke: '#4a90e2',
+              strokeWidth: 20
+            }
+          };
+          taskEdges.push(edge);
+        });
+      }
+    });
+
+    // Add some additional workflow edges for better visualization
+    const additionalEdges = [
+      {
+        id: 'task-5-task-6',
+        source: 'task-5',
+        target: 'task-6',
+        type: 'smoothstep',
+        animated: true,
+        className: 'workflow-edge',
+        style: {
+          stroke: '#28a745',
+          strokeWidth: 18
+        }
+      },
+      {
+        id: 'task-6-task-8',
+        source: 'task-6',
+        target: 'task-8',
+        type: 'smoothstep',
+        animated: true,
+        className: 'workflow-edge',
+        style: {
+          stroke: '#28a745',
+          strokeWidth: 18
+        }
+      },
+      {
+        id: 'task-7-task-3',
+        source: 'task-7',
+        target: 'task-3',
+        type: 'smoothstep',
+        animated: true,
+        className: 'infrastructure-edge',
+        style: {
+          stroke: '#fd7e14',
+          strokeWidth: 16
+        }
+      }
+    ];
+
+    const allEdges = [...taskEdges, ...additionalEdges];
+    
+    if (allEdges.length > 0) {
+      await insertData(edges, allEdges, 'task edges');
+      console.log(`✅ Created ${allEdges.length} edges (${taskEdges.length} dependencies + ${additionalEdges.length} workflow)`);
+    }
 
     // Verify data insertion
     console.log('🔍 Verifying data insertion...');
     
-    tasks.count({}, (err, taskCount) => {
+    tasksCollection.count({}, (err, totalCount) => {
+      if (err) console.error('Error counting total tasks:', err);
+      else console.log(`📋 Total items in tasks collection: ${totalCount}`);
+    });
+
+    tasksCollection.count({ task_type: 'task' }, (err, taskCount) => {
       if (err) console.error('Error counting tasks:', err);
-      else console.log(`📋 Total tasks in database: ${taskCount}`);
+      else console.log(`✅ Tasks: ${taskCount}`);
+    });
+
+    tasksCollection.count({ task_type: 'incident' }, (err, incidentCount) => {
+      if (err) console.error('Error counting incidents:', err);
+      else console.log(`🚨 Incidents: ${incidentCount}`);
     });
 
     persons.count({}, (err, personCount) => {
       if (err) console.error('Error counting persons:', err);
       else console.log(`👥 Total persons in database: ${personCount}`);
-    });
-
-    incidents.count({}, (err, incidentCount) => {
-      if (err) console.error('Error counting incidents:', err);
-      else console.log(`🚨 Total incidents in database: ${incidentCount}`);
     });
 
     // Add a delay to ensure all operations complete
@@ -169,9 +257,10 @@ async function seed() {
       console.log('🎉 Database seeding completed successfully!');
       console.log('');
       console.log('Summary:');
-      console.log(`- Tasks: ${tasksInserted + additionalTasks.length} records`);
+      console.log(`- Tasks Collection: ${tasksInserted + additionalTasks.length} records`);
+      console.log(`  - Tasks: ${tasks.length + additionalTasks.length} records`);
+      console.log(`  - Incidents: ${incidents.length} records`);
       console.log(`- Persons: ${personsInserted} records`);
-      console.log(`- Incidents: ${incidentsInserted} records`);
       console.log('');
       console.log('Next steps:');
       console.log('1. Run "npm run server" to start the backend server');
@@ -193,18 +282,34 @@ const runDatabaseQueries = () => {
   console.log('🔍 Running sample database queries...');
 
   // Count tasks by status
-  tasks.aggregate([
+  tasksCollection.aggregate([
     { $group: { _id: '$status', count: { $sum: 1 } } }
   ], (err, results) => {
     if (!err && results) {
-      console.log('📊 Tasks by status:', results);
+      console.log('📊 Items by status:', results);
     }
   });
 
-  // Find high priority tasks
-  tasks.find({ priority: 'high' }).toArray((err, highPriorityTasks) => {
+  // Count by task_type
+  tasksCollection.aggregate([
+    { $group: { _id: '$task_type', count: { $sum: 1 } } }
+  ], (err, results) => {
+    if (!err && results) {
+      console.log('📦 Items by type:', results);
+    }
+  });
+
+  // Find high priority tasks (only tasks, not incidents)
+  tasksCollection.find({ priority: 'high', task_type: 'task' }).toArray((err, highPriorityTasks) => {
     if (!err) {
       console.log(`⚡ Found ${highPriorityTasks.length} high priority tasks`);
+    }
+  });
+
+  // Find critical incidents
+  tasksCollection.find({ severity: 'critical', task_type: 'incident' }).toArray((err, criticalIncidents) => {
+    if (!err) {
+      console.log(`🚨 Found ${criticalIncidents.length} critical incidents`);
     }
   });
 

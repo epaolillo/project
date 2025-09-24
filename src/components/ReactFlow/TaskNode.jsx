@@ -84,8 +84,8 @@ const TaskNode = ({ data, selected }) => {
         <div className="task-type-icon">
           {data.isIncident ? '🚨' : getTypeIcon(data.type)}
         </div>
-        <div className="task-priority" style={{ backgroundColor: getPriorityColor(data.priority) }}>
-          {data.priority}
+        <div className="task-priority" style={{ backgroundColor: getPriorityColor(data.isIncident ? data.severity : data.priority) }}>
+          {data.isIncident ? data.severity : data.priority}
         </div>
       </div>
       

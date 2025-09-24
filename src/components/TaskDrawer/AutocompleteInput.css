@@ -1,0 +1,356 @@
+/* AutocompleteInput Styles */
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.autocomplete-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.autocomplete-input {
+  width: 100%;
+  padding: 14px 50px 14px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  background: #ffffff;
+  color: #495057;
+}
+
+.autocomplete-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.autocomplete-input:hover {
+  border-color: #ced4da;
+}
+
+.autocomplete-input:disabled {
+  background: #f8f9fa;
+  color: #6c757d;
+  cursor: not-allowed;
+  border-color: #e9ecef;
+}
+
+.clear-button {
+  position: absolute;
+  right: 40px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #6c757d;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clear-button:hover {
+  background: #f8f9fa;
+  color: #495057;
+  transform: scale(1.1);
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 12px;
+  color: #6c757d;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.autocomplete-container:focus-within .dropdown-arrow {
+  transform: rotate(180deg);
+  color: #007bff;
+}
+
+/* Dropdown */
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  margin-top: 4px;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 10px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  animation: dropdownFadeIn 0.2s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.autocomplete-list {
+  margin: 0;
+  padding: 8px 0;
+  list-style: none;
+  max-height: 240px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #e9ecef transparent;
+}
+
+.autocomplete-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.autocomplete-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.autocomplete-list::-webkit-scrollbar-thumb {
+  background: #e9ecef;
+  border-radius: 3px;
+}
+
+.autocomplete-list::-webkit-scrollbar-thumb:hover {
+  background: #ced4da;
+}
+
+/* Option Items */
+.autocomplete-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border-bottom: 1px solid #f8f9fa;
+  position: relative;
+}
+
+.autocomplete-option:last-child {
+  border-bottom: none;
+}
+
+.autocomplete-option:hover,
+.autocomplete-option.highlighted {
+  background: #f8f9fa;
+  transform: translateX(2px);
+}
+
+.autocomplete-option.highlighted {
+  background: #e3f2fd;
+  border-left: 3px solid #2196f3;
+}
+
+.autocomplete-option.selected {
+  background: #e8f5e8;
+  border-left: 3px solid #4caf50;
+  font-weight: 600;
+}
+
+.autocomplete-option.selected:hover,
+.autocomplete-option.selected.highlighted {
+  background: #dcedc8;
+}
+
+.autocomplete-option.no-results {
+  color: #6c757d;
+  font-style: italic;
+  cursor: default;
+  text-align: center;
+  padding: 20px 16px;
+}
+
+.autocomplete-option.no-results:hover {
+  background: transparent;
+  transform: none;
+}
+
+/* Option Content */
+.option-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.option-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+  flex-shrink: 0;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.option-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.option-name {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.option-role {
+  font-size: 12px;
+  color: #6c757d;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.option-check {
+  color: #4caf50;
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 8px;
+  flex-shrink: 0;
+}
+
+/* Keyboard navigation highlight */
+.autocomplete-option.highlighted .option-avatar {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Loading state */
+.autocomplete-dropdown.loading {
+  padding: 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.autocomplete-dropdown.loading::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e9ecef;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .autocomplete-input {
+    padding: 12px 50px 12px 14px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+  
+  .autocomplete-option {
+    padding: 14px 16px;
+  }
+  
+  .option-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
+  
+  .option-content {
+    gap: 10px;
+  }
+  
+  .autocomplete-list {
+    max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .autocomplete-dropdown {
+    margin-top: 2px;
+    border-radius: 8px;
+  }
+  
+  .autocomplete-input {
+    padding: 10px 45px 10px 12px;
+  }
+  
+  .clear-button {
+    right: 35px;
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+  }
+  
+  .dropdown-arrow {
+    right: 10px;
+  }
+  
+  .autocomplete-option {
+    padding: 12px 14px;
+  }
+  
+  .option-name {
+    font-size: 14px;
+  }
+  
+  .option-role {
+    font-size: 11px;
+  }
+  
+  .autocomplete-list {
+    max-height: 180px;
+    padding: 6px 0;
+  }
+}
+
+/* Focus ring for accessibility */
+.autocomplete-input:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.autocomplete-option:focus-visible {
+  outline: 2px solid #007bff;
+  outline-offset: -2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .autocomplete-input {
+    border-width: 3px;
+  }
+  
+  .autocomplete-option.highlighted {
+    background: #000;
+    color: #fff;
+  }
+  
+  .option-avatar {
+    background: #000;
+    border-color: #000;
+  }
+}

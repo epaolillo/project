@@ -1,6 +1,7 @@
 [
   {
     "id": "task-1",
+    "task_type": "task",
     "title": "Implement User Authentication",
     "description": "Create login and registration functionality",
     "status": "in_progress",
@@ -9,10 +10,12 @@
     "estimatedHours": 16,
     "completedHours": 8,
     "dependencies": [],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 100, "y": 100 }
   },
   {
     "id": "task-2",
+    "task_type": "task",
     "title": "Design Database Schema",
     "description": "Create the complete database structure",
     "status": "pending",
@@ -21,10 +24,12 @@
     "estimatedHours": 12,
     "completedHours": 0,
     "dependencies": ["task-1"],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 500, "y": 100 }
   },
   {
     "id": "task-3",
+    "task_type": "task",
     "title": "Setup CI/CD Pipeline",
     "description": "Configure automated deployment",
     "status": "pending",
@@ -33,10 +38,12 @@
     "estimatedHours": 20,
     "completedHours": 0,
     "dependencies": [],
-    "type": "infrastructure"
+    "type": "infrastructure",
+    "position": { "x": 900, "y": 100 }
   },
   {
     "id": "task-4",
+    "task_type": "task",
     "title": "Create API Documentation",
     "description": "Document all REST API endpoints",
     "status": "completed",
@@ -45,10 +52,12 @@
     "estimatedHours": 8,
     "completedHours": 8,
     "dependencies": [],
-    "type": "documentation"
+    "type": "documentation",
+    "position": { "x": 1300, "y": 100 }
   },
   {
     "id": "task-5",
+    "task_type": "task",
     "title": "Design Landing Page",
     "description": "Create attractive landing page mockups",
     "status": "in_progress",
@@ -57,10 +66,12 @@
     "estimatedHours": 24,
     "completedHours": 12,
     "dependencies": [],
-    "type": "design"
+    "type": "design",
+    "position": { "x": 100, "y": 350 }
   },
   {
     "id": "task-6",
+    "task_type": "task",
     "title": "Implement Responsive Navigation",
     "description": "Create mobile-friendly navigation component",
     "status": "in_progress",
@@ -69,10 +80,12 @@
     "estimatedHours": 16,
     "completedHours": 8,
     "dependencies": ["task-5"],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 500, "y": 350 }
   },
   {
     "id": "task-7",
+    "task_type": "task",
     "title": "Setup Webpack Configuration",
     "description": "Optimize build process and bundling",
     "status": "completed",
@@ -81,10 +94,12 @@
     "estimatedHours": 6,
     "completedHours": 6,
     "dependencies": [],
-    "type": "infrastructure"
+    "type": "infrastructure",
+    "position": { "x": 900, "y": 350 }
   },
   {
     "id": "task-8",
+    "task_type": "task",
     "title": "Create Form Components",
     "description": "Build reusable form input components",
     "status": "pending",
@@ -93,10 +108,12 @@
     "estimatedHours": 14,
     "completedHours": 0,
     "dependencies": ["task-6"],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 500, "y": 600 }
   },
   {
     "id": "task-9",
+    "task_type": "task",
     "title": "Implement Search Functionality",
     "description": "Add search capabilities to the application",
     "status": "pending",
@@ -105,10 +122,12 @@
     "estimatedHours": 18,
     "completedHours": 0,
     "dependencies": ["task-2", "task-8"],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 900, "y": 600 }
   },
   {
     "id": "task-10",
+    "task_type": "task",
     "title": "Setup Database Indexes",
     "description": "Optimize database performance with proper indexes",
     "status": "completed",
@@ -117,10 +136,12 @@
     "estimatedHours": 10,
     "completedHours": 10,
     "dependencies": ["task-2"],
-    "type": "optimization"
+    "type": "optimization",
+    "position": { "x": 700, "y": 350 }
   },
   {
     "id": "task-unassigned-1",
+    "task_type": "task",
     "title": "Implement Email Notifications",
     "description": "Create email notification system for important events",
     "status": "backlog",
@@ -129,10 +150,12 @@
     "estimatedHours": 20,
     "completedHours": 0,
     "dependencies": [],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 100, "y": 850 }
   },
   {
     "id": "task-unassigned-2",
+    "task_type": "task",
     "title": "Add Dark Mode Support",
     "description": "Implement dark theme across the application",
     "status": "backlog",
@@ -141,102 +164,105 @@
     "estimatedHours": 15,
     "completedHours": 0,
     "dependencies": [],
-    "type": "feature"
+    "type": "feature",
+    "position": { "x": 500, "y": 850 }
   },
   {
-    "id": "task-unassigned-3",
-    "title": "Setup Monitoring Dashboard",
-    "description": "Create system monitoring and alerting dashboard",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "medium",
-    "estimatedHours": 25,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "infrastructure"
+    "id": "incident-1",
+    "task_type": "incident",
+    "title": "Login Form Validation Bug",
+    "description": "Email validation not working properly on login form",
+    "severity": "medium",
+    "status": "open",
+    "reportedBy": "user-6",
+    "assignedTo": "user-2",
+    "createdAt": "2024-01-14T15:30:00Z",
+    "updatedAt": "2024-01-15T09:00:00Z",
+    "affectedUsers": 15,
+    "reproductionSteps": [
+      "Go to login page",
+      "Enter invalid email format",
+      "Click login button",
+      "No validation message appears"
+    ],
+    "position": { "x": 1600, "y": 100 }
   },
   {
-    "id": "task-unassigned-4",
-    "title": "Implement Two-Factor Authentication",
-    "description": "Add 2FA security feature",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "high",
-    "estimatedHours": 18,
-    "completedHours": 0,
-    "dependencies": ["task-1"],
-    "type": "security"
+    "id": "incident-2",
+    "task_type": "incident",
+    "title": "Database Connection Timeout",
+    "description": "Intermittent database connection timeouts during peak hours",
+    "severity": "high",
+    "status": "in_progress",
+    "reportedBy": "user-5",
+    "assignedTo": "user-3",
+    "createdAt": "2024-01-13T10:15:00Z",
+    "updatedAt": "2024-01-15T08:45:00Z",
+    "affectedUsers": 200,
+    "reproductionSteps": [
+      "Access application during 2-4 PM",
+      "Perform any database operation",
+      "Connection fails intermittently"
+    ],
+    "position": { "x": 1600, "y": 350 }
   },
   {
-    "id": "task-unassigned-5",
-    "title": "Create Mobile App Prototype",
-    "description": "Design and prototype mobile application",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "medium",
-    "estimatedHours": 30,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "feature"
+    "id": "incident-3",
+    "task_type": "incident",
+    "title": "Mobile UI Layout Issues",
+    "description": "Navigation menu overlaps content on mobile devices",
+    "severity": "medium",
+    "status": "open",
+    "reportedBy": "user-4",
+    "assignedTo": "user-8",
+    "createdAt": "2024-01-15T07:20:00Z",
+    "updatedAt": "2024-01-15T07:20:00Z",
+    "affectedUsers": 50,
+    "reproductionSteps": [
+      "Access application on mobile device",
+      "Open navigation menu",
+      "Menu covers main content area"
+    ],
+    "position": { "x": 1600, "y": 600 }
   },
   {
-    "id": "task-unassigned-6",
-    "title": "Setup Load Balancer",
-    "description": "Configure load balancing for high availability",
-    "status": "backlog",
+    "id": "incident-4",
+    "task_type": "incident",
+    "title": "Search Results Not Loading",
+    "description": "Search functionality returns empty results for valid queries",
+    "severity": "high",
+    "status": "open",
+    "reportedBy": "user-1",
     "assignedTo": null,
-    "priority": "high",
-    "estimatedHours": 12,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "infrastructure"
+    "createdAt": "2024-01-15T11:45:00Z",
+    "updatedAt": "2024-01-15T11:45:00Z",
+    "affectedUsers": 80,
+    "reproductionSteps": [
+      "Navigate to search page",
+      "Enter valid search term",
+      "Click search button",
+      "No results displayed despite data existing"
+    ],
+    "position": { "x": 1600, "y": 850 }
   },
   {
-    "id": "task-unassigned-7",
-    "title": "Implement Data Export Feature",
-    "description": "Allow users to export their data in various formats",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "medium",
-    "estimatedHours": 16,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "feature"
-  },
-  {
-    "id": "task-unassigned-8",
-    "title": "Add Internationalization Support",
-    "description": "Support multiple languages in the application",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "low",
-    "estimatedHours": 22,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "feature"
-  },
-  {
-    "id": "task-unassigned-9",
-    "title": "Create Admin Panel",
-    "description": "Build administrative interface for system management",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "high",
-    "estimatedHours": 35,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "feature"
-  },
-  {
-    "id": "task-unassigned-10",
-    "title": "Setup Automated Testing",
-    "description": "Implement comprehensive test suite with automation",
-    "status": "backlog",
-    "assignedTo": null,
-    "priority": "high",
-    "estimatedHours": 40,
-    "completedHours": 0,
-    "dependencies": [],
-    "type": "testing"
+    "id": "incident-5",
+    "task_type": "incident",
+    "title": "File Upload Memory Leak",
+    "description": "Large file uploads cause memory consumption to increase indefinitely",
+    "severity": "critical",
+    "status": "open",
+    "reportedBy": "user-5",
+    "assignedTo": "user-7",
+    "createdAt": "2024-01-12T14:30:00Z",
+    "updatedAt": "2024-01-15T10:20:00Z",
+    "affectedUsers": 30,
+    "reproductionSteps": [
+      "Go to file upload page",
+      "Upload file larger than 10MB",
+      "Monitor server memory usage",
+      "Memory continues to grow after upload"
+    ],
+    "position": { "x": 1900, "y": 200 }
   }
 ]

@@ -1,12 +1,12 @@
 {"k":"0000000078","o":"0000000291","v":"001"}
-{"_id":2,"_uid":2,"_dt":1758721993716,"_s":"84d88cd71e46d4688099c063b7d0fc09"}
-{"username":"admin","password":"$2a$10$NAv0vKGB3eQd.8Lp.lD/4un6hHCD17uRUk9JB3qlFW4B2ol5Z3ImW","email":"admin@company.com","role":"administrator","name":"Administrator","isActive":true,"createdAt":"2025-09-24T13:53:13.579Z","updatedAt":"2025-09-24T13:53:13.580Z","_id":{"$wrap":"$oid","v":2}}
+{"_id":2,"_uid":2,"_dt":1758734997734,"_s":"5d497b0732be27b5055a2bc22a23a0b7"}
+{"username":"admin","password":"$2a$10$pC9jRbjtCoMBpdpFkayLmus7/JS.cSttDEEtvCSd9yhWmcNCRCr/y","email":"admin@company.com","role":"administrator","name":"Administrator","isActive":true,"createdAt":"2025-09-24T17:29:57.531Z","updatedAt":"2025-09-24T17:29:57.531Z","_id":{"$wrap":"$oid","v":2}}
 {"k":"0000000078","o":"0000000297","v":"001"}
-{"_id":3,"_uid":3,"_dt":1758721993786,"_s":"aecc06e6d4bde2f452c34776194344d8"}
-{"username":"alejandro","password":"$2a$10$nb7OV8637IcN/VJlUs0oquc92wv/kdg2H2TOipU4LFIz8w2JxJuSK","email":"alejandro@company.com","role":"developer","name":"Alejandro Campo","isActive":true,"createdAt":"2025-09-24T13:53:13.647Z","updatedAt":"2025-09-24T13:53:13.647Z","_id":{"$wrap":"$oid","v":3}}
+{"_id":3,"_uid":3,"_dt":1758734997736,"_s":"a4103b62711245027df7ebb8ed80dd8f"}
+{"username":"alejandro","password":"$2a$10$vtWrVZIz.fgrjCyZtRS/l.wT4CJjc7uP2sCD96emPC4gMG6poI/oW","email":"alejandro@company.com","role":"developer","name":"Alejandro Campo","isActive":true,"createdAt":"2025-09-24T17:29:57.599Z","updatedAt":"2025-09-24T17:29:57.599Z","_id":{"$wrap":"$oid","v":3}}
 {"k":"0000000078","o":"0000000290","v":"001"}
-{"_id":4,"_uid":4,"_dt":1758721993786,"_s":"334f89c5bd53f6f7d5ef3ee95ada8c30"}
-{"username":"maria","password":"$2a$10$iD72h.h.uuD.YrZdUdFlYeLqdToryBGYe6oWeYAlXPvl3WIjI5ZXq","email":"maria@company.com","role":"developer","name":"María González","isActive":true,"createdAt":"2025-09-24T13:53:13.715Z","updatedAt":"2025-09-24T13:53:13.715Z","_id":{"$wrap":"$oid","v":4}}
+{"_id":4,"_uid":4,"_dt":1758734997736,"_s":"8ac59c0e672ebd2d654391f5311834cf"}
+{"username":"maria","password":"$2a$10$hCMk8J0xrwHMp8qyLA31/eob0lwXui0aKPP3bjE9PdM5exEY4zRMO","email":"maria@company.com","role":"developer","name":"María González","isActive":true,"createdAt":"2025-09-24T17:29:57.667Z","updatedAt":"2025-09-24T17:29:57.667Z","_id":{"$wrap":"$oid","v":4}}
 {"k":"0000000078","o":"0000000292","v":"001"}
-{"_id":5,"_uid":5,"_dt":1758721993787,"_s":"b8bb62a2e5dc09ce7d3d3da6be25fd76"}
-{"username":"carlos","password":"$2a$10$T/hNIOJliRXJiQrYStjSKu0ZRqWAR2xaGacuw.t32LukUXGzdxYee","email":"carlos@company.com","role":"developer","name":"Carlos Rodriguez","isActive":true,"createdAt":"2025-09-24T13:53:13.785Z","updatedAt":"2025-09-24T13:53:13.785Z","_id":{"$wrap":"$oid","v":5}}
+{"_id":5,"_uid":5,"_dt":1758734997737,"_s":"9059d9ccd35cc6641dbc42d4cf77ff5c"}
+{"username":"carlos","password":"$2a$10$yT4eraWSFwPt6Hk6EXB/muNexgrRLu0rsHXPQqv/lV9TVnZGYwAR2","email":"carlos@company.com","role":"developer","name":"Carlos Rodriguez","isActive":true,"createdAt":"2025-09-24T17:29:57.734Z","updatedAt":"2025-09-24T17:29:57.734Z","_id":{"$wrap":"$oid","v":5}}

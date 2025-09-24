@@ -32,12 +32,9 @@ if (!fs.existsSync(DB_PATH)) {
 // Initialize TingoDB
 const db = new tingodb.Db(DB_PATH, {});
 const users = db.collection('users');
-const tasksUnified = db.collection('tasks_unified'); // Unified tasks and incidents
+const tasks = db.collection('tasks'); // Collection for tasks and incidents
 const edges = db.collection('edges'); // Flow edges/connections
 const persons = db.collection('persons');
-// Legacy collections (kept for backward compatibility if needed)
-const tasks = db.collection('tasks');
-const incidents = db.collection('incidents');
 
 // Middleware
 app.use(cors({
@@ -149,14 +146,14 @@ app.get('/api/auth/status', authenticateToken, (req, res) => {
   });
 });
 
-// Tasks endpoints (now unified)
+// Tasks endpoints (for tasks and incidents)
 app.get('/api/tasks', authenticateToken, (req, res) => {
   const { task_type } = req.query;
   const filter = task_type ? { task_type } : {};
   
-  tasksUnified.find(filter).toArray((err, tasksList) => {
+  tasks.find(filter).toArray((err, tasksList) => {
     if (err) {
-      console.error('Error fetching unified tasks:', err);
+      console.error('Error fetching tasks:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     res.json(tasksList);
@@ -173,9 +170,9 @@ app.post('/api/tasks', authenticateToken, (req, res) => {
     updatedAt: new Date().toISOString()
   };
 
-  tasksUnified.insert(newTask, (err, result) => {
+  tasks.insert(newTask, (err, result) => {
     if (err) {
-      console.error('Error creating unified task:', err);
+      console.error('Error creating task:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
@@ -193,9 +190,9 @@ app.put('/api/tasks/:id', authenticateToken, (req, res) => {
     updatedAt: new Date().toISOString()
   };
 
-  tasksUnified.update({ id: taskId }, { $set: updateData }, (err, numReplaced) => {
+  tasks.update({ id: taskId }, { $set: updateData }, (err, numReplaced) => {
     if (err) {
-      console.error('Error updating unified task:', err);
+      console.error('Error updating task:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
@@ -204,7 +201,7 @@ app.put('/api/tasks/:id', authenticateToken, (req, res) => {
     }
 
     // Get updated task
-    tasksUnified.findOne({ id: taskId }, (err, updatedTask) => {
+    tasks.findOne({ id: taskId }, (err, updatedTask) => {
       if (err) {
         return res.status(500).json({ error: 'Database error' });
       }
@@ -280,9 +277,9 @@ app.put('/api/persons/:id', authenticateToken, (req, res) => {
   });
 });
 
-// Incidents endpoints (now unified - legacy endpoint)
+// Incidents endpoints (legacy endpoint - filters tasks by task_type)
 app.get('/api/incidents', authenticateToken, (req, res) => {
-  tasksUnified.find({ task_type: 'incident' }).toArray((err, incidentsList) => {
+  tasks.find({ task_type: 'incident' }).toArray((err, incidentsList) => {
     if (err) {
       console.error('Error fetching incidents:', err);
       return res.status(500).json({ error: 'Database error' });
@@ -300,7 +297,7 @@ app.put('/api/tasks/:id/position', authenticateToken, (req, res) => {
     return res.status(400).json({ error: 'Invalid position data' });
   }
 
-  tasksUnified.update(
+  tasks.update(
     { id: taskId },
     { $set: { position, updatedAt: new Date().toISOString() } },
     (err, numReplaced) => {
@@ -336,7 +333,7 @@ app.put('/api/tasks/positions/batch', authenticateToken, (req, res) => {
     return res.json({ success: true, updated: 0 });
   }
   
-  updates.forEach((update, index) => {
+    updates.forEach((update, index) => {
     const { id, position } = update;
     
     if (!position || typeof position.x !== 'number' || typeof position.y !== 'number') {
@@ -349,7 +346,7 @@ app.put('/api/tasks/positions/batch', authenticateToken, (req, res) => {
       return;
     }
     
-    tasksUnified.update(
+    tasks.update(
       { id },
       { $set: { position, updatedAt: new Date().toISOString() } },
       (err, numReplaced) => {
@@ -487,8 +484,8 @@ io.on('connection', (socket) => {
 
   // Handle task completion
   socket.on('task_completed', (data) => {
-    // Update task in unified database
-    tasksUnified.update(
+    // Update task in database
+    tasks.update(
       { id: data.taskId }, 
       { $set: { status: 'completed', updatedAt: new Date().toISOString() } },
       (err, numReplaced) => {

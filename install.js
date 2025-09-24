@@ -21,9 +21,9 @@ const db = new tingodb.Db(DB_PATH, {});
 
 // Collections
 const users = db.collection('users');
-const tasks = db.collection('tasks');
+const tasks = db.collection('tasks'); // Collection for tasks and incidents
 const persons = db.collection('persons');
-const incidents = db.collection('incidents');
+const edges = db.collection('edges'); // Flow edges/connections
 
 // Hash password function
 const hashPassword = async (password) => {
@@ -45,7 +45,7 @@ async function install() {
       else console.log('✅ Created unique index on users.username');
     });
 
-    // Tasks collection indexes
+    // Tasks collection indexes (for tasks and incidents)
     tasks.ensureIndex({ fieldName: 'id', unique: true }, (err) => {
       if (err) console.error('Error creating tasks id index:', err);
       else console.log('✅ Created unique index on tasks.id');
@@ -61,26 +61,36 @@ async function install() {
       else console.log('✅ Created index on tasks.status');
     });
 
+    tasks.ensureIndex({ fieldName: 'task_type' }, (err) => {
+      if (err) console.error('Error creating tasks task_type index:', err);
+      else console.log('✅ Created index on tasks.task_type');
+    });
+
+    tasks.ensureIndex({ fieldName: 'severity' }, (err) => {
+      if (err) console.error('Error creating tasks severity index:', err);
+      else console.log('✅ Created index on tasks.severity (for incidents)');
+    });
+
     // Persons collection indexes
     persons.ensureIndex({ fieldName: 'id', unique: true }, (err) => {
       if (err) console.error('Error creating persons id index:', err);
       else console.log('✅ Created unique index on persons.id');
     });
 
-    // Incidents collection indexes
-    incidents.ensureIndex({ fieldName: 'id', unique: true }, (err) => {
-      if (err) console.error('Error creating incidents id index:', err);
-      else console.log('✅ Created unique index on incidents.id');
+    // Edges collection indexes (for React Flow connections)
+    edges.ensureIndex({ fieldName: 'id', unique: true }, (err) => {
+      if (err) console.error('Error creating edges id index:', err);
+      else console.log('✅ Created unique index on edges.id');
     });
 
-    incidents.ensureIndex({ fieldName: 'assignedTo' }, (err) => {
-      if (err) console.error('Error creating incidents assignedTo index:', err);
-      else console.log('✅ Created index on incidents.assignedTo');
+    edges.ensureIndex({ fieldName: 'source' }, (err) => {
+      if (err) console.error('Error creating edges source index:', err);
+      else console.log('✅ Created index on edges.source');
     });
 
-    incidents.ensureIndex({ fieldName: 'severity' }, (err) => {
-      if (err) console.error('Error creating incidents severity index:', err);
-      else console.log('✅ Created index on incidents.severity');
+    edges.ensureIndex({ fieldName: 'target' }, (err) => {
+      if (err) console.error('Error creating edges target index:', err);
+      else console.log('✅ Created index on edges.target');
     });
 
     // Create default admin user
