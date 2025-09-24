@@ -271,6 +271,16 @@ class ApiService {
   }
 
   /**
+   * Update edge
+   */
+  async updateEdge(edgeId, edgeData) {
+    return await this.request(`/edges/${edgeId}`, {
+      method: 'PUT',
+      body: JSON.stringify(edgeData)
+    });
+  }
+
+  /**
    * Delete edge
    */
   async deleteEdge(edgeId) {

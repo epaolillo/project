@@ -12,6 +12,7 @@ import {
 import '@xyflow/react/dist/style.css';
 
 import TaskNode from './TaskNode';
+import EdgeModal from '../EdgeModal/EdgeModal';
 import apiService from '../../services/ApiService';
 import { createNodesAndEdges } from '../../utils/flowUtils';
 import './FlowDiagram.css';
@@ -37,6 +38,8 @@ const FlowDiagram = ({
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isEdgeModalOpen, setIsEdgeModalOpen] = useState(false);
+  const [selectedEdge, setSelectedEdge] = useState(null);
   const positionUpdateTimeoutRef = useRef(null);
 
   // Effect to update a specific task node when updatedTask prop changes
@@ -174,6 +177,64 @@ const FlowDiagram = ({
     }
   }, [onTaskSelect]);
 
+  // Handle edge click to open modal
+  const handleEdgeClick = useCallback((event, edge) => {
+    event.stopPropagation();
+    setSelectedEdge(edge);
+    setIsEdgeModalOpen(true);
+  }, []);
+
+  // Handle edge update
+  const handleEdgeUpdate = useCallback(async (updatedEdge) => {
+    try {
+      // Ensure style properties are properly formatted for React Flow
+      const processedEdge = {
+        ...updatedEdge,
+        // Add a unique key to force re-render
+        key: `${updatedEdge.id}-${Date.now()}`,
+        style: {
+          ...updatedEdge.style,
+          // Force inline styles to override CSS classes
+          stroke: updatedEdge.style?.stroke || '#4a90e2',
+          strokeWidth: updatedEdge.style?.strokeWidth || 20,
+          strokeDasharray: updatedEdge.style?.strokeDasharray === 'none' ? undefined : updatedEdge.style?.strokeDasharray
+        }
+      };
+
+      // Update edge in database via API
+      await apiService.updateEdge(updatedEdge.id, processedEdge);
+      
+      // Force a complete re-render by temporarily removing and re-adding the edge
+      setEdges(currentEdges => {
+        const otherEdges = currentEdges.filter(edge => edge.id !== updatedEdge.id);
+        return [...otherEdges, processedEdge];
+      });
+      
+      console.log('Edge updated:', processedEdge);
+    } catch (error) {
+      console.error('Error updating edge:', error);
+      // You could show a toast notification here
+    }
+  }, [setEdges]);
+
+  // Handle edge deletion
+  const handleEdgeDelete = useCallback(async (edgeId) => {
+    try {
+      // Delete from database
+      await apiService.deleteEdge(edgeId);
+      
+      // Update local state
+      setEdges(currentEdges => 
+        currentEdges.filter(edge => edge.id !== edgeId)
+      );
+      
+      console.log('Edge deleted:', edgeId);
+    } catch (error) {
+      console.error('Error deleting edge:', error);
+      // You could show a toast notification here
+    }
+  }, [setEdges]);
+
   // Handle node position changes
   const handleNodesChange = useCallback((changes) => {
     onNodesChange(changes);
@@ -275,6 +336,7 @@ const FlowDiagram = ({
         onEdgesChange={handleEdgesChange}
         onConnect={onConnect}
         onNodeClick={handleNodeClick}
+        onEdgeClick={handleEdgeClick}
         nodeTypes={nodeTypes}
         connectionMode={ConnectionMode.Loose}
         connectOnClick={false}
@@ -311,6 +373,16 @@ const FlowDiagram = ({
           position="bottom-right"
         />
       </ReactFlow>
+
+      {/* Edge Modal */}
+      <EdgeModal
+        isOpen={isEdgeModalOpen}
+        onClose={() => setIsEdgeModalOpen(false)}
+        edge={selectedEdge}
+        onUpdateEdge={handleEdgeUpdate}
+        onDeleteEdge={handleEdgeDelete}
+        tasks={tasks || []}
+      />
     </div>
   );
 };

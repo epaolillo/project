@@ -147,14 +147,10 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Edge styles with ultra thick lines and animations */
+/* Default edge styles - lower specificity to allow inline overrides */
 .react-flow__edge-path {
-  stroke: #4a90e2;
-  stroke-width: 20;
   stroke-linecap: round;
-  stroke-dasharray: 60, 40;
   filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
-  animation: edgeFlow 2s linear infinite;
 }
 
 .react-flow__edge.selected .react-flow__edge-path {
@@ -243,6 +239,88 @@
   stroke-dasharray: 60, 40;
   animation: connectionPulse 1s ease-in-out infinite alternate;
   filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
+}
+
+/* Custom edge styles - fallback when no inline styles override */
+.react-flow__edge.dependency-edge .react-flow__edge-path {
+  stroke: #4a90e2;
+  stroke-width: 20;
+  filter: drop-shadow(0 4px 8px rgba(74, 144, 226, 0.4));
+}
+
+.react-flow__edge.workflow-edge .react-flow__edge-path {
+  stroke: #28a745;
+  stroke-width: 18;
+  filter: drop-shadow(0 4px 8px rgba(40, 167, 69, 0.4));
+}
+
+.react-flow__edge.infrastructure-edge .react-flow__edge-path {
+  stroke: #fd7e14;
+  stroke-width: 16;
+  filter: drop-shadow(0 4px 8px rgba(253, 126, 20, 0.4));
+}
+
+.react-flow__edge.critical-edge .react-flow__edge-path {
+  stroke: #dc3545;
+  stroke-width: 22;
+  filter: drop-shadow(0 4px 10px rgba(220, 53, 69, 0.5));
+}
+
+.react-flow__edge.optional-edge .react-flow__edge-path {
+  stroke: #6c757d;
+  stroke-width: 12;
+  stroke-dasharray: 10, 5;
+  filter: drop-shadow(0 2px 4px rgba(108, 117, 125, 0.3));
+}
+
+.react-flow__edge.blocking-edge .react-flow__edge-path {
+  stroke: #e83e8c;
+  stroke-width: 24;
+  filter: drop-shadow(0 4px 12px rgba(232, 62, 140, 0.5));
+}
+
+/* Custom edge class - minimal styling to allow inline overrides */
+.react-flow__edge.custom-edge .react-flow__edge-path {
+  /* Inline styles will override any properties set here */
+  stroke-linecap: round;
+}
+
+/* Animations for specific edge types */
+.react-flow__edge.critical-edge .react-flow__edge-path {
+  animation: criticalPulse 2s ease-in-out infinite;
+}
+
+.react-flow__edge.blocking-edge .react-flow__edge-path {
+  animation: blockingPulse 1.5s ease-in-out infinite;
+}
+
+/* Edge hover effects */
+.react-flow__edge:hover .react-flow__edge-path {
+  stroke-width: calc(var(--stroke-width, 20px) + 4px);
+  cursor: pointer;
+}
+
+/* Edge animations */
+@keyframes criticalPulse {
+  0%, 100% {
+    stroke-width: 22;
+    opacity: 0.8;
+  }
+  50% {
+    stroke-width: 26;
+    opacity: 1;
+  }
+}
+
+@keyframes blockingPulse {
+  0%, 100% {
+    stroke-width: 24;
+    opacity: 0.9;
+  }
+  50% {
+    stroke-width: 28;
+    opacity: 1;
+  }
 }
 
 @keyframes connectionPulse {

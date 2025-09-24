@@ -1,6 +1,7 @@
 // Export all components for easy importing
 export { default as FlowDiagram } from './ReactFlow/FlowDiagram';
 export { default as TaskNode } from './ReactFlow/TaskNode';
+export { default as EdgeModal } from './EdgeModal/EdgeModal';
 export { default as UserWidget } from './UserWidget/UserWidget';
 export { default as ProgressBar } from './UserWidget/ProgressBar';
 export { default as UserDrawer } from './UserDrawer/UserDrawer';

@@ -400,6 +400,37 @@ app.post('/api/edges', authenticateToken, (req, res) => {
   });
 });
 
+app.put('/api/edges/:id', authenticateToken, (req, res) => {
+  const edgeId = req.params.id;
+  const updateData = {
+    ...req.body,
+    updatedAt: new Date().toISOString()
+  };
+
+  edges.update({ id: edgeId }, { $set: updateData }, (err, numReplaced) => {
+    if (err) {
+      console.error('Error updating edge:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    if (numReplaced === 0) {
+      return res.status(404).json({ error: 'Edge not found' });
+    }
+
+    // Get updated edge
+    edges.findOne({ id: edgeId }, (err, updatedEdge) => {
+      if (err) {
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Emit to socket.io clients
+      io.emit('edge_updated', updatedEdge);
+      
+      res.json(updatedEdge);
+    });
+  });
+});
+
 app.delete('/api/edges/:id', authenticateToken, (req, res) => {
   const edgeId = req.params.id;
   
