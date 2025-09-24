@@ -198,14 +198,19 @@ const UserLayout = ({ userId = 'user-1' }) => {
   };
 
   const handleTaskUpdate = (updatedTask) => {
-    // Update local tasks state
-    setAllTasks(prev => prev.map(task => 
-      task.id === updatedTask.id ? updatedTask : task
-    ));
-    
-    // If this is the current task, update it too
-    if (currentTask && currentTask.id === updatedTask.id) {
-      setCurrentTask(updatedTask);
+    if (updatedTask.isNew) {
+      // This is a new task, add it to the list
+      setAllTasks(prev => [...prev, updatedTask]);
+    } else {
+      // This is an existing task, update it
+      setAllTasks(prev => prev.map(task => 
+        task.id === updatedTask.id ? updatedTask : task
+      ));
+      
+      // If this is the current task, update it too
+      if (currentTask && currentTask.id === updatedTask.id) {
+        setCurrentTask(updatedTask);
+      }
     }
     
     // Update selected task
@@ -213,6 +218,30 @@ const UserLayout = ({ userId = 'user-1' }) => {
     
     // Set updated task for React Flow to update specifically (avoids full reload)
     setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
+  };
+
+  const handleCreateTask = () => {
+    // Create a new empty task template
+    const newTask = {
+      id: `task-${Date.now()}`, // Temporary ID, will be replaced by server
+      title: '',
+      description: '',
+      status: 'pending',
+      priority: 'medium',
+      type: 'feature',
+      task_type: 'task',
+      assignedTo: '',
+      assigneeName: '',
+      estimatedHours: 0,
+      completedHours: 0,
+      severity: 'medium',
+      affectedUsers: 0,
+      position: { x: 100, y: 100 }, // Default position
+      isNew: true // Flag to indicate this is a new task
+    };
+    
+    setSelectedTask(newTask);
+    setIsTaskDrawerOpen(true);
   };
 
   if (loading) {
@@ -236,6 +265,15 @@ const UserLayout = ({ userId = 'user-1' }) => {
 
   return (
     <div className="user-layout">
+      {/* Create Task Button */}
+      <button 
+        className="create-task-button"
+        onClick={() => handleCreateTask()}
+        title="Crear nueva tarea"
+      >
+        +
+      </button>
+
       <header className="user-header">
         <div className="user-info">
           <h1>Hola, {user.name.split(' ')[0]}</h1>

@@ -109,17 +109,32 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
   // Auto-save changes with debounce
   useEffect(() => {
     if (!editedTask || !hasChanges || isSaving) return;
+    // Don't auto-save if title is empty (for new tasks)
+    if (editedTask.isNew && !editedTask.title.trim()) return;
 
     const saveTimeout = setTimeout(async () => {
       try {
         setIsSaving(true);
-        await apiService.updateTask(editedTask.id, editedTask);
         
-        // Notify parent component
-        if (onTaskUpdate) {
-          onTaskUpdate(editedTask);
+        let savedTask;
+        if (editedTask.isNew || editedTask.id.startsWith('task-')) {
+          // Create new task (either has isNew flag or temporary ID)
+          const taskToCreate = { ...editedTask };
+          delete taskToCreate.isNew; // Remove the isNew flag before sending to API
+          delete taskToCreate.id; // Remove temporary ID, let server generate real ID
+          savedTask = await apiService.createTask(taskToCreate);
+        } else {
+          // Update existing task
+          savedTask = await apiService.updateTask(editedTask.id, editedTask);
         }
         
+        // Notify parent component with the saved task
+        if (onTaskUpdate) {
+          onTaskUpdate(savedTask);
+        }
+        
+        // Update local state with the saved task (including server-generated ID)
+        setEditedTask(savedTask);
         setHasChanges(false);
       } catch (error) {
         console.error('Error saving task:', error);
@@ -188,12 +203,17 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
         <div className="drawer-header">
           <div className="header-info">
             <div className="task-type-badge" data-type={editedTask.task_type}>
-              {isIncident ? '🚨 Incident' : '📋 Task'}
+              {editedTask.isNew ? (
+                isIncident ? '🚨 Nuevo Incident' : '📋 Nueva Tarea'
+              ) : (
+                isIncident ? '🚨 Incident' : '📋 Task'
+              )}
             </div>
             <div className="save-indicator">
-              {isSaving && <span className="saving">Guardando...</span>}
+              {isSaving && <span className="saving">{editedTask.isNew ? 'Creando...' : 'Guardando...'}</span>}
               {hasChanges && !isSaving && <span className="unsaved">Sin guardar</span>}
-              {!hasChanges && !isSaving && <span className="saved">Guardado</span>}
+              {!hasChanges && !isSaving && !editedTask.isNew && <span className="saved">Guardado</span>}
+              {editedTask.isNew && !editedTask.title.trim() && <span className="new-task-hint">Escribe un título para crear la tarea</span>}
             </div>
           </div>
           <button className="close-button" onClick={handleClose}>×</button>

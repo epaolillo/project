@@ -115,6 +115,11 @@
   color: #4caf50;
 }
 
+.save-indicator .new-task-hint {
+  color: #6c757d;
+  font-style: italic;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

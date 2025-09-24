@@ -161,20 +161,33 @@ app.get('/api/tasks', authenticateToken, (req, res) => {
 });
 
 app.post('/api/tasks', authenticateToken, (req, res) => {
+  // Generate a proper ID for the new task
+  const generateTaskId = (taskType) => {
+    const prefix = taskType === 'incident' ? 'incident' : 'task';
+    return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };
+
   const newTask = {
     ...req.body,
-    id: req.body.id || `${req.body.task_type || 'task'}-${Date.now()}`,
+    id: generateTaskId(req.body.task_type || 'task'),
     task_type: req.body.task_type || 'task',
-    position: req.body.position || { x: 0, y: 0 },
+    position: req.body.position || { x: 100, y: 100 },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
+
+  // Remove any temporary ID that might have been sent
+  if (req.body.id && req.body.id.startsWith('task-') && req.body.id.length < 20) {
+    console.log('Replacing temporary ID:', req.body.id, 'with:', newTask.id);
+  }
 
   tasks.insert(newTask, (err, result) => {
     if (err) {
       console.error('Error creating task:', err);
       return res.status(500).json({ error: 'Database error' });
     }
+    
+    console.log('Task created successfully:', result.id);
     
     // Emit to socket.io clients
     io.emit('task_created', result);
@@ -381,22 +394,42 @@ app.get('/api/edges', authenticateToken, (req, res) => {
 });
 
 app.post('/api/edges', authenticateToken, (req, res) => {
+  // Generate a unique ID if not provided
+  const generateEdgeId = (source, target) => {
+    return `edge-${source}-${target}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  };
+
   const newEdge = {
     ...req.body,
-    id: req.body.id || `${req.body.source}-${req.body.target}`,
+    id: req.body.id || generateEdgeId(req.body.source, req.body.target),
     createdAt: new Date().toISOString()
   };
 
-  edges.insert(newEdge, (err, result) => {
+  // Check if edge already exists to avoid duplicates
+  edges.findOne({ id: newEdge.id }, (err, existingEdge) => {
     if (err) {
-      console.error('Error creating edge:', err);
+      console.error('Error checking existing edge:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
-    // Emit to socket.io clients
-    io.emit('edge_created', result);
+    if (existingEdge) {
+      console.log('Edge already exists:', newEdge.id);
+      return res.status(200).json(existingEdge); // Return existing edge
+    }
     
-    res.status(201).json(result);
+    edges.insert(newEdge, (err, result) => {
+      if (err) {
+        console.error('Error creating edge:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      console.log('Edge created successfully:', result.id);
+      
+      // Emit to socket.io clients
+      io.emit('edge_created', result);
+      
+      res.status(201).json(result);
+    });
   });
 });
 

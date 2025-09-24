@@ -502,8 +502,50 @@
   cursor: not-allowed;
 }
 
+/* Create Task Button */
+.create-task-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+  color: white;
+  font-size: 24px;
+  font-weight: 300;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
+  z-index: 1000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.create-task-button:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0056b3 0%, #004085 100%);
+}
+
+.create-task-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
+  .create-task-button {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    top: 16px;
+    right: 16px;
+  }
+  
   .user-header {
     flex-direction: column;
     gap: 12px;

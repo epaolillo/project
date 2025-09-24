@@ -68,26 +68,48 @@ const FlowDiagram = ({
 
   const onConnect = useCallback(
     async (params) => {
+      console.log('onConnect triggered with params:', params);
+      
       const newEdge = {
         ...params,
+        id: `${params.source}-${params.target}-${Date.now()}`, // Generate unique ID
         type: 'smoothstep',
         animated: true,
         className: 'animated',
         style: {
           stroke: '#4a90e2',
-          strokeWidth: 20,
+          strokeWidth: 18,
         },
       };
       
+      // Add edge immediately to UI for instant feedback
+      setEdges((eds) => {
+        const updatedEdges = addEdge(newEdge, eds);
+        console.log('Edge added immediately to UI:', updatedEdges);
+        return updatedEdges;
+      });
+      
+      // Then save to database in background
       try {
-        // Save to database
-        await apiService.createEdge(newEdge);
+        console.log('Saving edge to database:', newEdge);
+        const savedEdge = await apiService.createEdge(newEdge);
+        console.log('Edge saved successfully:', savedEdge);
         
-        // Update local state
-        setEdges((eds) => addEdge(newEdge, eds));
+        // Update the edge with server data if different
+        if (savedEdge.id !== newEdge.id) {
+          setEdges((eds) => 
+            eds.map(edge => 
+              edge.id === newEdge.id 
+                ? { ...edge, ...savedEdge }
+                : edge
+            )
+          );
+        }
       } catch (error) {
-        console.error('Error creating edge:', error);
-        // You could show a toast notification here
+        console.error('Error saving edge to database:', error);
+        console.error('Error details:', error.message);
+        // Edge is already in UI, so we keep it there even if save fails
+        // Could show a warning to user that edge wasn't saved
       }
     },
     [setEdges]
@@ -196,7 +218,7 @@ const FlowDiagram = ({
           ...updatedEdge.style,
           // Force inline styles to override CSS classes
           stroke: updatedEdge.style?.stroke || '#4a90e2',
-          strokeWidth: updatedEdge.style?.strokeWidth || 20,
+          strokeWidth: updatedEdge.style?.strokeWidth || 18,
           strokeDasharray: updatedEdge.style?.strokeDasharray === 'none' ? undefined : updatedEdge.style?.strokeDasharray
         }
       };
@@ -338,12 +360,12 @@ const FlowDiagram = ({
         onNodeClick={handleNodeClick}
         onEdgeClick={handleEdgeClick}
         nodeTypes={nodeTypes}
-        connectionMode={ConnectionMode.Loose}
-        connectOnClick={false}
+        connectionMode={ConnectionMode.Strict}
+        connectOnClick={true}
         defaultEdgeOptions={{
           type: 'smoothstep',
           animated: true,
-          style: { strokeWidth: 20, stroke: '#4a90e2' }
+          style: { strokeWidth: 18, stroke: '#4a90e2' }
         }}
         fitView
         fitViewOptions={{

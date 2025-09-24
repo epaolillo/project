@@ -170,16 +170,45 @@ const ManagerLayout = () => {
   };
 
   const handleTaskUpdate = (updatedTask) => {
-    // Update local tasks state
-    setTasks(prev => prev.map(task => 
-      task.id === updatedTask.id ? updatedTask : task
-    ));
+    if (updatedTask.isNew) {
+      // This is a new task, add it to the list
+      setTasks(prev => [...prev, updatedTask]);
+    } else {
+      // This is an existing task, update it
+      setTasks(prev => prev.map(task => 
+        task.id === updatedTask.id ? updatedTask : task
+      ));
+    }
     
     // Update selected task
     setSelectedTask(updatedTask);
     
     // Set updated task for React Flow to update specifically (avoids full reload)
     setLastUpdatedTask({ ...updatedTask, _timestamp: Date.now() });
+  };
+
+  const handleCreateTask = () => {
+    // Create a new empty task template
+    const newTask = {
+      id: `task-${Date.now()}`, // Temporary ID, will be replaced by server
+      title: '',
+      description: '',
+      status: 'pending',
+      priority: 'medium',
+      type: 'feature',
+      task_type: 'task',
+      assignedTo: '',
+      assigneeName: '',
+      estimatedHours: 0,
+      completedHours: 0,
+      severity: 'medium',
+      affectedUsers: 0,
+      position: { x: 100, y: 100 }, // Default position
+      isNew: true // Flag to indicate this is a new task
+    };
+    
+    setSelectedTask(newTask);
+    setIsTaskDrawerOpen(true);
   };
 
   const dismissNotification = (notificationId) => {
@@ -199,6 +228,14 @@ const ManagerLayout = () => {
 
   return (
     <div className="manager-layout">
+      {/* Create Task Button */}
+      <button 
+        className="create-task-button"
+        onClick={() => handleCreateTask()}
+        title="Crear nueva tarea"
+      >
+        +
+      </button>
 
       <div className="manager-content">
         {/* User widgets overlay */}
