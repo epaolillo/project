@@ -103,3 +103,9 @@
 {"k":"0000000051","o":"0000000000","v":"001"}
 {"_id":22,"_uid":26,"_dt":1758743282653,"_a":"del"}
 
+{"k":"0000000079","o":"0000000390","v":"001"}
+{"_id":3,"_uid":26,"_dt":1758743489950,"_s":"90d69d00db4e81bf26141e9c6d22d182"}
+{"id":"task-2","task_type":"task","title":"Design Database Schema","description":"Create the complete database structure","status":"pending","assignedTo":"user-1","priority":"high","estimatedHours":12,"completedHours":0,"dependencies":["task-1"],"type":"feature","position":{"x":579.2601853304868,"y":-142.37534934395222},"_id":{"$wrap":"$oid","v":3},"updatedAt":"2025-09-24T19:51:29.945Z"}
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":26,"_uid":26,"_dt":1758743492716,"_a":"del"}
+

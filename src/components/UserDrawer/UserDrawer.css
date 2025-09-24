@@ -7,9 +7,6 @@
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(5px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.3s ease;
 }
@@ -25,25 +22,27 @@
 
 /* Main Drawer Container */
 .user-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 16px;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
+  border-left: 1px solid #e9ecef;
   overflow-y: auto;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-  animation: slideUp 0.3s ease;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  animation: slideInFromRight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@keyframes slideUp {
+@keyframes slideInFromRight {
   from {
-    transform: translateY(50px);
+    transform: translateX(100%);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateX(0);
     opacity: 1;
   }
 }
@@ -364,9 +363,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .user-drawer {
-    width: 95%;
-    max-height: 90vh;
-    margin: 10px;
+    width: 85%;
   }
 
   .drawer-header {
@@ -395,6 +392,13 @@
 
   .bitacora-entries {
     max-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-drawer {
+    width: 100%;
+    border-left: none;
   }
 }
 

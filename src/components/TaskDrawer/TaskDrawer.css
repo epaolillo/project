@@ -6,12 +6,9 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 1000;
   backdrop-filter: blur(4px);
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn 0.3s ease-out;
 }
 
 @keyframes fadeIn {
@@ -24,26 +21,28 @@
 }
 
 .task-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 70%;
+  height: 100vh;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-  width: 90%;
-  max-width: 600px;
-  max-height: 90vh;
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
-  animation: slideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: slideInFromRight 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   overflow: hidden;
+  border-left: 1px solid #e9ecef;
 }
 
-@keyframes slideIn {
+@keyframes slideInFromRight {
   from {
+    transform: translateX(100%);
     opacity: 0;
-    transform: scale(0.9) translateY(30px);
   }
   to {
+    transform: translateX(0);
     opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }
 
@@ -335,9 +334,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .task-drawer {
-    width: 95%;
-    max-height: 95vh;
-    margin: 10px;
+    width: 85%;
   }
   
   .drawer-header {
@@ -381,10 +378,7 @@
 @media (max-width: 480px) {
   .task-drawer {
     width: 100%;
-    height: 100%;
-    max-height: 100vh;
-    border-radius: 0;
-    margin: 0;
+    border-left: none;
   }
   
   .drawer-header {
