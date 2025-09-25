@@ -230,6 +230,15 @@ class ApiService {
   }
 
   /**
+   * Delete person and clean up all related data
+   */
+  async deletePerson(personId) {
+    return await this.request(`/persons/${personId}`, {
+      method: 'DELETE'
+    });
+  }
+
+  /**
    * Update user's current task
    */
   async updateUserCurrentTask(userId, taskId) {

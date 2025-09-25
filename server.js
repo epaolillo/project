@@ -319,6 +319,79 @@ app.put('/api/persons/:id', authenticateToken, (req, res) => {
   });
 });
 
+app.delete('/api/persons/:id', authenticateToken, async (req, res) => {
+  const personId = req.params.id;
+  
+  try {
+    // First, get the person to check if it exists
+    const person = await new Promise((resolve, reject) => {
+      persons.findOne({ id: personId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+    
+    if (!person) {
+      return res.status(404).json({ error: 'Person not found' });
+    }
+
+    // Remove all task assignments for this person
+    const taskResult = await new Promise((resolve, reject) => {
+      tasks.update(
+        { assignedTo: personId },
+        { $unset: { assignedTo: "", assigneeName: "" } },
+        { multi: true },
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
+    });
+
+    // Remove all notifications for this person
+    const notificationResult = await new Promise((resolve, reject) => {
+      notifications.remove({ userId: personId }, { multi: true }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+
+    // Finally, remove the person
+    const personResult = await new Promise((resolve, reject) => {
+      persons.remove({ id: personId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+    
+    if (personResult === 0) {
+      return res.status(404).json({ error: 'Person not found' });
+    }
+    
+    console.log(`Person ${personId} deleted successfully`);
+    console.log(`Removed ${taskResult} task assignments`);
+    console.log(`Removed ${notificationResult} notifications`);
+    
+    // Emit to socket.io clients
+    io.emit('person_deleted', { 
+      personId, 
+      tasksUpdated: taskResult, 
+      notificationsRemoved: notificationResult 
+    });
+    
+    res.json({ 
+      success: true, 
+      deleted: personResult,
+      tasksUpdated: taskResult,
+      notificationsRemoved: notificationResult
+    });
+
+  } catch (error) {
+    console.error('Error deleting person:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 // Incidents endpoints (legacy endpoint - filters tasks by task_type)
 app.get('/api/incidents', authenticateToken, (req, res) => {
   tasks.find({ task_type: 'incident' }).toArray((err, incidentsList) => {

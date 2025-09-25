@@ -47,6 +47,23 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     }
   }, [isOpen]);
 
+  // Handle ESC key to close drawer
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
   const loadUsers = async () => {
     try {
       const usersData = await apiService.getUsers();

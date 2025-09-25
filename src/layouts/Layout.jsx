@@ -92,6 +92,12 @@ const Layout = ({ user, onLogout }) => {
       ));
     };
 
+    const handlePersonDeleted = (data) => {
+      // This is handled directly in UserDrawer now for immediate UI update
+      // This WebSocket event is mainly for other clients connected to the system
+      console.log('Person deleted via WebSocket:', data);
+    };
+
     // Setup notification service
     const unsubscribe = notificationService.subscribe((data) => {
       // Show toast for new unread notifications
@@ -109,6 +115,7 @@ const Layout = ({ user, onLogout }) => {
     webSocketService.on('task_completed', handleTaskCompleted);
     webSocketService.on('help_requested', handleHelpRequested);
     webSocketService.on('user_feedback', handleUserFeedback);
+    webSocketService.on('person_deleted', handlePersonDeleted);
     webSocketService.connect();
 
     return () => {
@@ -116,6 +123,7 @@ const Layout = ({ user, onLogout }) => {
       webSocketService.off('task_completed', handleTaskCompleted);
       webSocketService.off('help_requested', handleHelpRequested);
       webSocketService.off('user_feedback', handleUserFeedback);
+      webSocketService.off('person_deleted', handlePersonDeleted);
     };
   }, [loadData]);
 
@@ -148,6 +156,26 @@ const Layout = ({ user, onLogout }) => {
     }
     
     console.log('User updated:', updatedUser);
+  };
+
+  const handleUserDeleted = (userId, result) => {
+    // Remove the deleted user from the users list immediately
+    setUsers(prev => prev.filter(user => user.id !== userId));
+    
+    // Update tasks to remove assignee information
+    setTasks(prev => prev.map(task => 
+      task.assignedTo === userId
+        ? { ...task, assignedTo: '', assigneeName: '' }
+        : task
+    ));
+    
+    // Show success toast
+    addToast({
+      type: 'success',
+      title: 'Usuario Eliminado',
+      message: `Usuario eliminado exitosamente. Tareas desasignadas: ${result.tasksUpdated}`,
+      duration: 5000
+    });
   };
 
   const handleTaskSelect = (taskData) => {
@@ -285,6 +313,7 @@ const Layout = ({ user, onLogout }) => {
         isOpen={isDrawerOpen}
         onClose={handleDrawerClose}
         onUserUpdate={handleUserUpdate}
+        onUserDeleted={handleUserDeleted}
       />
 
       {/* Task Drawer Modal */}

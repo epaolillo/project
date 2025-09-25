@@ -130,3 +130,6 @@
 {"k":"0000000079","o":"0000000391","v":"001"}
 {"_id":8,"_uid":26,"_dt":1758812139583,"_s":"433631cf0952944f6821942e331b5b9b"}
 {"id":"task-7","task_type":"task","title":"Setup Webpack Configuration","description":"Optimize build process and bundling","status":"completed","assignedTo":"user-2","priority":"low","estimatedHours":6,"completedHours":6,"dependencies":[],"type":"infrastructure","position":{"x":-112.6524317912218,"y":-902.3463819691577},"_id":{"$wrap":"$oid","v":8},"updatedAt":"2025-09-25T14:55:39.583Z"}
+{"k":"0000000080","o":"0000000551","v":"001"}
+{"_id":18,"_uid":26,"_dt":1758824452777,"_s":"834162f6b52e4ffed727044c509efee3"}
+{"id":"incident-5","task_type":"incident","title":"File Upload Memory Leak","description":"Large file uploads cause memory consumption to increase indefinitely","severity":"critical","status":"open","reportedBy":"user-5","createdAt":"2024-01-12T14:30:00Z","updatedAt":"2025-09-24T19:30:56.365Z","affectedUsers":30,"reproductionSteps":["Go to file upload page","Upload file larger than 10MB","Monitor server memory usage","Memory continues to grow after upload"],"position":{"x":1287.5512592244522,"y":-794.6750484317097},"_id":{"$wrap":"$oid","v":18}}

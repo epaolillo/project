@@ -7,13 +7,14 @@ import './UserDrawer.css';
  * UserDrawer component - Fully editable modal/drawer for user profile management
  * Includes all user attributes, avatar upload, vacation management, and feedbacks
  */
-const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
+const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDeleted }) => {
   const [editedUser, setEditedUser] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
   const [newVacationStart, setNewVacationStart] = useState('');
   const [newVacationEnd, setNewVacationEnd] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
 
   // Initialize edited user when user prop changes
   useEffect(() => {
@@ -41,6 +42,23 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
       setHasChanges(false);
     }
   }, [user]);
+
+  // Handle ESC key to close drawer
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
 
   // Handle field changes
   const handleFieldChange = useCallback((field, value) => {
@@ -146,6 +164,36 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
     const updatedFeedbacks = editedUser.feedbacks.filter(f => f.id !== feedbackId);
     handleFieldChange('feedbacks', updatedFeedbacks);
   }, [editedUser, handleFieldChange]);
+
+  // Handle user deletion (direct, no confirmation)
+  const handleDeleteUser = useCallback(async () => {
+    if (!editedUser || isDeleting) return;
+    
+    try {
+      setIsDeleting(true);
+      
+      // Call API to delete user and clean up all related data
+      const result = await apiService.deletePerson(editedUser.id);
+      
+      console.log('User deleted successfully:', result);
+      
+      // Update the users list immediately (remove from UI)
+      if (onUserDeleted) {
+        onUserDeleted(editedUser.id, result);
+      }
+      
+      // Close the drawer
+      if (onClose) {
+        onClose();
+      }
+      
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('Error al eliminar el usuario. Por favor intenta nuevamente.');
+    } finally {
+      setIsDeleting(false);
+    }
+  }, [editedUser, isDeleting, onClose, onUserDeleted]);
 
   // Auto-save changes with debounce
   useEffect(() => {
@@ -253,7 +301,17 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
               {hasChanges && !isSaving && <span className="changes-indicator">Sin guardar</span>}
             </div>
           </div>
-          <button className="close-button" onClick={handleClose}>×</button>
+          <div className="header-actions">
+            <button 
+              className="delete-user-button" 
+              onClick={handleDeleteUser}
+              disabled={isDeleting}
+              title={isDeleting ? "Eliminando..." : "Eliminar usuario"}
+            >
+              {isDeleting ? "⏳" : "🗑️"}
+            </button>
+            <button className="close-button" onClick={handleClose}>×</button>
+          </div>
         </div>
 
         <div className="drawer-content">
@@ -515,6 +573,7 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate }) => {
           </div>
         </div>
       </div>
+
     </div>
   );
 };

@@ -38,3 +38,7 @@ Dejar este servicio con un mock configurable (para que sea facil sacar y poner) 
     3. Terminar tarea.
 2. Bitacora. Se ṕermiten ir escribiendo anotaciones, a fin de ayudar en caso de requerir ayuda, o como memoria temporal.
 3. Cuando se termina una tarea, en el flow react se marca con borde verde de terminada. Y aparece como tarea actual, la siguiente asignada. Notificar mediante websocket a los administradores de que el usuario marco esta tarea como terminada. Al finalizar la tarea se solicita completar un breve texto de que fue lo que se hizo.
+
+### Reglas importantes
+
+* No crear prompts de confirmacion con prompt o alert, evitarlos en absoluto
