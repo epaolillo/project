@@ -299,6 +299,20 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
   // Get current task details
   const currentTask = tasks.find(task => task.id === editedUser?.currentTaskId);
 
+  // Get avatar source (user avatar field or fallback)
+  const getAvatarSource = (user) => {
+    // Use the avatar field from the user object
+    if (user.avatar) {
+      // If it's a relative path, prepend the server URL
+      if (user.avatar.startsWith('/uploads/')) {
+        return `http://localhost:5000${user.avatar}`;
+      }
+      // If it's already a full URL or base64, use as is
+      return user.avatar;
+    }
+    return null;
+  };
+
   // Get user initials for avatar
   const getUserInitials = (firstName, lastName) => {
     const first = firstName ? firstName[0] : '';
@@ -322,9 +336,9 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
         <div className="drawer-header">
           <div className="user-info-header">
             <div className="user-avatar-large">
-              {editedUser.avatar ? (
+              {getAvatarSource(editedUser) ? (
                 <img 
-                  src={editedUser.avatar} 
+                  src={getAvatarSource(editedUser)} 
                   alt={`${editedUser.firstName} ${editedUser.lastName}`}
                   className="avatar-image-large"
                 />
