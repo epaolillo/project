@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Swal from 'sweetalert2';
 import AutocompleteInput from './AutocompleteInput';
 import apiService from '../../services/ApiService';
 import './TaskDrawer.css';
@@ -194,30 +195,78 @@ const TaskDrawer = ({ task, isOpen, onClose, onTaskUpdate }) => {
     }
   }, [editedTask, onTaskUpdate, onClose]);
 
-  // Handle task deletion
+  // Handle task deletion with SweetAlert confirmation
   const handleDelete = useCallback(async () => {
     if (!editedTask || editedTask.isNew) return;
 
-    try {
-      setIsSaving(true);
-      
-      // Delete task via API
-      await apiService.deleteTask(editedTask.id);
-      
-      // Notify parent component about the deletion
-      if (onTaskUpdate) {
-        onTaskUpdate({ ...editedTask, deleted: true });
+    const result = await Swal.fire({
+      title: '¿Eliminar Tarea?',
+      html: `
+        <div style="text-align: left;">
+          <p><strong>¿Estás seguro de que quieres eliminar la tarea <span style="color: #dc3545;">"${editedTask.title}"</span>?</strong></p>
+          <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 12px; margin: 12px 0;">
+            <p style="margin: 0; color: #856404; font-size: 14px;">
+              <strong>⚠️ Esta acción eliminará:</strong><br/>
+              • La tarea y todos sus datos<br/>
+              • Todas las conexiones con otras tareas<br/>
+              • El historial de la tarea
+            </p>
+          </div>
+          <p style="color: #dc3545; font-weight: bold; margin: 0;">
+            Esta acción no se puede deshacer.
+          </p>
+        </div>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar tarea',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      focusCancel: true,
+      allowOutsideClick: false,
+      allowEscapeKey: true,
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          setIsSaving(true);
+          
+          // Delete task via API
+          await apiService.deleteTask(editedTask.id);
+          
+          // Notify parent component about the deletion
+          if (onTaskUpdate) {
+            onTaskUpdate({ ...editedTask, deleted: true });
+          }
+          
+          // Close the drawer
+          if (onClose) {
+            onClose();
+          }
+          
+          return true;
+        } catch (error) {
+          console.error('Error deleting task:', error);
+          Swal.showValidationMessage('Error al eliminar la tarea. Por favor, inténtalo de nuevo.');
+          throw error;
+        } finally {
+          setIsSaving(false);
+        }
       }
-      
-      // Close the drawer
-      if (onClose) {
-        onClose();
-      }
-    } catch (error) {
-      console.error('Error deleting task:', error);
-      alert('Error al eliminar la tarea. Por favor, inténtalo de nuevo.');
-    } finally {
-      setIsSaving(false);
+    });
+
+    if (result.isConfirmed) {
+      // Show success notification
+      Swal.fire({
+        title: '¡Tarea Eliminada!',
+        text: `La tarea "${editedTask.title}" ha sido eliminada exitosamente.`,
+        icon: 'success',
+        timer: 3000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+      });
     }
   }, [editedTask, onTaskUpdate, onClose]);
 

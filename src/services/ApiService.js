@@ -106,10 +106,17 @@ class ApiService {
   // Data fetching methods
 
   /**
-   * Get all users/persons with their metadata
+   * Get all users with role 'user' for the sidebar
    */
   async getUsers() {
-    return await this.request('/persons');
+    return await this.request('/users');
+  }
+
+  /**
+   * Get all users including admin users
+   */
+  async getAllUsers() {
+    return await this.request('/users/all');
   }
 
   /**
@@ -210,30 +217,30 @@ class ApiService {
   }
 
   /**
-   * Create a new person
+   * Create a new user
    */
-  async createPerson(personData) {
-    return await this.request('/persons', {
+  async createUser(userData) {
+    return await this.request('/users', {
       method: 'POST',
-      body: JSON.stringify(personData)
+      body: JSON.stringify(userData)
     });
   }
 
   /**
-   * Update person
+   * Update user
    */
-  async updatePerson(personId, updateData) {
-    return await this.request(`/persons/${personId}`, {
+  async updateUser(userId, updateData) {
+    return await this.request(`/users/${userId}`, {
       method: 'PUT',
       body: JSON.stringify(updateData)
     });
   }
 
   /**
-   * Delete person and clean up all related data
+   * Delete user and clean up all related data
    */
-  async deletePerson(personId) {
-    return await this.request(`/persons/${personId}`, {
+  async deleteUser(userId) {
+    return await this.request(`/users/${userId}`, {
       method: 'DELETE'
     });
   }
@@ -242,7 +249,7 @@ class ApiService {
    * Update user's current task
    */
   async updateUserCurrentTask(userId, taskId) {
-    return await this.updatePerson(userId, { 
+    return await this.updateUser(userId, { 
       currentTaskId: taskId,
       lastUpdate: new Date().toISOString()
     });
@@ -256,7 +263,7 @@ class ApiService {
       ...feedback,
       lastUpdate: new Date().toISOString()
     };
-    return await this.updatePerson(userId, updateData);
+    return await this.updateUser(userId, updateData);
   }
 
   // Flow-specific methods

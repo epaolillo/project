@@ -34,7 +34,6 @@ const db = new tingodb.Db(DB_PATH, {});
 const users = db.collection('users');
 const tasks = db.collection('tasks'); // Collection for tasks and incidents
 const edges = db.collection('edges'); // Flow edges/connections
-const persons = db.collection('persons');
 const notifications = db.collection('notifications'); // User notifications
 
 // Middleware
@@ -237,108 +236,152 @@ app.put('/api/tasks/:id', authenticateToken, (req, res) => {
 app.delete('/api/tasks/:id', authenticateToken, (req, res) => {
   const taskId = req.params.id;
   
-  tasks.remove({ id: taskId }, (err, numRemoved) => {
+  // First, get the task to get its details before deletion
+  tasks.findOne({ id: taskId }, (err, task) => {
     if (err) {
-      console.error('Error deleting task:', err);
+      console.error('Error finding task:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
-    if (numRemoved === 0) {
+    if (!task) {
       return res.status(404).json({ error: 'Task not found' });
     }
     
-    console.log('Task deleted successfully:', taskId);
-    
-    // Emit to socket.io clients
-    io.emit('task_deleted', { taskId });
-    
-    res.json({ success: true, deleted: numRemoved, taskId });
+    // Now delete the task
+    tasks.remove({ id: taskId }, (err, numRemoved) => {
+      if (err) {
+        console.error('Error deleting task:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (numRemoved === 0) {
+        return res.status(404).json({ error: 'Task not found' });
+      }
+      
+      console.log('Task deleted successfully:', taskId);
+      
+      // Create notification for the logged-in user who performed the deletion
+      createNotification(
+        req.user.userId,
+        'task_deleted',
+        'Tarea Eliminada',
+        `Has eliminado exitosamente la tarea "${task.title}".`,
+        {
+          deletedTaskId: taskId,
+          deletedTaskTitle: task.title,
+          taskType: task.task_type || 'task'
+        }
+      );
+      
+      // Emit to socket.io clients
+      io.emit('task_deleted', { taskId });
+      
+      res.json({ success: true, deleted: numRemoved, taskId });
+    });
   });
 });
 
-// Persons endpoints
-app.get('/api/persons', authenticateToken, (req, res) => {
-  persons.find({}).toArray((err, personsList) => {
+// Users endpoints (replaces persons endpoints)
+app.get('/api/users', authenticateToken, (req, res) => {
+  // Only return users with role 'user' for the sidebar
+  users.find({ role: 'user' }).toArray((err, usersList) => {
     if (err) {
-      console.error('Error fetching persons:', err);
+      console.error('Error fetching users:', err);
       return res.status(500).json({ error: 'Database error' });
     }
-    res.json(personsList);
+    res.json(usersList);
   });
 });
 
-app.post('/api/persons', authenticateToken, (req, res) => {
-  const newPerson = {
+app.get('/api/users/all', authenticateToken, (req, res) => {
+  // Return all users (including admin) for management purposes
+  users.find({}).toArray((err, usersList) => {
+    if (err) {
+      console.error('Error fetching all users:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(usersList);
+  });
+});
+
+app.post('/api/users', authenticateToken, (req, res) => {
+  const newUser = {
     ...req.body,
     id: req.body.id || `user-${Date.now()}`,
+    role: req.body.role || 'user', // Default to 'user' role
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   };
 
-  persons.insert(newPerson, (err, result) => {
+  users.insert(newUser, (err, result) => {
     if (err) {
-      console.error('Error creating person:', err);
+      console.error('Error creating user:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
     // Emit to socket.io clients
-    io.emit('person_created', result);
+    io.emit('user_created', result);
     
     res.status(201).json(result);
   });
 });
 
-app.put('/api/persons/:id', authenticateToken, (req, res) => {
-  const personId = req.params.id;
+app.put('/api/users/:id', authenticateToken, (req, res) => {
+  const userId = req.params.id;
   const updateData = {
     ...req.body,
     updatedAt: new Date().toISOString()
   };
 
-  persons.update({ id: personId }, { $set: updateData }, (err, numReplaced) => {
+  users.update({ id: userId }, { $set: updateData }, (err, numReplaced) => {
     if (err) {
-      console.error('Error updating person:', err);
+      console.error('Error updating user:', err);
       return res.status(500).json({ error: 'Database error' });
     }
     
     if (numReplaced === 0) {
-      return res.status(404).json({ error: 'Person not found' });
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    // Get updated person
-    persons.findOne({ id: personId }, (err, updatedPerson) => {
+    // Get updated user
+    users.findOne({ id: userId }, (err, updatedUser) => {
       if (err) {
         return res.status(500).json({ error: 'Database error' });
       }
       
       // Emit to socket.io clients
-      io.emit('person_updated', updatedPerson);
+      io.emit('user_updated', updatedUser);
       
-      res.json(updatedPerson);
+      res.json(updatedUser);
     });
   });
 });
 
-app.delete('/api/persons/:id', authenticateToken, async (req, res) => {
-  const personId = req.params.id;
+app.delete('/api/users/:id', authenticateToken, async (req, res) => {
+  const userId = req.params.id;
   
   try {
-    // First, get the person to check if it exists
-    const person = await new Promise((resolve, reject) => {
-      persons.findOne({ id: personId }, (err, result) => {
+    // First, get the user to check if it exists
+    const user = await new Promise((resolve, reject) => {
+      users.findOne({ id: userId }, (err, result) => {
         if (err) reject(err);
         else resolve(result);
       });
     });
     
-    if (!person) {
-      return res.status(404).json({ error: 'Person not found' });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    // Remove all task assignments for this person
+    // Don't allow deletion of admin users
+    if (user.role === 'admin') {
+      return res.status(403).json({ error: 'Cannot delete admin users' });
+    }
+
+    // Remove all task assignments for this user
     const taskResult = await new Promise((resolve, reject) => {
       tasks.update(
-        { assignedTo: personId },
+        { assignedTo: userId },
         { $unset: { assignedTo: "", assigneeName: "" } },
         { multi: true },
         (err, result) => {
@@ -348,46 +391,60 @@ app.delete('/api/persons/:id', authenticateToken, async (req, res) => {
       );
     });
 
-    // Remove all notifications for this person
+    // Remove all notifications for this user
     const notificationResult = await new Promise((resolve, reject) => {
-      notifications.remove({ userId: personId }, { multi: true }, (err, result) => {
+      notifications.remove({ userId: userId }, { multi: true }, (err, result) => {
         if (err) reject(err);
         else resolve(result);
       });
     });
 
-    // Finally, remove the person
-    const personResult = await new Promise((resolve, reject) => {
-      persons.remove({ id: personId }, (err, result) => {
+    // Finally, remove the user
+    const userResult = await new Promise((resolve, reject) => {
+      users.remove({ id: userId }, (err, result) => {
         if (err) reject(err);
         else resolve(result);
       });
     });
     
-    if (personResult === 0) {
-      return res.status(404).json({ error: 'Person not found' });
+    if (userResult === 0) {
+      return res.status(404).json({ error: 'User not found' });
     }
     
-    console.log(`Person ${personId} deleted successfully`);
+    console.log(`User ${userId} deleted successfully`);
     console.log(`Removed ${taskResult} task assignments`);
     console.log(`Removed ${notificationResult} notifications`);
     
+    // Create notification for the logged-in user who performed the deletion
+    createNotification(
+      req.user.userId,
+      'user_deleted',
+      'Usuario Eliminado',
+      `Has eliminado exitosamente al usuario "${user.firstName} ${user.lastName}". Tareas desasignadas: ${taskResult}`,
+      {
+        deletedUserId: userId,
+        deletedUserName: `${user.firstName} ${user.lastName}`,
+        tasksUpdated: taskResult,
+        notificationsRemoved: notificationResult
+      }
+    );
+    
     // Emit to socket.io clients
-    io.emit('person_deleted', { 
-      personId, 
+    io.emit('user_deleted', { 
+      userId, 
       tasksUpdated: taskResult, 
       notificationsRemoved: notificationResult 
     });
     
     res.json({ 
       success: true, 
-      deleted: personResult,
+      deleted: userResult,
       tasksUpdated: taskResult,
       notificationsRemoved: notificationResult
     });
 
   } catch (error) {
-    console.error('Error deleting person:', error);
+    console.error('Error deleting user:', error);
     res.status(500).json({ error: 'Database error' });
   }
 });

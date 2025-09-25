@@ -103,6 +103,10 @@ const NotificationBell = ({ className = '' }) => {
         return '🆘';
       case 'feedback_received':
         return '💬';
+      case 'user_deleted':
+        return '🗑️';
+      case 'task_deleted':
+        return '🗑️';
       case 'system':
         return '🔔';
       default:
@@ -126,6 +130,10 @@ const NotificationBell = ({ className = '' }) => {
         return 'help-requested';
       case 'feedback_received':
         return 'feedback-received';
+      case 'user_deleted':
+        return 'user-deleted';
+      case 'task_deleted':
+        return 'task-deleted';
       case 'system':
         return 'system';
       default:

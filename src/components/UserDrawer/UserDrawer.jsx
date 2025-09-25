@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Swal from 'sweetalert2';
 import apiService from '../../services/ApiService';
 import AutocompleteInput from '../TaskDrawer/AutocompleteInput';
 import './UserDrawer.css';
@@ -165,33 +166,80 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
     handleFieldChange('feedbacks', updatedFeedbacks);
   }, [editedUser, handleFieldChange]);
 
-  // Handle user deletion (direct, no confirmation)
+  // Handle user deletion with SweetAlert confirmation
   const handleDeleteUser = useCallback(async () => {
     if (!editedUser || isDeleting) return;
     
-    try {
-      setIsDeleting(true);
-      
-      // Call API to delete user and clean up all related data
-      const result = await apiService.deletePerson(editedUser.id);
-      
-      console.log('User deleted successfully:', result);
-      
-      // Update the users list immediately (remove from UI)
-      if (onUserDeleted) {
-        onUserDeleted(editedUser.id, result);
+    const result = await Swal.fire({
+      title: '¿Eliminar Usuario?',
+      html: `
+        <div style="text-align: left;">
+          <p><strong>¿Estás seguro de que quieres eliminar a <span style="color: #dc3545;">${editedUser.firstName} ${editedUser.lastName}</span>?</strong></p>
+          <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px; padding: 12px; margin: 12px 0;">
+            <p style="margin: 0; color: #856404; font-size: 14px;">
+              <strong>⚠️ Esta acción eliminará:</strong><br/>
+              • El usuario y todos sus datos<br/>
+              • Todas las asignaciones de tareas<br/>
+              • Todas las notificaciones relacionadas
+            </p>
+          </div>
+          <p style="color: #dc3545; font-weight: bold; margin: 0;">
+            Esta acción no se puede deshacer.
+          </p>
+        </div>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc3545',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar usuario',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      focusCancel: true,
+      allowOutsideClick: false,
+      allowEscapeKey: true,
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        try {
+          setIsDeleting(true);
+          
+          // Call API to delete user and clean up all related data
+          const result = await apiService.deleteUser(editedUser.id);
+          
+          console.log('User deleted successfully:', result);
+          
+          // Update the users list immediately (remove from UI)
+          if (onUserDeleted) {
+            onUserDeleted(editedUser.id, result);
+          }
+          
+          // Close the drawer
+          if (onClose) {
+            onClose();
+          }
+          
+          return result;
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          Swal.showValidationMessage('Error al eliminar el usuario. Por favor intenta nuevamente.');
+          throw error;
+        } finally {
+          setIsDeleting(false);
+        }
       }
-      
-      // Close the drawer
-      if (onClose) {
-        onClose();
-      }
-      
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('Error al eliminar el usuario. Por favor intenta nuevamente.');
-    } finally {
-      setIsDeleting(false);
+    });
+
+    if (result.isConfirmed) {
+      // Show success notification
+      Swal.fire({
+        title: '¡Usuario Eliminado!',
+        text: `El usuario ${editedUser.firstName} ${editedUser.lastName} ha sido eliminado exitosamente.`,
+        icon: 'success',
+        timer: 3000,
+        showConfirmButton: false,
+        toast: true,
+        position: 'top-end'
+      });
     }
   }, [editedUser, isDeleting, onClose, onUserDeleted]);
 
@@ -211,7 +259,7 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
         };
         
         // Update user via API
-        const savedUser = await apiService.updatePerson(editedUser.id, userDataToSave);
+        const savedUser = await apiService.updateUser(editedUser.id, userDataToSave);
         
         // Notify parent component with the saved user
         if (onUserUpdate) {

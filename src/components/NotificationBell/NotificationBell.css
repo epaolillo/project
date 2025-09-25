@@ -236,6 +236,16 @@
   color: #383d41;
 }
 
+.notification-item-icon.user-deleted {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.notification-item-icon.task-deleted {
+  background: #f8d7da;
+  color: #721c24;
+}
+
 /* Notification Content */
 .notification-content {
   flex: 1;

@@ -1,3 +1,51 @@
 {"k":"0000000078","o":"0000000177","v":"001"}
 {"_id":2,"_uid":2,"_dt":1758742180984,"_s":"4ead1474cd700a045e27c416a5b4e563"}
 {"username":"admin","password":"$2a$10$r2ytgMHyeeW8oeODpbKntO3A7zzA9Qdqhe/HH0vjZW9D.g3eKnWVu","role":"admin","createdAt":"2025-09-24T19:29:40.983Z","_id":{"$wrap":"$oid","v":2}}
+{"k":"0000000049","o":"0000000000","v":"001"}
+{"_id":2,"_uid":2,"_dt":1758827151661,"_a":"del"}
+
+{"k":"0000000078","o":"0000000469","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758827151757,"_s":"420ce69548311ce190e35da1c153465e"}
+{"id":"admin-1","username":"admin","password":"$2a$10$wrRNk2a7s5zXgDG/HYstXOOdfwQb4IJ/OlYpOPOFmDU2gv3fRN3wK","role":"admin","firstName":"Admin","lastName":"User","name":"Admin User","email":"admin@example.com","motivation":100,"taskClarity":100,"fatigue":0,"lastUpdate":"2025-09-25T19:05:51.757Z","currentTaskId":null,"vacations":[],"feedbacks":[],"avatar":null,"createdAt":"2025-09-25T19:05:51.757Z","updatedAt":"2025-09-25T19:05:51.757Z","_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000049","o":"0000000000","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758827164650,"_a":"del"}
+
+{"k":"0000000078","o":"0000000469","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758827164745,"_s":"cd86beab2fa32f96836abeb79e4841c9"}
+{"id":"admin-1","username":"admin","password":"$2a$10$yTdrhz7U/ymjgRh3Yxx//.NTU8gA5fPabvN/L/epBoKmHHSykGY4a","role":"admin","firstName":"Admin","lastName":"User","name":"Admin User","email":"admin@example.com","motivation":100,"taskClarity":100,"fatigue":0,"lastUpdate":"2025-09-25T19:06:04.744Z","currentTaskId":null,"vacations":[],"feedbacks":[],"avatar":null,"createdAt":"2025-09-25T19:06:04.745Z","updatedAt":"2025-09-25T19:06:04.745Z","_id":{"$wrap":"$oid","v":4}}
+{"k":"0000000078","o":"0000000570","v":"001"}
+{"_id":5,"_uid":5,"_dt":1758827164824,"_s":"f9c5c813ee64d9759cdf9f6f429cdf0e"}
+{"id":"user-1","name":"Alejandro Campo","role":"user","avatar":"/avatars/alejandro.jpg","fatigue":25,"taskClarity":85,"motivation":92,"lastUpdate":"2024-01-15T10:30:00Z","assignedTasks":["task-1","task-2","task-3","task-4"],"currentTaskId":"task-1","username":"alejandro.campo","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Alejandro","lastName":"Campo","email":"alejandro.campo@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":5}}
+{"k":"0000000078","o":"0000000579","v":"001"}
+{"_id":6,"_uid":6,"_dt":1758827164824,"_s":"f72cd753660043bdadade86d7d344e0e"}
+{"id":"user-2","name":"María González","role":"user","avatar":"/avatars/maria.jpg","fatigue":40,"taskClarity":70,"motivation":88,"lastUpdate":"2024-01-15T09:45:00Z","assignedTasks":["task-5","task-6","task-7","task-8","task-9"],"currentTaskId":"task-5","username":"maría.gonzález","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"María","lastName":"González","email":"maría.gonzález@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":6}}
+{"k":"0000000078","o":"0000000576","v":"001"}
+{"_id":7,"_uid":7,"_dt":1758827164824,"_s":"d02a248de2ab17e618a59d27fb7229ef"}
+{"id":"user-3","name":"Carlos Rodriguez","role":"user","avatar":"/avatars/carlos.jpg","fatigue":15,"taskClarity":95,"motivation":75,"lastUpdate":"2024-01-15T11:15:00Z","assignedTasks":["task-10","task-11","task-12","task-13"],"currentTaskId":"task-10","username":"carlos.rodriguez","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Carlos","lastName":"Rodriguez","email":"carlos.rodriguez@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":7}}
+{"k":"0000000078","o":"0000000571","v":"001"}
+{"_id":8,"_uid":8,"_dt":1758827164824,"_s":"0467a82b759a54d17c26e051126ac991"}
+{"id":"user-4","name":"Ana Martínez","role":"user","avatar":"/avatars/ana.jpg","fatigue":60,"taskClarity":80,"motivation":90,"lastUpdate":"2024-01-15T08:20:00Z","assignedTasks":["task-14","task-15","task-16","task-17","task-18"],"currentTaskId":"task-14","username":"ana.martínez","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Ana","lastName":"Martínez","email":"ana.martínez@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":8}}
+{"k":"0000000078","o":"0000000551","v":"001"}
+{"_id":9,"_uid":9,"_dt":1758827164825,"_s":"1e22b9c7694fac2dc82573658373d9e9"}
+{"id":"user-5","name":"David Chen","role":"user","avatar":"/avatars/david.jpg","fatigue":35,"taskClarity":90,"motivation":85,"lastUpdate":"2024-01-15T10:00:00Z","assignedTasks":["task-19","task-20","task-21","task-22"],"currentTaskId":"task-19","username":"david.chen","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"David","lastName":"Chen","email":"david.chen@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":9}}
+{"k":"0000000080","o":"0000000570","v":"001"}
+{"_id":10,"_uid":10,"_dt":1758827164825,"_s":"6eab59915f3a9166259dffe8579577aa"}
+{"id":"user-6","name":"Elena Petrov","role":"user","avatar":"/avatars/elena.jpg","fatigue":20,"taskClarity":85,"motivation":95,"lastUpdate":"2024-01-15T11:30:00Z","assignedTasks":["task-23","task-24","task-25","task-26","task-27"],"currentTaskId":"task-23","username":"elena.petrov","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Elena","lastName":"Petrov","email":"elena.petrov@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":10}}
+{"k":"0000000080","o":"0000000566","v":"001"}
+{"_id":11,"_uid":11,"_dt":1758827164825,"_s":"5e30fbad1fc71207902368d7c3709f87"}
+{"id":"user-7","name":"Roberto Silva","role":"user","avatar":"/avatars/roberto.jpg","fatigue":45,"taskClarity":75,"motivation":80,"lastUpdate":"2024-01-15T09:10:00Z","assignedTasks":["task-28","task-29","task-30","task-31"],"currentTaskId":"task-28","username":"roberto.silva","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Roberto","lastName":"Silva","email":"roberto.silva@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":11}}
+{"k":"0000000080","o":"0000000579","v":"001"}
+{"_id":12,"_uid":12,"_dt":1758827164825,"_s":"3c6b0958c50a08eeb75e85ec5773a2fa"}
+{"id":"user-8","name":"Sophie Laurent","role":"user","avatar":"/avatars/sophie.jpg","fatigue":30,"taskClarity":88,"motivation":92,"lastUpdate":"2024-01-15T10:45:00Z","assignedTasks":["task-32","task-33","task-34","task-35","task-36"],"currentTaskId":"task-32","username":"sophie.laurent","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Sophie","lastName":"Laurent","email":"sophie.laurent@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":12}}
+{"k":"0000000080","o":"0000000560","v":"001"}
+{"_id":13,"_uid":13,"_dt":1758827164825,"_s":"55aae2cad6f699b1077d1cc04fffdb7d"}
+{"id":"user-9","name":"Ahmad Hassan","role":"user","avatar":"/avatars/ahmad.jpg","fatigue":25,"taskClarity":92,"motivation":87,"lastUpdate":"2024-01-15T11:00:00Z","assignedTasks":["task-37","task-38","task-39","task-40"],"currentTaskId":"task-37","username":"ahmad.hassan","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Ahmad","lastName":"Hassan","email":"ahmad.hassan@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.823Z","updatedAt":"2025-09-25T19:06:04.823Z","_id":{"$wrap":"$oid","v":13}}
+{"k":"0000000080","o":"0000000558","v":"001"}
+{"_id":14,"_uid":14,"_dt":1758827164825,"_s":"d6d88b2c07d2c621cae4de523218a9de"}
+{"id":"user-10","name":"Lisa Wang","role":"user","avatar":"/avatars/lisa.jpg","fatigue":50,"taskClarity":78,"motivation":83,"lastUpdate":"2024-01-15T08:45:00Z","assignedTasks":["task-41","task-42","task-43","task-44","task-45"],"currentTaskId":"task-41","username":"lisa.wang","password":"$2a$10$a1eO8Posxvd1ARmZkqkM.e6QFWFkMbTWnJMhv/OFgGgVYwOhXVGrO","firstName":"Lisa","lastName":"Wang","email":"lisa.wang@example.com","vacations":[],"feedbacks":[],"createdAt":"2025-09-25T19:06:04.824Z","updatedAt":"2025-09-25T19:06:04.824Z","_id":{"$wrap":"$oid","v":14}}
+{"k":"0000000050","o":"0000000000","v":"001"}
+{"_id":9,"_uid":14,"_dt":1758827300493,"_a":"del"}
+
+{"k":"0000000051","o":"0000000000","v":"001"}
+{"_id":10,"_uid":14,"_dt":1758827311170,"_a":"del"}
+

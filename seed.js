@@ -13,9 +13,8 @@ console.log('🌱 Seeding database with mock data...');
 const db = new tingodb.Db(DB_PATH, {});
 
 // Collections
-const usersCollection = db.collection('users'); // Collection for authentication
+const usersCollection = db.collection('users'); // Collection for authentication and user management
 const tasksCollection = db.collection('tasks'); // Collection for tasks and incidents
-const persons = db.collection('persons');
 const edges = db.collection('edges'); // Flow edges/connections
 
 // Helper function to read JSON files
@@ -90,7 +89,6 @@ async function seed() {
     
     await clearCollection(usersCollection, 'users');
     await clearCollection(tasksCollection, 'tasks');
-    await clearCollection(persons, 'persons');
     await clearCollection(edges, 'edges');
 
     // Use all tasks from the single file (task_type already included)
@@ -105,10 +103,24 @@ async function seed() {
     console.log('👤 Creating admin user...');
     const adminPassword = await bcrypt.hash('admin123', 10);
     const adminUser = {
+      id: 'admin-1',
       username: 'admin',
       password: adminPassword,
       role: 'admin',
-      createdAt: new Date().toISOString()
+      firstName: 'Admin',
+      lastName: 'User',
+      name: 'Admin User',
+      email: 'admin@example.com',
+      motivation: 100,
+      taskClarity: 100,
+      fatigue: 0,
+      lastUpdate: new Date().toISOString(),
+      currentTaskId: null,
+      vacations: [],
+      feedbacks: [],
+      avatar: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString()
     };
     
     const adminInserted = await insertData(usersCollection, [adminUser], 'admin user');
@@ -116,13 +128,47 @@ async function seed() {
     // Insert all tasks (tasks + incidents)
     const tasksInserted = await insertData(tasksCollection, allTasks, 'tasks');
 
-    // Insert persons (users)
-    const personsInserted = await insertData(persons, mockUsers, 'persons');
+    // Transform mockUsers to include all necessary fields for users collection
+    console.log('👥 Creating user accounts...');
+    const defaultPassword = await bcrypt.hash('password123', 10);
+    const userAccounts = mockUsers.map(user => {
+      // Extract firstName and lastName from name
+      const nameParts = user.name ? user.name.split(' ') : ['User', 'Unknown'];
+      const firstName = nameParts[0] || 'User';
+      const lastName = nameParts.slice(1).join(' ') || 'Unknown';
+      
+      return {
+        ...user,
+        // Add authentication fields
+        username: user.email || `${firstName.toLowerCase()}.${lastName.toLowerCase()}`,
+        password: defaultPassword, // Default password for all users
+        role: 'user',
+        // Ensure all required fields are present
+        firstName: firstName,
+        lastName: lastName,
+        name: user.name || `${firstName} ${lastName}`,
+        email: user.email || `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+        motivation: user.motivation || 75,
+        taskClarity: user.taskClarity || 80,
+        fatigue: user.fatigue || 20,
+        lastUpdate: user.lastUpdate || new Date().toISOString(),
+        currentTaskId: user.currentTaskId || null,
+        vacations: user.vacations || [],
+        feedbacks: user.feedbacks || [],
+        avatar: user.avatar || null,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
+      };
+    });
+
+    const usersInserted = await insertData(usersCollection, userAccounts, 'users');
 
     // Create some additional computed data
     console.log('🔧 Creating additional computed data...');
 
     // Add some completed tasks to demonstrate the system
+    // Use the first user from mockUsers as the assigned user
+    const firstUserId = mockUsers[0]?.id || 'user-1';
     const additionalTasks = [
       {
         "id": "task-11",
@@ -130,7 +176,8 @@ async function seed() {
         "description": "Create password reset functionality with email verification",
         "task_type": "task",
         "status": "completed",
-        "assignedTo": "user-3",
+        "assignedTo": firstUserId,
+        "assigneeName": mockUsers[0]?.name || "User One",
         "priority": "medium",
         "estimatedHours": 8,
         "completedHours": 8,
@@ -145,7 +192,8 @@ async function seed() {
         "description": "Integrate error tracking and monitoring system",
         "task_type": "task",
         "status": "in_progress",
-        "assignedTo": "user-3",
+        "assignedTo": firstUserId,
+        "assigneeName": mockUsers[0]?.name || "User One",
         "priority": "high",
         "estimatedHours": 12,
         "completedHours": 6,
@@ -159,7 +207,8 @@ async function seed() {
         "description": "Build user profile management interface",
         "task_type": "task",
         "status": "pending",
-        "assignedTo": "user-3",
+        "assignedTo": firstUserId,
+        "assigneeName": mockUsers[0]?.name || "User One",
         "priority": "medium",
         "estimatedHours": 16,
         "completedHours": 0,
@@ -262,9 +311,14 @@ async function seed() {
       else console.log(`🚨 Incidents: ${incidentCount}`);
     });
 
-    persons.count({}, (err, personCount) => {
-      if (err) console.error('Error counting persons:', err);
-      else console.log(`👥 Total persons in database: ${personCount}`);
+    usersCollection.count({ role: 'user' }, (err, userCount) => {
+      if (err) console.error('Error counting users:', err);
+      else console.log(`👥 Total users (role: user) in database: ${userCount}`);
+    });
+
+    usersCollection.count({ role: 'admin' }, (err, adminCount) => {
+      if (err) console.error('Error counting admins:', err);
+      else console.log(`👑 Total admin users in database: ${adminCount}`);
     });
 
     // Add a delay to ensure all operations complete
@@ -273,11 +327,12 @@ async function seed() {
       console.log('🎉 Database seeding completed successfully!');
       console.log('');
       console.log('Summary:');
-      console.log(`- Users (Authentication): ${adminInserted} records`);
+      console.log(`- Users Collection: ${adminInserted + usersInserted} records`);
+      console.log(`  - Admin users: ${adminInserted} records`);
+      console.log(`  - Regular users: ${usersInserted} records`);
       console.log(`- Tasks Collection: ${tasksInserted + additionalTasks.length} records`);
       console.log(`  - Tasks: ${tasks.length + additionalTasks.length} records`);
       console.log(`  - Incidents: ${incidents.length} records`);
-      console.log(`- Persons: ${personsInserted} records`);
       console.log('');
       console.log('Next steps:');
       console.log('1. Run "npm run server" to start the backend server');
@@ -330,10 +385,10 @@ const runDatabaseQueries = () => {
     }
   });
 
-  // Find persons with high motivation
-  persons.find({ motivation: { $gte: 90 } }).toArray((err, motivatedPersons) => {
+  // Find users with high motivation
+  usersCollection.find({ role: 'user', motivation: { $gte: 90 } }).toArray((err, motivatedUsers) => {
     if (!err) {
-      console.log(`🚀 Found ${motivatedPersons.length} highly motivated persons`);
+      console.log(`🚀 Found ${motivatedUsers.length} highly motivated users`);
     }
   });
 };

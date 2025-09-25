@@ -269,6 +269,10 @@ class NotificationService {
         return '🆘';
       case 'feedback_received':
         return '💬';
+      case 'user_deleted':
+        return '🗑️';
+      case 'task_deleted':
+        return '🗑️';
       case 'system':
         return '🔔';
       default:
@@ -289,6 +293,10 @@ class NotificationService {
         return '#dc3545';
       case 'feedback_received':
         return '#17a2b8';
+      case 'user_deleted':
+        return '#dc3545';
+      case 'task_deleted':
+        return '#dc3545';
       case 'system':
         return '#6c757d';
       default:

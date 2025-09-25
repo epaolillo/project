@@ -92,10 +92,10 @@ const Layout = ({ user, onLogout }) => {
       ));
     };
 
-    const handlePersonDeleted = (data) => {
+    const handleUserDeleted = (data) => {
       // This is handled directly in UserDrawer now for immediate UI update
       // This WebSocket event is mainly for other clients connected to the system
-      console.log('Person deleted via WebSocket:', data);
+      console.log('User deleted via WebSocket:', data);
     };
 
     // Setup notification service
@@ -115,7 +115,11 @@ const Layout = ({ user, onLogout }) => {
     webSocketService.on('task_completed', handleTaskCompleted);
     webSocketService.on('help_requested', handleHelpRequested);
     webSocketService.on('user_feedback', handleUserFeedback);
-    webSocketService.on('person_deleted', handlePersonDeleted);
+    webSocketService.on('user_deleted', handleUserDeleted);
+    webSocketService.on('notification_created', (notification) => {
+      console.log('New notification received:', notification);
+      // The notification will be handled by the NotificationService
+    });
     webSocketService.connect();
 
     return () => {
@@ -123,7 +127,8 @@ const Layout = ({ user, onLogout }) => {
       webSocketService.off('task_completed', handleTaskCompleted);
       webSocketService.off('help_requested', handleHelpRequested);
       webSocketService.off('user_feedback', handleUserFeedback);
-      webSocketService.off('person_deleted', handlePersonDeleted);
+      webSocketService.off('user_deleted', handleUserDeleted);
+      webSocketService.off('notification_created');
     };
   }, [loadData]);
 
@@ -169,13 +174,7 @@ const Layout = ({ user, onLogout }) => {
         : task
     ));
     
-    // Show success toast
-    addToast({
-      type: 'success',
-      title: 'Usuario Eliminado',
-      message: `Usuario eliminado exitosamente. Tareas desasignadas: ${result.tasksUpdated}`,
-      duration: 5000
-    });
+    // No need to show toast here - UserDrawer already shows SweetAlert toast
   };
 
   const handleTaskSelect = (taskData) => {
