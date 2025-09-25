@@ -57,14 +57,9 @@ const UserWidget = ({ user, onClick, className = '' }) => {
     return '?';
   };
 
-  // Get avatar source (localStorage or fallback)
+  // Get avatar source (user avatar field or fallback)
   const getAvatarSource = (user) => {
-    // First check if there's a localStorage avatar
-    const localAvatar = localStorage.getItem(`avatar_${user.id}`);
-    if (localAvatar) {
-      return localAvatar;
-    }
-    // Then check if user has avatar field
+    // Use the avatar field from the user object
     return user.avatar;
   };
 

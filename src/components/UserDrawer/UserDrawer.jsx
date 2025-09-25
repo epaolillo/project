@@ -98,9 +98,6 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
     reader.onload = (e) => {
       const avatarData = e.target.result;
       
-      // Save to localStorage with user ID
-      localStorage.setItem(`avatar_${editedUser.id}`, avatarData);
-      
       // Update the edited user with the avatar data
       handleFieldChange('avatar', avatarData);
     };
@@ -428,7 +425,6 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
                     className="avatar-remove-button"
                     onClick={() => {
                       handleFieldChange('avatar', '');
-                      localStorage.removeItem(`avatar_${editedUser.id}`);
                     }}
                   >
                     🗑️ Quitar
