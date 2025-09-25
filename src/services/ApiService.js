@@ -347,6 +347,53 @@ class ApiService {
     });
   }
 
+  // Notification methods
+
+  /**
+   * Get all notifications for the current user
+   */
+  async getNotifications(includeArchived = false) {
+    const params = includeArchived ? '?include_archived=true' : '';
+    return await this.request(`/notifications${params}`);
+  }
+
+  /**
+   * Create a new notification
+   */
+  async createNotification(notificationData) {
+    return await this.request('/notifications', {
+      method: 'POST',
+      body: JSON.stringify(notificationData)
+    });
+  }
+
+  /**
+   * Mark notification as read
+   */
+  async markNotificationAsRead(notificationId) {
+    return await this.request(`/notifications/${notificationId}/read`, {
+      method: 'PUT'
+    });
+  }
+
+  /**
+   * Archive notification
+   */
+  async archiveNotification(notificationId) {
+    return await this.request(`/notifications/${notificationId}/archive`, {
+      method: 'PUT'
+    });
+  }
+
+  /**
+   * Mark all notifications as read
+   */
+  async markAllNotificationsAsRead() {
+    return await this.request('/notifications/mark-all-read', {
+      method: 'PUT'
+    });
+  }
+
   // Utility methods
 
   /**

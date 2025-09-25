@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import ManagerLayout from './layouts/ManagerLayout';
-import UserLayout from './layouts/UserLayout';
+import Layout from './layouts/Layout';
 import Login from './components/Login/Login';
 import apiService from './services/ApiService';
 import './App.css';
@@ -117,51 +116,9 @@ function App() {
 
   // Show main app if authenticated
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          {/* Manager route */}
-          <Route 
-            path="/manager" 
-            element={<ManagerLayout user={user} onLogout={handleLogout} />} 
-          />
-          
-          {/* User route with optional user ID parameter */}
-          <Route 
-            path="/user/:userId?" 
-            element={<UserLayoutWrapper user={user} onLogout={handleLogout} />} 
-          />
-          
-          {/* Default redirect based on user role */}
-          <Route 
-            path="/" 
-            element={<Navigate to={user?.role === 'administrator' ? "/manager" : "/user"} replace />} 
-          />
-          
-          {/* Catch all - redirect based on role */}
-          <Route 
-            path="*" 
-            element={<Navigate to={user?.role === 'administrator' ? "/manager" : "/user"} replace />} 
-          />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-/**
- * Wrapper component to handle user ID parameter for user layout
- */
-function UserLayoutWrapper({ user, onLogout }) {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userIdFromUrl = urlParams.get('userId') || user?.id || 'user-1';
-
-  return (
-    <UserLayout 
-      userId={userIdFromUrl} 
-      currentUser={user}
-      onLogout={onLogout}
-    />
+    <div className="App">
+      <Layout user={user} onLogout={handleLogout} />
+    </div>
   );
 }
 

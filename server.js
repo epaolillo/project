@@ -35,6 +35,7 @@ const users = db.collection('users');
 const tasks = db.collection('tasks'); // Collection for tasks and incidents
 const edges = db.collection('edges'); // Flow edges/connections
 const persons = db.collection('persons');
+const notifications = db.collection('notifications'); // User notifications
 
 // Middleware
 app.use(cors({
@@ -603,6 +604,149 @@ app.post('/api/bitacora/:userId', authenticateToken, (req, res) => {
   res.json({ success: true, entry });
 });
 
+// Notifications endpoints
+app.get('/api/notifications', authenticateToken, (req, res) => {
+  const { include_archived = false } = req.query;
+  const filter = { userId: req.user.userId };
+  
+  // By default, exclude archived notifications unless explicitly requested
+  if (include_archived !== 'true') {
+    filter.archived = { $ne: true };
+  }
+  
+  notifications.find(filter).sort({ createdAt: -1 }).toArray((err, notificationsList) => {
+    if (err) {
+      console.error('Error fetching notifications:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(notificationsList);
+  });
+});
+
+app.post('/api/notifications', authenticateToken, (req, res) => {
+  const newNotification = {
+    ...req.body,
+    id: `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    userId: req.body.userId || req.user.userId,
+    read: false,
+    archived: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  notifications.insert(newNotification, (err, result) => {
+    if (err) {
+      console.error('Error creating notification:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    // Emit to socket.io clients
+    io.emit('notification_created', result);
+    
+    res.status(201).json(result);
+  });
+});
+
+app.put('/api/notifications/:id/read', authenticateToken, (req, res) => {
+  const notificationId = req.params.id;
+  
+  notifications.update(
+    { id: notificationId, userId: req.user.userId },
+    { $set: { read: true, updatedAt: new Date().toISOString() } },
+    (err, numReplaced) => {
+      if (err) {
+        console.error('Error marking notification as read:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (numReplaced === 0) {
+        return res.status(404).json({ error: 'Notification not found' });
+      }
+      
+      // Get updated notification
+      notifications.findOne({ id: notificationId }, (err, updatedNotification) => {
+        if (err) {
+          return res.status(500).json({ error: 'Database error' });
+        }
+        
+        // Emit to socket.io clients
+        io.emit('notification_updated', updatedNotification);
+        
+        res.json({ success: true, notification: updatedNotification });
+      });
+    }
+  );
+});
+
+app.put('/api/notifications/:id/archive', authenticateToken, (req, res) => {
+  const notificationId = req.params.id;
+  
+  notifications.update(
+    { id: notificationId, userId: req.user.userId },
+    { $set: { archived: true, updatedAt: new Date().toISOString() } },
+    (err, numReplaced) => {
+      if (err) {
+        console.error('Error archiving notification:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      if (numReplaced === 0) {
+        return res.status(404).json({ error: 'Notification not found' });
+      }
+      
+      // Emit to socket.io clients
+      io.emit('notification_archived', { notificationId, userId: req.user.userId });
+      
+      res.json({ success: true, notificationId });
+    }
+  );
+});
+
+app.put('/api/notifications/mark-all-read', authenticateToken, (req, res) => {
+  notifications.update(
+    { userId: req.user.userId, read: false },
+    { $set: { read: true, updatedAt: new Date().toISOString() } },
+    { multi: true },
+    (err, numReplaced) => {
+      if (err) {
+        console.error('Error marking all notifications as read:', err);
+        return res.status(500).json({ error: 'Database error' });
+      }
+      
+      // Emit to socket.io clients
+      io.emit('notifications_marked_read', { userId: req.user.userId, count: numReplaced });
+      
+      res.json({ success: true, markedRead: numReplaced });
+    }
+  );
+});
+
+// Helper function to create notification
+const createNotification = (userId, type, title, message, data = {}) => {
+  const notification = {
+    id: `notification-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    userId,
+    type,
+    title,
+    message,
+    data,
+    read: false,
+    archived: false,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString()
+  };
+
+  notifications.insert(notification, (err, result) => {
+    if (err) {
+      console.error('Error creating notification:', err);
+      return;
+    }
+    
+    // Emit to socket.io clients
+    io.emit('notification_created', result);
+  });
+};
+
 // WebSocket events
 io.on('connection', (socket) => {
   console.log('User connected:', socket.id);
@@ -615,6 +759,37 @@ io.on('connection', (socket) => {
       { $set: { status: 'completed', updatedAt: new Date().toISOString() } },
       (err, numReplaced) => {
         if (!err && numReplaced > 0) {
+          // Get task details for notification
+          tasks.findOne({ id: data.taskId }, (err, task) => {
+            if (!err && task) {
+              // Get user who completed the task
+              users.findOne({ _id: data.userId }, (err, user) => {
+                if (!err && user) {
+                  // Find all admin users to send notifications
+                  users.find({ role: 'admin' }).toArray((err, admins) => {
+                    if (!err && admins) {
+                      // Send notification to each admin
+                      admins.forEach(admin => {
+                        createNotification(
+                          admin._id,
+                          'task_completed',
+                          'Tarea Completada',
+                          `${user.name} ha completado la tarea: "${task.title}"`,
+                          {
+                            taskId: task.id,
+                            taskTitle: task.title,
+                            completedBy: user.name,
+                            completedByUserId: user._id
+                          }
+                        );
+                      });
+                    }
+                  });
+                }
+              });
+            }
+          });
+          
           // Broadcast to all clients
           io.emit('task_completed', data);
         }

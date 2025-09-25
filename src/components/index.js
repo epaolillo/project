@@ -6,3 +6,5 @@ export { default as UserWidget } from './UserWidget/UserWidget';
 export { default as ProgressBar } from './UserWidget/ProgressBar';
 export { default as UserDrawer } from './UserDrawer/UserDrawer';
 export { default as Login } from './Login/Login';
+export { default as NotificationBell } from './NotificationBell/NotificationBell';
+export { default as ToastContainer } from './Toast/Toast';

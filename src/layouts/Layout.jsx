@@ -3,24 +3,27 @@ import FlowDiagram from '../components/ReactFlow/FlowDiagram';
 import UserWidget from '../components/UserWidget/UserWidget';
 import UserDrawer from '../components/UserDrawer/UserDrawer';
 import TaskDrawer from '../components/TaskDrawer/TaskDrawer';
+import NotificationBell from '../components/NotificationBell/NotificationBell';
+import ToastContainer from '../components/Toast/Toast';
 import apiService from '../services/ApiService';
 import webSocketService from '../services/WebSocketService';
+import notificationService from '../services/NotificationService';
 import { getTaskStatistics } from '../utils/flowUtils';
-import './ManagerLayout.css';
+import './Layout.css';
 
 /**
- * Manager layout component with user overlay and React Flow diagram
+ * Main layout component with user overlay and React Flow diagram
  * Displays team overview with user widgets floating over the task flow
  */
-const ManagerLayout = () => {
+const Layout = ({ user, onLogout }) => {
   const [users, setUsers] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [incidents, setIncidents] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [statistics, setStatistics] = useState(null);
-  const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [toasts, setToasts] = useState([]);
   
   // UserDrawer state
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -47,7 +50,7 @@ const ManagerLayout = () => {
       setIncidents(incidentsData);
       setStatistics(getTaskStatistics(unifiedTasksData));
     } catch (error) {
-      console.error('Error loading manager data:', error);
+      console.error('Error loading data:', error);
     } finally {
       setLoading(false);
     }
@@ -58,15 +61,6 @@ const ManagerLayout = () => {
 
     // Setup WebSocket listeners for real-time updates
     const handleTaskCompleted = (data) => {
-      setNotifications(prev => [{
-        id: Date.now(),
-        type: 'task_completed',
-        message: `Usuario completó una tarea: ${data.taskId}`,
-        userId: data.userId,
-        timestamp: new Date(),
-        data
-      }, ...prev.slice(0, 9)]); // Keep last 10 notifications
-
       // Update local state
       setTasks(prev => prev.map(task => 
         task.id === data.taskId 
@@ -76,27 +70,16 @@ const ManagerLayout = () => {
     };
 
     const handleHelpRequested = (data) => {
-      setNotifications(prev => [{
-        id: Date.now(),
-        type: 'help_requested',
+      // Show toast notification
+      addToast({
+        type: 'help-requested',
+        title: 'Solicitud de Ayuda',
         message: `Usuario solicita ayuda: ${data.message}`,
-        userId: data.userId,
-        taskId: data.taskId,
-        timestamp: new Date(),
-        data
-      }, ...prev.slice(0, 9)]);
+        duration: 5000
+      });
     };
 
     const handleUserFeedback = (data) => {
-      setNotifications(prev => [{
-        id: Date.now(),
-        type: 'user_feedback',
-        message: `Usuario envió feedback`,
-        userId: data.userId,
-        timestamp: new Date(),
-        data
-      }, ...prev.slice(0, 9)]);
-
       // Update user metrics based on feedback
       setUsers(prev => prev.map(user =>
         user.id === data.userId
@@ -109,12 +92,27 @@ const ManagerLayout = () => {
       ));
     };
 
+    // Setup notification service
+    const unsubscribe = notificationService.subscribe((data) => {
+      // Show toast for new unread notifications
+      if (data.unreadNotifications.length > 0) {
+        const latestNotification = data.unreadNotifications[0];
+        addToast({
+          type: latestNotification.type,
+          title: latestNotification.title,
+          message: latestNotification.message,
+          duration: 5000
+        });
+      }
+    });
+
     webSocketService.on('task_completed', handleTaskCompleted);
     webSocketService.on('help_requested', handleHelpRequested);
     webSocketService.on('user_feedback', handleUserFeedback);
     webSocketService.connect();
 
     return () => {
+      unsubscribe();
       webSocketService.off('task_completed', handleTaskCompleted);
       webSocketService.off('help_requested', handleHelpRequested);
       webSocketService.off('user_feedback', handleUserFeedback);
@@ -211,33 +209,42 @@ const ManagerLayout = () => {
     setIsTaskDrawerOpen(true);
   };
 
-  const dismissNotification = (notificationId) => {
-    setNotifications(prev => prev.filter(n => n.id !== notificationId));
+  // Toast management
+  const addToast = (toastData) => {
+    const id = `toast-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    setToasts(prev => [...prev, { ...toastData, id }]);
+  };
+
+  const removeToast = (toastId) => {
+    setToasts(prev => prev.filter(toast => toast.id !== toastId));
   };
 
   if (loading) {
     return (
-      <div className="manager-layout loading">
+      <div className="layout loading">
         <div className="loading-content">
           <div className="spinner"></div>
-          <p>Cargando panel de administrador...</p>
+          <p>Cargando panel...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="manager-layout">
-      {/* Create Task Button */}
+    <div className="layout">
+      {/* Floating notification bell */}
+      <NotificationBell className="floating-notification-bell" />
+      
+      {/* Floating create task button */}
       <button 
-        className="create-task-button"
+        className="floating-create-task-button"
         onClick={() => handleCreateTask()}
         title="Crear nueva tarea"
       >
         +
       </button>
 
-      <div className="manager-content">
+      <div className="layout-content">
         {/* User widgets overlay */}
         <div className="users-overlay">
           <div className="users-panel">
@@ -268,30 +275,8 @@ const ManagerLayout = () => {
 
       </div>
 
-      {/* Notifications panel */}
-      {notifications.length > 0 && (
-        <div className="notifications-panel">
-          <h3>Notificaciones en tiempo real</h3>
-          <div className="notifications-list">
-            {notifications.slice(0, 5).map(notification => (
-              <div key={notification.id} className={`notification ${notification.type}`}>
-                <div className="notification-content">
-                  <p>{notification.message}</p>
-                  <small>
-                    {notification.timestamp.toLocaleTimeString()}
-                  </small>
-                </div>
-                <button 
-                  onClick={() => dismissNotification(notification.id)}
-                  className="dismiss-notification"
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Toast Notifications */}
+      <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
 
       {/* User Drawer Modal */}
       <UserDrawer
@@ -313,4 +298,4 @@ const ManagerLayout = () => {
   );
 };
 
-export default ManagerLayout;
+export default Layout;

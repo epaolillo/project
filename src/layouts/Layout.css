@@ -1,4 +1,4 @@
-.manager-layout {
+.layout {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -6,7 +6,7 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
 }
 
-.manager-layout.loading {
+.layout.loading {
   justify-content: center;
   align-items: center;
 }
@@ -38,54 +38,46 @@
   margin: 0;
 }
 
-/* Header */
-.manager-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 24px;
-  background: white;
-  border-bottom: 1px solid #e9ecef;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 20;
+/* Floating Elements */
+.floating-notification-bell {
+  position: fixed;
+  top: 20px;
+  right: 160px;
+  z-index: 1000;
 }
 
-.manager-header h1 {
-  margin: 0;
+.floating-create-task-button {
+  position: fixed;
+  top: 20px;
+  right: 100px;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
   font-size: 24px;
-  font-weight: 600;
-  color: #2c3e50;
-}
-
-.header-stats {
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
   display: flex;
-  gap: 24px;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
+  justify-content: center;
 }
 
-.stat-value {
-  font-size: 20px;
-  font-weight: 700;
-  color: #2c3e50;
-  line-height: 1;
+.floating-create-task-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
 }
 
-.stat-label {
-  font-size: 11px;
-  color: #7f8c8d;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.floating-create-task-button:active {
+  transform: scale(0.95);
 }
 
 /* Main content */
-.manager-content {
+.layout-content {
   flex: 1;
   position: relative;
   display: flex;
@@ -365,17 +357,6 @@
 }
 
 @media (max-width: 768px) {
-  .manager-header {
-    flex-direction: column;
-    gap: 16px;
-    padding: 16px;
-  }
-  
-  .header-stats {
-    justify-content: center;
-    width: 100%;
-  }
-  
   .users-overlay {
     position: static;
     width: 100%;
@@ -423,37 +404,33 @@
   }
 }
 
-/* Create Task Button */
-.create-task-button {
-  position: fixed;
-  top: 20px;
-  right: 75px;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: #363636;
-  border: none;
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 123, 255, 0.3);
-  z-index: 1000;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  line-height: 1;
+/* Floating elements responsive */
+@media (max-width: 768px) {
+  .floating-notification-bell {
+    top: 15px;
+    right: 70px;
+  }
+  
+  .floating-create-task-button {
+    top: 15px;
+    right: 15px;
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+  }
 }
 
-
-/* Mobile adjustments for create button */
-@media (max-width: 768px) {
-  .create-task-button {
-    width: 48px;
-    height: 48px;
-    font-size: 20px;
-    top: 16px;
-    right: 16px;
+@media (max-width: 480px) {
+  .floating-notification-bell {
+    top: 10px;
+    right: 60px;
+  }
+  
+  .floating-create-task-button {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 }
