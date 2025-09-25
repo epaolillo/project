@@ -1,42 +1,18 @@
-{"k":"0000000078","o":"0000000457","v":"001"}
-{"_id":2,"_uid":2,"_dt":1758825229592,"_s":"58f316f393b9bd640a2ba56356a0b59a"}
-{"id":"notification-1758825229589-n9odv0rxy","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 1","data":{"deletedUserId":"user-8","deletedUserName":"undefined undefined","tasksUpdated":1,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T18:33:49.589Z","updatedAt":"2025-09-25T18:33:49.589Z","_id":{"$wrap":"$oid","v":2}}
-{"k":"0000000078","o":"0000000456","v":"001"}
-{"_id":2,"_uid":2,"_dt":1758825233469,"_s":"f7113b93cc40db5cf92f69051ed3f3ea"}
-{"id":"notification-1758825229589-n9odv0rxy","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 1","data":{"deletedUserId":"user-8","deletedUserName":"undefined undefined","tasksUpdated":1,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T18:33:49.589Z","updatedAt":"2025-09-25T18:33:53.467Z","_id":{"$wrap":"$oid","v":2}}
-{"k":"0000000078","o":"0000000457","v":"001"}
-{"_id":3,"_uid":3,"_dt":1758825237936,"_s":"1fdd09b742b4802cf61fabf2907ca393"}
-{"id":"notification-1758825237935-m00huf95t","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 0","data":{"deletedUserId":"user-9","deletedUserName":"undefined undefined","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T18:33:57.935Z","updatedAt":"2025-09-25T18:33:57.935Z","_id":{"$wrap":"$oid","v":3}}
-{"k":"0000000078","o":"0000000456","v":"001"}
-{"_id":3,"_uid":3,"_dt":1758825241742,"_s":"e0b3e3074765d882886d7abf4a82bf23"}
-{"id":"notification-1758825237935-m00huf95t","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 0","data":{"deletedUserId":"user-9","deletedUserName":"undefined undefined","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T18:33:57.935Z","updatedAt":"2025-09-25T18:34:01.741Z","_id":{"$wrap":"$oid","v":3}}
-{"k":"0000000078","o":"0000000458","v":"001"}
-{"_id":4,"_uid":4,"_dt":1758825253787,"_s":"67cf03110771edcc955d5ddec2d1e4fc"}
-{"id":"notification-1758825253786-bgl5677li","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 0","data":{"deletedUserId":"user-10","deletedUserName":"undefined undefined","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T18:34:13.786Z","updatedAt":"2025-09-25T18:34:13.786Z","_id":{"$wrap":"$oid","v":4}}
-{"k":"0000000078","o":"0000000457","v":"001"}
-{"_id":4,"_uid":4,"_dt":1758825280205,"_s":"095efff05f1879c6aeb913dc89325fc1"}
-{"id":"notification-1758825253786-bgl5677li","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"undefined undefined\". Tareas desasignadas: 0","data":{"deletedUserId":"user-10","deletedUserName":"undefined undefined","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T18:34:13.786Z","updatedAt":"2025-09-25T18:34:40.204Z","_id":{"$wrap":"$oid","v":4}}
-{"k":"0000000078","o":"0000000443","v":"001"}
-{"_id":5,"_uid":5,"_dt":1758825295897,"_s":"82f6eaee125e8c5beb199a55af226c49"}
-{"id":"notification-1758825295896-744g6kxv3","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Damian Pirlo\". Tareas desasignadas: 0","data":{"deletedUserId":"user-4","deletedUserName":"Damian Pirlo","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T18:34:55.896Z","updatedAt":"2025-09-25T18:34:55.896Z","_id":{"$wrap":"$oid","v":5}}
-{"k":"0000000078","o":"0000000442","v":"001"}
-{"_id":5,"_uid":5,"_dt":1758825300266,"_s":"4d1ed77aeae92431e8a43cf68563906e"}
-{"id":"notification-1758825295896-744g6kxv3","userId":2,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Damian Pirlo\". Tareas desasignadas: 0","data":{"deletedUserId":"user-4","deletedUserName":"Damian Pirlo","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T18:34:55.896Z","updatedAt":"2025-09-25T18:35:00.266Z","_id":{"$wrap":"$oid","v":5}}
 {"k":"0000000078","o":"0000000439","v":"001"}
-{"_id":6,"_uid":6,"_dt":1758827300495,"_s":"f8ace8d6190a1db444f714b32da9b6ac"}
-{"id":"notification-1758827300494-9k7karkjm","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"David Chen\". Tareas desasignadas: 0","data":{"deletedUserId":"user-5","deletedUserName":"David Chen","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T19:08:20.494Z","updatedAt":"2025-09-25T19:08:20.494Z","_id":{"$wrap":"$oid","v":6}}
+{"_id":2,"_uid":2,"_dt":1758830762684,"_s":"f9f97a2e2c2bc124d74959e10c724d49"}
+{"id":"notification-1758830762682-lvd9s6dss","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Lisa Wang\". Tareas desasignadas: 0","data":{"deletedUserId":"user-10","deletedUserName":"Lisa Wang","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T20:06:02.682Z","updatedAt":"2025-09-25T20:06:02.682Z","_id":{"$wrap":"$oid","v":2}}
 {"k":"0000000078","o":"0000000438","v":"001"}
-{"_id":6,"_uid":6,"_dt":1758827304642,"_s":"a9fe29641fd8f60b53f3f847dbc18d6f"}
-{"id":"notification-1758827300494-9k7karkjm","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"David Chen\". Tareas desasignadas: 0","data":{"deletedUserId":"user-5","deletedUserName":"David Chen","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T19:08:20.494Z","updatedAt":"2025-09-25T19:08:24.642Z","_id":{"$wrap":"$oid","v":6}}
-{"k":"0000000078","o":"0000000443","v":"001"}
-{"_id":7,"_uid":7,"_dt":1758827311171,"_s":"73243178738a1b2197352461b4ac7741"}
-{"id":"notification-1758827311170-somo2s2z7","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Elena Petrov\". Tareas desasignadas: 0","data":{"deletedUserId":"user-6","deletedUserName":"Elena Petrov","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T19:08:31.170Z","updatedAt":"2025-09-25T19:08:31.170Z","_id":{"$wrap":"$oid","v":7}}
-{"k":"0000000078","o":"0000000442","v":"001"}
-{"_id":7,"_uid":7,"_dt":1758827315438,"_s":"a871e3e13a174ac0cc81961951fe3f74"}
-{"id":"notification-1758827311170-somo2s2z7","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Elena Petrov\". Tareas desasignadas: 0","data":{"deletedUserId":"user-6","deletedUserName":"Elena Petrov","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T19:08:31.170Z","updatedAt":"2025-09-25T19:08:35.437Z","_id":{"$wrap":"$oid","v":7}}
-{"k":"0000000078","o":"0000000445","v":"001"}
-{"_id":8,"_uid":8,"_dt":1758827667307,"_s":"bbca35743334e809fde6034073520d35"}
-{"id":"notification-1758827667306-1gs070qc2","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Roberto Silva\". Tareas desasignadas: 1","data":{"deletedUserId":"user-7","deletedUserName":"Roberto Silva","tasksUpdated":1,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T19:14:27.306Z","updatedAt":"2025-09-25T19:14:27.306Z","_id":{"$wrap":"$oid","v":8}}
+{"_id":2,"_uid":2,"_dt":1758830768930,"_s":"f6e67961f0c7f3bdc9cf74cd7cd505c9"}
+{"id":"notification-1758830762682-lvd9s6dss","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Lisa Wang\". Tareas desasignadas: 0","data":{"deletedUserId":"user-10","deletedUserName":"Lisa Wang","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T20:06:02.682Z","updatedAt":"2025-09-25T20:06:08.930Z","_id":{"$wrap":"$oid","v":2}}
 {"k":"0000000078","o":"0000000444","v":"001"}
-{"_id":8,"_uid":8,"_dt":1758827671088,"_s":"4d4b81d75fad91f7d1618535de777443"}
-{"id":"notification-1758827667306-1gs070qc2","userId":4,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Roberto Silva\". Tareas desasignadas: 1","data":{"deletedUserId":"user-7","deletedUserName":"Roberto Silva","tasksUpdated":1,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T19:14:27.306Z","updatedAt":"2025-09-25T19:14:31.087Z","_id":{"$wrap":"$oid","v":8}}
+{"_id":3,"_uid":3,"_dt":1758830780937,"_s":"5a08841c8668b28886eb58c8816d06fb"}
+{"id":"notification-1758830780937-tji0g5b2l","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Ahmad Hassan\". Tareas desasignadas: 0","data":{"deletedUserId":"user-9","deletedUserName":"Ahmad Hassan","tasksUpdated":0,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T20:06:20.937Z","updatedAt":"2025-09-25T20:06:20.937Z","_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000443","v":"001"}
+{"_id":3,"_uid":3,"_dt":1758830886747,"_s":"59ca456645f989475f2f00866fc620db"}
+{"id":"notification-1758830780937-tji0g5b2l","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Ahmad Hassan\". Tareas desasignadas: 0","data":{"deletedUserId":"user-9","deletedUserName":"Ahmad Hassan","tasksUpdated":0,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T20:06:20.937Z","updatedAt":"2025-09-25T20:08:06.736Z","_id":{"$wrap":"$oid","v":3}}
+{"k":"0000000078","o":"0000000448","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758830905319,"_s":"613154da09bfea7f2aade4d280c72982"}
+{"id":"notification-1758830905318-vfmjpp0ui","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Sophie Laurent\". Tareas desasignadas: 1","data":{"deletedUserId":"user-8","deletedUserName":"Sophie Laurent","tasksUpdated":1,"notificationsRemoved":0},"read":false,"archived":false,"createdAt":"2025-09-25T20:08:25.318Z","updatedAt":"2025-09-25T20:08:25.318Z","_id":{"$wrap":"$oid","v":4}}
+{"k":"0000000078","o":"0000000447","v":"001"}
+{"_id":4,"_uid":4,"_dt":1758830931147,"_s":"56df09275d5ce32b4ba78d57258f0964"}
+{"id":"notification-1758830905318-vfmjpp0ui","userId":13,"type":"user_deleted","title":"Usuario Eliminado","message":"Has eliminado exitosamente al usuario \"Sophie Laurent\". Tareas desasignadas: 1","data":{"deletedUserId":"user-8","deletedUserName":"Sophie Laurent","tasksUpdated":1,"notificationsRemoved":0},"read":true,"archived":false,"createdAt":"2025-09-25T20:08:25.318Z","updatedAt":"2025-09-25T20:08:51.146Z","_id":{"$wrap":"$oid","v":4}}

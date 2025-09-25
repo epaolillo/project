@@ -138,10 +138,16 @@
   transition: all 0.2s ease;
 }
 
-.notification-action:hover {
+.notification-action:hover:not(:disabled) {
   background: #e9ecef;
   color: #495057;
   transform: translateY(-1px);
+}
+
+.notification-action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 /* Notifications List */

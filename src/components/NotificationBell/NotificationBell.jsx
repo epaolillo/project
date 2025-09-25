@@ -11,6 +11,7 @@ const NotificationBell = ({ className = '' }) => {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [isMarkingAsRead, setIsMarkingAsRead] = useState(false);
   
   const dropdownRef = useRef(null);
   const bellRef = useRef(null);
@@ -18,7 +19,9 @@ const NotificationBell = ({ className = '' }) => {
   // Subscribe to notification changes
   useEffect(() => {
     const unsubscribe = notificationService.subscribe((data) => {
-      setNotifications(data.notifications);
+      // Limit to 5 most recent notifications
+      const limitedNotifications = data.notifications.slice(0, 5);
+      setNotifications(limitedNotifications);
       setUnreadCount(data.unreadCount);
     });
 
@@ -66,11 +69,20 @@ const NotificationBell = ({ className = '' }) => {
   }, [isOpen]);
 
   // Handle bell click
-  const handleBellClick = () => {
-    setIsOpen(!isOpen);
-    if (!isOpen) {
-      // Mark all as read when opening
-      notificationService.markAllAsRead();
+  const handleBellClick = async () => {
+    const newIsOpen = !isOpen;
+    setIsOpen(newIsOpen);
+    
+    if (newIsOpen && unreadCount > 0) {
+      // Mark all as read when opening the dropdown
+      setIsMarkingAsRead(true);
+      try {
+        await notificationService.markAllAsRead();
+      } catch (error) {
+        console.error('Error marking notifications as read:', error);
+      } finally {
+        setIsMarkingAsRead(false);
+      }
     }
   };
 
@@ -89,7 +101,14 @@ const NotificationBell = ({ className = '' }) => {
 
   // Handle mark all as read
   const handleMarkAllAsRead = async () => {
-    await notificationService.markAllAsRead();
+    setIsMarkingAsRead(true);
+    try {
+      await notificationService.markAllAsRead();
+    } catch (error) {
+      console.error('Error marking all notifications as read:', error);
+    } finally {
+      setIsMarkingAsRead(false);
+    }
   };
 
   // Get notification icon
@@ -169,8 +188,9 @@ const NotificationBell = ({ className = '' }) => {
                 <button
                   className="notification-action"
                   onClick={handleMarkAllAsRead}
+                  disabled={isMarkingAsRead}
                 >
-                  Marcar todas como leídas
+                  {isMarkingAsRead ? 'Marcando...' : 'Marcar todas como leídas'}
                 </button>
               )}
             </div>

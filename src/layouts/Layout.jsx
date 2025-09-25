@@ -100,35 +100,60 @@ const Layout = ({ user, onLogout }) => {
 
     // Setup notification service
     const unsubscribe = notificationService.subscribe((data) => {
-      // Show toast for new unread notifications
-      if (data.unreadNotifications.length > 0) {
-        const latestNotification = data.unreadNotifications[0];
-        addToast({
-          type: latestNotification.type,
-          title: latestNotification.title,
-          message: latestNotification.message,
-          duration: 5000
-        });
-      }
+      // Don't show toasts here - let NotificationService handle it
+      // This subscription is just for updating the UI state
     });
+
+    // Listen for notification toasts from NotificationService
+    const handleNotificationToast = (event) => {
+      const { type, title, message, duration } = event.detail;
+      addToast({
+        type,
+        title,
+        message,
+        duration
+      });
+    };
+
+    window.addEventListener('showNotificationToast', handleNotificationToast);
 
     webSocketService.on('task_completed', handleTaskCompleted);
     webSocketService.on('help_requested', handleHelpRequested);
     webSocketService.on('user_feedback', handleUserFeedback);
     webSocketService.on('user_deleted', handleUserDeleted);
-    webSocketService.on('notification_created', (notification) => {
-      console.log('New notification received:', notification);
-      // The notification will be handled by the NotificationService
+    webSocketService.on('notification_created', (data) => {
+      console.log('🔔 New notification received via WebSocket:', data);
+      // Forward to NotificationService
+      notificationService.handleWebSocketMessage(data);
+    });
+    
+    webSocketService.on('notification_updated', (data) => {
+      console.log('🔔 Notification updated via WebSocket:', data);
+      notificationService.handleWebSocketMessage(data);
+    });
+    
+    webSocketService.on('notification_archived', (data) => {
+      console.log('🔔 Notification archived via WebSocket:', data);
+      notificationService.handleWebSocketMessage(data);
+    });
+    
+    webSocketService.on('notifications_marked_read', (data) => {
+      console.log('🔔 Notifications marked as read via WebSocket:', data);
+      notificationService.handleWebSocketMessage(data);
     });
     webSocketService.connect();
 
     return () => {
       unsubscribe();
+      window.removeEventListener('showNotificationToast', handleNotificationToast);
       webSocketService.off('task_completed', handleTaskCompleted);
       webSocketService.off('help_requested', handleHelpRequested);
       webSocketService.off('user_feedback', handleUserFeedback);
       webSocketService.off('user_deleted', handleUserDeleted);
       webSocketService.off('notification_created');
+      webSocketService.off('notification_updated');
+      webSocketService.off('notification_archived');
+      webSocketService.off('notifications_marked_read');
     };
   }, [loadData]);
 

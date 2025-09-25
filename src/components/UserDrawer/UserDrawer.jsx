@@ -79,7 +79,7 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
   }, []);
 
   // Handle avatar upload
-  const handleAvatarUpload = useCallback((event) => {
+  const handleAvatarUpload = useCallback(async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
@@ -94,15 +94,22 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const avatarData = e.target.result;
+    try {
+      // Upload avatar to server
+      const result = await apiService.uploadUserAvatar(editedUser.id, file);
       
-      // Update the edited user with the avatar data
-      handleFieldChange('avatar', avatarData);
-    };
-    reader.readAsDataURL(file);
-  }, [editedUser?.id, handleFieldChange]);
+      // Update the edited user with the new avatar path
+      handleFieldChange('avatar', result.avatar);
+      
+      // Notify parent component with the updated user
+      if (onUserUpdate) {
+        onUserUpdate(result.user);
+      }
+    } catch (error) {
+      console.error('Error uploading avatar:', error);
+      alert('Error al subir el avatar. Por favor intenta de nuevo.');
+    }
+  }, [editedUser?.id, handleFieldChange, onUserUpdate]);
 
   // Handle current task change
   const handleCurrentTaskChange = useCallback((taskId) => {
@@ -226,18 +233,8 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
       }
     });
 
-    if (result.isConfirmed) {
-      // Show success notification
-      Swal.fire({
-        title: '¡Usuario Eliminado!',
-        text: `El usuario ${editedUser.firstName} ${editedUser.lastName} ha sido eliminado exitosamente.`,
-        icon: 'success',
-        timer: 3000,
-        showConfirmButton: false,
-        toast: true,
-        position: 'top-end'
-      });
-    }
+    // Success notification is now handled by the notification system
+    // No need to show additional toast here
   }, [editedUser, isDeleting, onClose, onUserDeleted]);
 
   // Auto-save changes with debounce
@@ -423,8 +420,20 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
                   <button 
                     type="button" 
                     className="avatar-remove-button"
-                    onClick={() => {
-                      handleFieldChange('avatar', '');
+                    onClick={async () => {
+                      try {
+                        await apiService.deleteUserAvatar(editedUser.id);
+                        handleFieldChange('avatar', '');
+                        
+                        // Notify parent component with the updated user
+                        if (onUserUpdate) {
+                          const updatedUser = { ...editedUser, avatar: '' };
+                          onUserUpdate(updatedUser);
+                        }
+                      } catch (error) {
+                        console.error('Error deleting avatar:', error);
+                        alert('Error al eliminar el avatar. Por favor intenta de nuevo.');
+                      }
                     }}
                   >
                     🗑️ Quitar

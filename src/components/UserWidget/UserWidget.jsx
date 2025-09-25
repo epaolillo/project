@@ -60,7 +60,15 @@ const UserWidget = ({ user, onClick, className = '' }) => {
   // Get avatar source (user avatar field or fallback)
   const getAvatarSource = (user) => {
     // Use the avatar field from the user object
-    return user.avatar;
+    if (user.avatar) {
+      // If it's a relative path, prepend the server URL
+      if (user.avatar.startsWith('/uploads/')) {
+        return `http://localhost:5000${user.avatar}`;
+      }
+      // If it's already a full URL or base64, use as is
+      return user.avatar;
+    }
+    return null;
   };
 
   const displayName = getDisplayName(user);

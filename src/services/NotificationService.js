@@ -18,21 +18,12 @@ class NotificationService {
   }
 
   /**
-   * Connect to WebSocket and load initial notifications
+   * Connect and load initial notifications
    */
   async connect() {
     try {
       // Load existing notifications
       await this.loadNotifications();
-      
-      // Connect to WebSocket
-      WebSocketService.connect();
-      
-      // Listen for WebSocket events
-      WebSocketService.on('notification_created', this.handleWebSocketMessage);
-      WebSocketService.on('notification_updated', this.handleWebSocketMessage);
-      WebSocketService.on('notification_archived', this.handleWebSocketMessage);
-      WebSocketService.on('notifications_marked_read', this.handleWebSocketMessage);
       
       this.isConnected = true;
       this.notifyListeners();
@@ -42,35 +33,54 @@ class NotificationService {
   }
 
   /**
-   * Disconnect from WebSocket
+   * Disconnect
    */
   disconnect() {
-    WebSocketService.off('notification_created', this.handleWebSocketMessage);
-    WebSocketService.off('notification_updated', this.handleWebSocketMessage);
-    WebSocketService.off('notification_archived', this.handleWebSocketMessage);
-    WebSocketService.off('notifications_marked_read', this.handleWebSocketMessage);
-    
     this.isConnected = false;
   }
 
   /**
-   * Handle WebSocket messages
+   * Handle WebSocket messages (public method)
    */
   handleWebSocketMessage(data) {
+    console.log('🔔 NotificationService received WebSocket message:', data);
+    
+    // Handle array format (data comes as [object])
+    if (Array.isArray(data) && data.length > 0) {
+      data = data[0];
+    }
+    
+    console.log('🔔 Processed data:', data);
+    
     switch (data.type) {
       case 'notification_created':
-        this.addNotification(data.notification);
+        if (data.notification) {
+          console.log('🔔 Adding notification from notification_created:', data.notification);
+          this.addNotification(data.notification);
+        } else if (data.id && data.title && data.message) {
+          console.log('🔔 Adding notification directly from data:', data);
+          this.addNotification(data);
+        }
         break;
       case 'notification_updated':
-        this.updateNotification(data.notification);
+        if (data.notification) {
+          this.updateNotification(data.notification);
+        }
         break;
       case 'notification_archived':
-        this.removeNotification(data.notificationId);
+        if (data.notificationId) {
+          this.removeNotification(data.notificationId);
+        }
         break;
       case 'notifications_marked_read':
         this.markAllAsRead();
         break;
       default:
+        // Handle direct notification objects (fallback)
+        if (data.id && data.title && data.message) {
+          console.log('🔔 Adding notification from fallback:', data);
+          this.addNotification(data);
+        }
         break;
     }
   }
@@ -113,16 +123,50 @@ class NotificationService {
    * Add notification to local state
    */
   addNotification(notification) {
+    console.log('🔔 Adding notification to local state:', notification);
+    
     // Check if notification already exists
     const existingIndex = this.notifications.findIndex(n => n.id === notification.id);
     
     if (existingIndex >= 0) {
       this.notifications[existingIndex] = notification;
     } else {
+      // Add to the beginning of the array (most recent first)
       this.notifications.unshift(notification);
+      
+      // Show toast for specific notification types
+      this.showNotificationToast(notification);
     }
     
+    // Sort by creation date to ensure proper order
+    this.notifications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    
     this.notifyListeners();
+  }
+
+  /**
+   * Show toast for specific notification types
+   */
+  showNotificationToast(notification) {
+    // Only show toasts for specific types to avoid duplicates
+    const shouldShowToast = [
+      'user_deleted',
+      'task_deleted', 
+      'task_completed',
+      'help_requested'
+    ].includes(notification.type);
+
+    if (shouldShowToast) {
+      // Dispatch custom event for toast
+      window.dispatchEvent(new CustomEvent('showNotificationToast', {
+        detail: {
+          type: notification.type,
+          title: notification.title,
+          message: notification.message,
+          duration: 5000
+        }
+      }));
+    }
   }
 
   /**
@@ -181,6 +225,7 @@ class NotificationService {
    */
   async markAllAsRead() {
     try {
+      console.log('🔔 Marking all notifications as read');
       await apiService.markAllNotificationsAsRead();
       
       // Update local state
@@ -221,12 +266,21 @@ class NotificationService {
    * Notify all listeners of changes
    */
   notifyListeners() {
+    const unreadCount = this.getUnreadCount();
+    const unreadNotifications = this.getUnreadNotifications();
+    
+    console.log('🔔 Notifying listeners:', {
+      totalNotifications: this.notifications.length,
+      unreadCount,
+      unreadNotifications: unreadNotifications.length
+    });
+    
     this.listeners.forEach(listener => {
       try {
         listener({
           notifications: this.notifications,
-          unreadCount: this.getUnreadCount(),
-          unreadNotifications: this.getUnreadNotifications()
+          unreadCount,
+          unreadNotifications
         });
       } catch (error) {
         console.error('Error notifying listener:', error);

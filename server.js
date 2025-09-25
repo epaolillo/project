@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const { Server } = require('socket.io');
 const http = require('http');
+const multer = require('multer');
 const tingodb = require('tingodb')();
 
 // Initialize Express app
@@ -36,6 +37,43 @@ const tasks = db.collection('tasks'); // Collection for tasks and incidents
 const edges = db.collection('edges'); // Flow edges/connections
 const notifications = db.collection('notifications'); // User notifications
 
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, 'uploads', 'avatars');
+    // Ensure directory exists
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    // Generate unique filename: userId_timestamp.extension
+    const userId = req.params.userId || 'unknown';
+    const timestamp = Date.now();
+    const extension = path.extname(file.originalname);
+    const filename = `${userId}_${timestamp}${extension}`;
+    cb(null, filename);
+  }
+});
+
+const fileFilter = (req, file, cb) => {
+  // Accept only image files
+  if (file.mimetype.startsWith('image/')) {
+    cb(null, true);
+  } else {
+    cb(new Error('Only image files are allowed'), false);
+  }
+};
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB limit
+  },
+  fileFilter: fileFilter
+});
+
 // Middleware
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -44,6 +82,9 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
+
+// Serve static files from uploads directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // JWT Authentication middleware
 const authenticateToken = (req, res, next) => {
@@ -449,6 +490,148 @@ app.delete('/api/users/:id', authenticateToken, async (req, res) => {
   }
 });
 
+// Avatar upload endpoint
+app.post('/api/users/:userId/avatar', authenticateToken, upload.single('avatar'), async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
+    // Check if user exists
+    const user = await new Promise((resolve, reject) => {
+      users.findOne({ id: userId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+
+    if (!user) {
+      // Delete the uploaded file if user doesn't exist
+      fs.unlinkSync(req.file.path);
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Delete old avatar if it exists
+    if (user.avatar && user.avatar.startsWith('/uploads/avatars/')) {
+      const oldAvatarPath = path.join(__dirname, user.avatar);
+      if (fs.existsSync(oldAvatarPath)) {
+        fs.unlinkSync(oldAvatarPath);
+      }
+    }
+
+    // Update user with new avatar path
+    const avatarPath = `/uploads/avatars/${req.file.filename}`;
+    const updateResult = await new Promise((resolve, reject) => {
+      users.update(
+        { id: userId },
+        { $set: { avatar: avatarPath, updatedAt: new Date().toISOString() } },
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
+    });
+
+    if (updateResult === 0) {
+      // Delete the uploaded file if update failed
+      fs.unlinkSync(req.file.path);
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Get updated user
+    const updatedUser = await new Promise((resolve, reject) => {
+      users.findOne({ id: userId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+
+    // Emit to socket.io clients
+    io.emit('user_updated', updatedUser);
+
+    res.json({
+      success: true,
+      avatar: avatarPath,
+      user: updatedUser
+    });
+
+  } catch (error) {
+    console.error('Error uploading avatar:', error);
+    
+    // Delete the uploaded file if there was an error
+    if (req.file && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+    
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
+// Delete avatar endpoint
+app.delete('/api/users/:userId/avatar', authenticateToken, async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    
+    // Get user to check current avatar
+    const user = await new Promise((resolve, reject) => {
+      users.findOne({ id: userId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Delete avatar file if it exists
+    if (user.avatar && user.avatar.startsWith('/uploads/avatars/')) {
+      const avatarPath = path.join(__dirname, user.avatar);
+      if (fs.existsSync(avatarPath)) {
+        fs.unlinkSync(avatarPath);
+      }
+    }
+
+    // Update user to remove avatar
+    const updateResult = await new Promise((resolve, reject) => {
+      users.update(
+        { id: userId },
+        { $unset: { avatar: "" }, $set: { updatedAt: new Date().toISOString() } },
+        (err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+        }
+      );
+    });
+
+    if (updateResult === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Get updated user
+    const updatedUser = await new Promise((resolve, reject) => {
+      users.findOne({ id: userId }, (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      });
+    });
+
+    // Emit to socket.io clients
+    io.emit('user_updated', updatedUser);
+
+    res.json({
+      success: true,
+      user: updatedUser
+    });
+
+  } catch (error) {
+    console.error('Error deleting avatar:', error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 // Incidents endpoints (legacy endpoint - filters tasks by task_type)
 app.get('/api/incidents', authenticateToken, (req, res) => {
   tasks.find({ task_type: 'incident' }).toArray((err, incidentsList) => {
@@ -770,9 +953,7 @@ app.post('/api/notifications', authenticateToken, (req, res) => {
       return res.status(500).json({ error: 'Database error' });
     }
     
-    // Emit to socket.io clients
-    io.emit('notification_created', result);
-    
+    // Don't emit here - let createNotification handle it
     res.status(201).json(result);
   });
 });
@@ -800,7 +981,10 @@ app.put('/api/notifications/:id/read', authenticateToken, (req, res) => {
         }
         
         // Emit to socket.io clients
-        io.emit('notification_updated', updatedNotification);
+        io.emit('notification_updated', { 
+          type: 'notification_updated', 
+          notification: updatedNotification 
+        });
         
         res.json({ success: true, notification: updatedNotification });
       });
@@ -825,7 +1009,11 @@ app.put('/api/notifications/:id/archive', authenticateToken, (req, res) => {
       }
       
       // Emit to socket.io clients
-      io.emit('notification_archived', { notificationId, userId: req.user.userId });
+      io.emit('notification_archived', { 
+        type: 'notification_archived', 
+        notificationId, 
+        userId: req.user.userId 
+      });
       
       res.json({ success: true, notificationId });
     }
@@ -844,7 +1032,11 @@ app.put('/api/notifications/mark-all-read', authenticateToken, (req, res) => {
       }
       
       // Emit to socket.io clients
-      io.emit('notifications_marked_read', { userId: req.user.userId, count: numReplaced });
+      io.emit('notifications_marked_read', { 
+        type: 'notifications_marked_read', 
+        userId: req.user.userId, 
+        count: numReplaced 
+      });
       
       res.json({ success: true, markedRead: numReplaced });
     }
@@ -872,8 +1064,15 @@ const createNotification = (userId, type, title, message, data = {}) => {
       return;
     }
     
-    // Emit to socket.io clients
-    io.emit('notification_created', result);
+    // Emit to socket.io clients with the complete notification
+    console.log('🔔 Server emitting notification_created from createNotification:', { 
+      type: 'notification_created', 
+      notification: notification 
+    });
+    io.emit('notification_created', { 
+      type: 'notification_created', 
+      notification: notification 
+    });
   });
 };
 

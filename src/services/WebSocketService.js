@@ -32,7 +32,7 @@ class WebSocketService {
       });
       
       this.socket.on('connect', () => {
-        console.log('Socket.io connected');
+        console.log('🔔 Socket.io connected successfully');
         this.isConnected = true;
         this.reconnectAttempts = 0;
         this.emit('connected');
@@ -56,7 +56,7 @@ class WebSocketService {
 
       // Listen for all events and forward them to our event system
       this.socket.onAny((eventName, ...args) => {
-        console.log('Socket.io event received:', eventName, args);
+        console.log('🔔 Socket.io event received:', eventName, args);
         this.emit(eventName, ...args);
       });
 

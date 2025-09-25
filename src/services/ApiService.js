@@ -266,6 +266,34 @@ class ApiService {
     return await this.updateUser(userId, updateData);
   }
 
+  /**
+   * Upload user avatar
+   */
+  async uploadUserAvatar(userId, file) {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    return await fetch(`${this.baseURL}/users/${userId}/avatar`, {
+      method: 'POST',
+      body: formData,
+      credentials: 'include'
+    }).then(response => {
+      if (!response.ok) {
+        return response.json().then(error => Promise.reject(new Error(error.error || 'Upload failed')));
+      }
+      return response.json();
+    });
+  }
+
+  /**
+   * Delete user avatar
+   */
+  async deleteUserAvatar(userId) {
+    return await this.request(`/users/${userId}/avatar`, {
+      method: 'DELETE'
+    });
+  }
+
   // Flow-specific methods
 
   /**
