@@ -61,3 +61,12 @@
 {"k":"0000000080","o":"0000000399","v":"001"}
 {"_id":22,"_uid":41,"_dt":1758838909920,"_s":"51b8c5986e866c57261c3a26abf10402"}
 {"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":8,"dependencies":[],"type":"feature","position":{"x":24.82568773122813,"y":-492.04403717628054},"_id":{"$wrap":"$oid","v":22},"updatedAt":"2025-09-25T22:21:49.919Z"}
+{"k":"0000000080","o":"0000000504","v":"001"}
+{"_id":22,"_uid":41,"_dt":1759012754060,"_s":"c27c3331e5626024a8774a5dad6991ea"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":11.5,"dependencies":[],"type":"feature","position":{"x":24.82568773122813,"y":-492.04403717628054},"_id":{"$wrap":"$oid","v":22},"updatedAt":"2025-09-27T22:39:14.059Z","assigneeName":"Alejandro Campo","severity":"medium","affectedUsers":0,"isNew":false,"archived":false}
+{"k":"0000000080","o":"0000000502","v":"001"}
+{"_id":22,"_uid":41,"_dt":1759012759311,"_s":"c4dcbcdbfe6ca151486f2e210f1a4bd3"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":16,"dependencies":[],"type":"feature","position":{"x":24.82568773122813,"y":-492.04403717628054},"_id":{"$wrap":"$oid","v":22},"updatedAt":"2025-09-27T22:39:19.310Z","assigneeName":"Alejandro Campo","severity":"medium","affectedUsers":0,"isNew":false,"archived":false}
+{"k":"0000000080","o":"0000000504","v":"001"}
+{"_id":22,"_uid":41,"_dt":1759012760458,"_s":"5dff41d3ce1fcf3db12407fa6c83733d"}
+{"id":"task-1","task_type":"task","title":"Implement User Authentication","description":"Create login and registration functionality","status":"in_progress","assignedTo":"user-1","priority":"high","estimatedHours":16,"completedHours":14.5,"dependencies":[],"type":"feature","position":{"x":24.82568773122813,"y":-492.04403717628054},"_id":{"$wrap":"$oid","v":22},"updatedAt":"2025-09-27T22:39:20.456Z","assigneeName":"Alejandro Campo","severity":"medium","affectedUsers":0,"isNew":false,"archived":false}

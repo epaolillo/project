@@ -16,6 +16,7 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
   const [newVacationStart, setNewVacationStart] = useState('');
   const [newVacationEnd, setNewVacationEnd] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const [activeTab, setActiveTab] = useState('info');
 
   // Initialize edited user when user prop changes
   useEffect(() => {
@@ -41,6 +42,8 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
         vacations: user.vacations || []
       });
       setHasChanges(false);
+      // Reset to info tab when user changes
+      setActiveTab('info');
     }
   }, [user]);
 
@@ -372,272 +375,304 @@ const UserDrawer = ({ user, tasks = [], isOpen, onClose, onUserUpdate, onUserDel
         </div>
 
         <div className="drawer-content">
-          {/* Personal Information Section */}
-          <div className="drawer-section">
-            <h3>📝 Información Personal</h3>
-            
-            <div className="fields-row">
-              <div className="field-group">
-                <label htmlFor="firstName">Nombre</label>
-                <input
-                  id="firstName"
-                  type="text"
-                  value={editedUser.firstName}
-                  onChange={(e) => handleFieldChange('firstName', e.target.value)}
-                  className="field-input"
-                  placeholder="Nombre..."
-                />
-              </div>
-
-              <div className="field-group">
-                <label htmlFor="lastName">Apellido</label>
-                <input
-                  id="lastName"
-                  type="text"
-                  value={editedUser.lastName}
-                  onChange={(e) => handleFieldChange('lastName', e.target.value)}
-                  className="field-input"
-                  placeholder="Apellido..."
-                />
-              </div>
-            </div>
-
-            <div className="field-group">
-              <label htmlFor="role">Puesto</label>
-              <input
-                id="role"
-                type="text"
-                value={editedUser.role}
-                onChange={(e) => handleFieldChange('role', e.target.value)}
-                className="field-input"
-                placeholder="Puesto de trabajo..."
-              />
-            </div>
-
-            <div className="field-group">
-              <label htmlFor="avatar">Avatar</label>
-              <div className="avatar-upload-container">
-                <input
-                  id="avatar"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleAvatarUpload}
-                  className="avatar-input"
-                />
-                <button 
-                  type="button" 
-                  className="avatar-button"
-                  onClick={() => document.getElementById('avatar').click()}
-                >
-                  📷 Cambiar Avatar
-                </button>
-                {editedUser.avatar && (
-                  <button 
-                    type="button" 
-                    className="avatar-remove-button"
-                    onClick={async () => {
-                      try {
-                        await apiService.deleteUserAvatar(editedUser.id);
-                        handleFieldChange('avatar', '');
-                        
-                        // Notify parent component with the updated user
-                        if (onUserUpdate) {
-                          const updatedUser = { ...editedUser, avatar: '' };
-                          onUserUpdate(updatedUser);
-                        }
-                      } catch (error) {
-                        console.error('Error deleting avatar:', error);
-                        alert('Error al eliminar el avatar. Por favor intenta de nuevo.');
-                      }
-                    }}
-                  >
-                    🗑️ Quitar
-                  </button>
-                )}
-              </div>
-            </div>
+          {/* Tabs Navigation */}
+          <div className="drawer-tabs">
+            <button 
+              className={`drawer-tab ${activeTab === 'info' ? 'active' : ''}`}
+              onClick={() => setActiveTab('info')}
+            >
+              📝 Info
+            </button>
+            <button 
+              className={`drawer-tab ${activeTab === 'roadmap' ? 'active' : ''}`}
+              onClick={() => setActiveTab('roadmap')}
+            >
+              🗺️ Roadmap
+            </button>
           </div>
 
-          {/* Metrics Section */}
-          <div className="drawer-section">
-            <h3>📊 Métricas de Rendimiento</h3>
-            
-            <div className="metric-slider-container">
-              <div className="metric-slider">
-                <label htmlFor="fatigue">Cansancio: {editedUser.fatigue}%</label>
-                <input
-                  id="fatigue"
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={editedUser.fatigue}
-                  onChange={(e) => handleFieldChange('fatigue', parseInt(e.target.value))}
-                  className="slider"
-                />
-              </div>
+          {/* Tab Content */}
+          <div className="drawer-tab-content">
+            {activeTab === 'info' && (
+              <>
+                {/* Personal Information Section */}
+                <div className="drawer-section">
+                  <h3>📝 Información Personal</h3>
+                  
+                  <div className="fields-row">
+                    <div className="field-group">
+                      <label htmlFor="firstName">Nombre</label>
+                      <input
+                        id="firstName"
+                        type="text"
+                        value={editedUser.firstName}
+                        onChange={(e) => handleFieldChange('firstName', e.target.value)}
+                        className="field-input"
+                        placeholder="Nombre..."
+                      />
+                    </div>
 
-              <div className="metric-slider">
-                <label htmlFor="taskClarity">Claridad en la tarea: {editedUser.taskClarity}%</label>
-                <input
-                  id="taskClarity"
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={editedUser.taskClarity}
-                  onChange={(e) => handleFieldChange('taskClarity', parseInt(e.target.value))}
-                  className="slider"
-                />
-              </div>
+                    <div className="field-group">
+                      <label htmlFor="lastName">Apellido</label>
+                      <input
+                        id="lastName"
+                        type="text"
+                        value={editedUser.lastName}
+                        onChange={(e) => handleFieldChange('lastName', e.target.value)}
+                        className="field-input"
+                        placeholder="Apellido..."
+                      />
+                    </div>
+                  </div>
 
-              <div className="metric-slider">
-                <label htmlFor="motivation">Motivación: {editedUser.motivation}%</label>
-                <input
-                  id="motivation"
-                  type="range"
-                  min="0"
-                  max="100"
-                  value={editedUser.motivation}
-                  onChange={(e) => handleFieldChange('motivation', parseInt(e.target.value))}
-                  className="slider"
-                />
-              </div>
-            </div>
-          </div>
+                  <div className="field-group">
+                    <label htmlFor="role">Puesto</label>
+                    <input
+                      id="role"
+                      type="text"
+                      value={editedUser.role}
+                      onChange={(e) => handleFieldChange('role', e.target.value)}
+                      className="field-input"
+                      placeholder="Puesto de trabajo..."
+                    />
+                  </div>
 
-          {/* Current Task Section */}
-          <div className="drawer-section">
-            <h3>🎯 Tarea Actual</h3>
-            <div className="task-selector">
-              <AutocompleteInput
-                id="current-task"
-                value={editedUser.currentTaskId}
-                displayValue={currentTask ? `${currentTask.title} (${currentTask.status})` : ''}
-                options={availableTasks}
-                onSelect={(task) => handleCurrentTaskChange(task ? task.id : '')}
-                placeholder="Buscar tarea..."
-                getOptionLabel={(task) => task.title}
-                getOptionValue={(task) => task.id}
-                className="field-input"
-              />
-            </div>
-          </div>
-
-          {/* Vacations Section */}
-          <div className="drawer-section">
-            <h3>🏖️ Vacaciones</h3>
-            
-            <div className="vacation-add-container">
-              <div className="vacation-inputs">
-                <div className="field-group">
-                  <label htmlFor="vacationStart">Fecha de inicio</label>
-                  <input
-                    id="vacationStart"
-                    type="date"
-                    value={newVacationStart}
-                    onChange={(e) => setNewVacationStart(e.target.value)}
-                    className="field-input"
-                  />
+                  <div className="field-group">
+                    <label htmlFor="avatar">Avatar</label>
+                    <div className="avatar-upload-container">
+                      <input
+                        id="avatar"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleAvatarUpload}
+                        className="avatar-input"
+                      />
+                      <button 
+                        type="button" 
+                        className="avatar-button"
+                        onClick={() => document.getElementById('avatar').click()}
+                      >
+                        📷 Cambiar Avatar
+                      </button>
+                      {editedUser.avatar && (
+                        <button 
+                          type="button" 
+                          className="avatar-remove-button"
+                          onClick={async () => {
+                            try {
+                              await apiService.deleteUserAvatar(editedUser.id);
+                              handleFieldChange('avatar', '');
+                              
+                              // Notify parent component with the updated user
+                              if (onUserUpdate) {
+                                const updatedUser = { ...editedUser, avatar: '' };
+                                onUserUpdate(updatedUser);
+                              }
+                            } catch (error) {
+                              console.error('Error deleting avatar:', error);
+                              alert('Error al eliminar el avatar. Por favor intenta de nuevo.');
+                            }
+                          }}
+                        >
+                          🗑️ Quitar
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
-                <div className="field-group">
-                  <label htmlFor="vacationEnd">Fecha de fin</label>
-                  <input
-                    id="vacationEnd"
-                    type="date"
-                    value={newVacationEnd}
-                    onChange={(e) => setNewVacationEnd(e.target.value)}
-                    className="field-input"
-                  />
-                </div>
-              </div>
-              <button 
-                onClick={handleAddVacation}
-                disabled={!newVacationStart || !newVacationEnd}
-                className="add-vacation-button"
-              >
-                Agregar Vacaciones
-              </button>
-            </div>
 
-            <div className="vacation-list">
-              {editedUser.vacations && editedUser.vacations.length === 0 ? (
-                <p className="no-vacations">No hay vacaciones programadas.</p>
-              ) : (
-                editedUser.vacations?.map((vacation) => (
-                  <div key={vacation.id} className="vacation-item">
-                    <div className="vacation-dates">
-                      <span>{formatDateForInput(vacation.start)}</span>
-                      <span>→</span>
-                      <span>{formatDateForInput(vacation.end)}</span>
+                {/* Metrics Section */}
+                <div className="drawer-section">
+                  <h3>📊 Métricas de Rendimiento</h3>
+                  
+                  <div className="metric-slider-container">
+                    <div className="metric-slider">
+                      <label htmlFor="fatigue">Cansancio: {editedUser.fatigue}%</label>
+                      <input
+                        id="fatigue"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={editedUser.fatigue}
+                        onChange={(e) => handleFieldChange('fatigue', parseInt(e.target.value))}
+                        className="slider"
+                      />
+                    </div>
+
+                    <div className="metric-slider">
+                      <label htmlFor="taskClarity">Claridad en la tarea: {editedUser.taskClarity}%</label>
+                      <input
+                        id="taskClarity"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={editedUser.taskClarity}
+                        onChange={(e) => handleFieldChange('taskClarity', parseInt(e.target.value))}
+                        className="slider"
+                      />
+                    </div>
+
+                    <div className="metric-slider">
+                      <label htmlFor="motivation">Motivación: {editedUser.motivation}%</label>
+                      <input
+                        id="motivation"
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={editedUser.motivation}
+                        onChange={(e) => handleFieldChange('motivation', parseInt(e.target.value))}
+                        className="slider"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Current Task Section */}
+                <div className="drawer-section">
+                  <h3>🎯 Tarea Actual</h3>
+                  <div className="task-selector">
+                    <AutocompleteInput
+                      id="current-task"
+                      value={editedUser.currentTaskId}
+                      displayValue={currentTask ? `${currentTask.title} (${currentTask.status})` : ''}
+                      options={availableTasks}
+                      onSelect={(task) => handleCurrentTaskChange(task ? task.id : '')}
+                      placeholder="Buscar tarea..."
+                      getOptionLabel={(task) => task.title}
+                      getOptionValue={(task) => task.id}
+                      className="field-input"
+                    />
+                  </div>
+                </div>
+
+                {/* Vacations Section */}
+                <div className="drawer-section">
+                  <h3>🏖️ Vacaciones</h3>
+                  
+                  <div className="vacation-add-container">
+                    <div className="vacation-inputs">
+                      <div className="field-group">
+                        <label htmlFor="vacationStart">Fecha de inicio</label>
+                        <input
+                          id="vacationStart"
+                          type="date"
+                          value={newVacationStart}
+                          onChange={(e) => setNewVacationStart(e.target.value)}
+                          className="field-input"
+                        />
+                      </div>
+                      <div className="field-group">
+                        <label htmlFor="vacationEnd">Fecha de fin</label>
+                        <input
+                          id="vacationEnd"
+                          type="date"
+                          value={newVacationEnd}
+                          onChange={(e) => setNewVacationEnd(e.target.value)}
+                          className="field-input"
+                        />
+                      </div>
                     </div>
                     <button 
-                      onClick={() => handleRemoveVacation(vacation.id)}
-                      className="remove-vacation-button"
+                      onClick={handleAddVacation}
+                      disabled={!newVacationStart || !newVacationEnd}
+                      className="add-vacation-button"
                     >
-                      🗑️
+                      Agregar Vacaciones
                     </button>
                   </div>
-                ))
-              )}
-            </div>
-          </div>
 
-          {/* Feedbacks Section */}
-          <div className="drawer-section">
-            <h3>💬 Feedbacks</h3>
-            
-            <div className="feedback-input-container">
-              <textarea
-                value={feedbackText}
-                onChange={(e) => setFeedbackText(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
-                    e.preventDefault();
-                    handleAddFeedback();
-                  }
-                }}
-                placeholder="Escribe tu feedback aquí... (Ctrl+Enter para guardar)"
-                className="feedback-input"
-                rows={3}
-              />
-              <button 
-                onClick={handleAddFeedback}
-                disabled={!feedbackText.trim()}
-                className="add-feedback-button"
-              >
-                Agregar Feedback
-              </button>
-            </div>
-
-            <div className="feedback-entries">
-              {editedUser.feedbacks && editedUser.feedbacks.length === 0 ? (
-                <p className="no-feedbacks">No hay feedbacks aún.</p>
-              ) : (
-                editedUser.feedbacks?.map((feedback) => (
-                  <div key={feedback.id} className="feedback-entry">
-                    <div className="entry-header">
-                      <div className="entry-info">
-                        <span className="entry-timestamp">
-                          {formatTimestamp(feedback.timestamp)}
-                        </span>
-                        {feedback.taskId && tasks.find(t => t.id === feedback.taskId) && (
-                          <span className="entry-task">
-                            {tasks.find(t => t.id === feedback.taskId).title}
-                          </span>
-                        )}
-                      </div>
-                      <button 
-                        onClick={() => handleRemoveFeedback(feedback.id)}
-                        className="remove-feedback-button"
-                        title="Eliminar feedback"
-                      >
-                        🗑️
-                      </button>
-                    </div>
-                    <p className="entry-text">{feedback.text}</p>
+                  <div className="vacation-list">
+                    {editedUser.vacations && editedUser.vacations.length === 0 ? (
+                      <p className="no-vacations">No hay vacaciones programadas.</p>
+                    ) : (
+                      editedUser.vacations?.map((vacation) => (
+                        <div key={vacation.id} className="vacation-item">
+                          <div className="vacation-dates">
+                            <span>{formatDateForInput(vacation.start)}</span>
+                            <span>→</span>
+                            <span>{formatDateForInput(vacation.end)}</span>
+                          </div>
+                          <button 
+                            onClick={() => handleRemoveVacation(vacation.id)}
+                            className="remove-vacation-button"
+                          >
+                            🗑️
+                          </button>
+                        </div>
+                      ))
+                    )}
                   </div>
-                ))
-              )}
-            </div>
+                </div>
+
+                {/* Feedbacks Section */}
+                <div className="drawer-section">
+                  <h3>💬 Feedbacks</h3>
+                  
+                  <div className="feedback-input-container">
+                    <textarea
+                      value={feedbackText}
+                      onChange={(e) => setFeedbackText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                          e.preventDefault();
+                          handleAddFeedback();
+                        }
+                      }}
+                      placeholder="Escribe tu feedback aquí... (Ctrl+Enter para guardar)"
+                      className="feedback-input"
+                      rows={3}
+                    />
+                    <button 
+                      onClick={handleAddFeedback}
+                      disabled={!feedbackText.trim()}
+                      className="add-feedback-button"
+                    >
+                      Agregar Feedback
+                    </button>
+                  </div>
+
+                  <div className="feedback-entries">
+                    {editedUser.feedbacks && editedUser.feedbacks.length === 0 ? (
+                      <p className="no-feedbacks">No hay feedbacks aún.</p>
+                    ) : (
+                      editedUser.feedbacks?.map((feedback) => (
+                        <div key={feedback.id} className="feedback-entry">
+                          <div className="entry-header">
+                            <div className="entry-info">
+                              <span className="entry-timestamp">
+                                {formatTimestamp(feedback.timestamp)}
+                              </span>
+                              {feedback.taskId && tasks.find(t => t.id === feedback.taskId) && (
+                                <span className="entry-task">
+                                  {tasks.find(t => t.id === feedback.taskId).title}
+                                </span>
+                              )}
+                            </div>
+                            <button 
+                              onClick={() => handleRemoveFeedback(feedback.id)}
+                              className="remove-feedback-button"
+                              title="Eliminar feedback"
+                            >
+                              🗑️
+                            </button>
+                          </div>
+                          <p className="entry-text">{feedback.text}</p>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {activeTab === 'roadmap' && (
+              <div className="drawer-section">
+                <h3>🗺️ Roadmap</h3>
+                <p style={{ textAlign: 'center', color: '#6c757d', fontStyle: 'italic', padding: '40px 20px' }}>
+                  Esta sección está en desarrollo...
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </div>
