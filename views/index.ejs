@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Task Manager - Sistema de gestión de tareas y seguimiento"
+    />
+    <link rel="apple-touch-icon" href="/logo192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    
+    <!-- Injected configuration -->
+    <script>
+      window.APP_CONFIG = {
+        BASE_URL: '<%= BASE_URL %>',
+        API_BASE_URL: '<%= BASE_URL %>/api',
+        WS_URL: '<%= BASE_URL %>'
+      };
+    </script>
+    
+    <title>Task Manager</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    
+    <!-- React build files -->
+    <% if (assetManifest.files && assetManifest.files['main.css']) { %>
+    <link href="<%= assetManifest.files['main.css'] %>" rel="stylesheet">
+    <% } %>
+    <% if (assetManifest.files && assetManifest.files['main.js']) { %>
+    <script defer="defer" src="<%= assetManifest.files['main.js'] %>"></script>
+    <% } %>
+  </body>
+</html>

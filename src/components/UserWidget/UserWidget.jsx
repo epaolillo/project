@@ -63,7 +63,8 @@ const UserWidget = ({ user, onClick, className = '' }) => {
     if (user.avatar) {
       // If it's a relative path, prepend the server URL
       if (user.avatar.startsWith('/uploads/')) {
-        return `http://localhost:5000${user.avatar}`;
+        const baseURL = window.APP_CONFIG?.BASE_URL || 'http://localhost:5000';
+        return `${baseURL}${user.avatar}`;
       }
       // If it's already a full URL or base64, use as is
       return user.avatar;

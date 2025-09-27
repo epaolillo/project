@@ -336,7 +336,8 @@ async function seed() {
       console.log('');
       console.log('Next steps:');
       console.log('1. Run "npm run server" to start the backend server');
-      console.log('2. Access the application at http://localhost:3000');
+      const baseURL = process.env.BASE_URL || 'http://localhost:5000';
+      console.log(`2. Access the application at ${baseURL}`);
       console.log('3. Login with username: admin, password: admin123');
       console.log('');
       

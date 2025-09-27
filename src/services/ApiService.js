@@ -3,12 +3,27 @@
  * Handles authentication, JWT tokens, and all API endpoints
  */
 class ApiService {
-  constructor(config = {}) {
-    this.baseURL = config.baseURL || 'http://localhost:5000/api';
-    this.timeout = config.timeout || 10000;
+  constructor() {
+    this.baseURL = this.getConfig().API_BASE_URL;
+    this.timeout = 10000;
     this.defaultHeaders = {
-      'Content-Type': 'application/json',
-      ...config.headers
+      'Content-Type': 'application/json'
+    };
+  }
+
+  /**
+   * Get configuration from window.APP_CONFIG or fallback to localhost
+   */
+  getConfig() {
+    if (typeof window !== 'undefined' && window.APP_CONFIG) {
+      return window.APP_CONFIG;
+    }
+    
+    // Fallback for development
+    return {
+      BASE_URL: 'http://localhost:5000',
+      API_BASE_URL: 'http://localhost:5000/api',
+      WS_URL: 'http://localhost:5000'
     };
   }
 

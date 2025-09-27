@@ -10,20 +10,27 @@ const http = require('http');
 const multer = require('multer');
 const tingodb = require('tingodb')();
 
+// Environment variables (must be declared before use)
+const PORT = process.env.PORT || 5000;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
+const DB_PATH = process.env.DB_PATH ? path.resolve(process.env.DB_PATH) : path.join(__dirname, 'database');
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
 // Initialize Express app
 const app = express();
+
+// Configure EJS as template engine
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 const server = http.createServer(app);
+
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: true, // Allow all origins
     credentials: true
   }
 });
-
-// Environment variables
-const PORT = process.env.PORT || 5000;
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
-const DB_PATH = path.join(__dirname, 'database');
 
 // Ensure database directory exists
 if (!fs.existsSync(DB_PATH)) {
@@ -75,9 +82,13 @@ const upload = multer({
 });
 
 // Middleware
+// Configure CORS to allow all origins (development mode)
 app.use(cors({
-  origin: 'http://localhost:3000',
-  credentials: true
+  origin: true, // Allow all origins
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  exposedHeaders: ['Set-Cookie']
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
@@ -1194,10 +1205,39 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// Serve static files from React build directory (after all API routes)
+// Only serve static assets, not index.html (we'll render that with EJS)
+app.use('/static', express.static(path.join(__dirname, 'build/static')));
+app.use(express.static(path.join(__dirname, 'build'), {
+  index: false // Don't serve index.html automatically
+}));
+
+// Catch-all handler: render React app with injected configuration
+app.get('*', (req, res) => {
+  // Read asset manifest to get correct file names
+  let assetManifest = {};
+  try {
+    const manifestPath = path.join(__dirname, 'build', 'asset-manifest.json');
+    if (fs.existsSync(manifestPath)) {
+      assetManifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+    }
+  } catch (error) {
+    console.warn('Could not read asset manifest:', error.message);
+  }
+  
+  res.render('index', { 
+    BASE_URL: BASE_URL,
+    assetManifest: assetManifest
+  });
+});
+
 // Start server
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Database path: ${DB_PATH}`);
+  console.log(`🚀 Server running on ${BASE_URL}`);
+  console.log(`📁 Database path: ${DB_PATH}`);
+  console.log(`🌐 Frontend served at: ${BASE_URL}`);
+  console.log(`📊 API available at: ${BASE_URL}/api`);
+  console.log(`🔓 CORS: All origins allowed (development mode)`);
 });
 
 module.exports = app;

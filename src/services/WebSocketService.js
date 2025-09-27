@@ -5,14 +5,30 @@ import { io } from 'socket.io-client';
  * Handles notifications and real-time updates between users and managers
  */
 class WebSocketService {
-  constructor(config = {}) {
-    this.url = config.url || 'http://localhost:5000';
+  constructor() {
+    this.url = this.getConfig().WS_URL;
     this.socket = null;
     this.reconnectAttempts = 0;
-    this.maxReconnectAttempts = config.maxReconnectAttempts || 5;
-    this.reconnectInterval = config.reconnectInterval || 5000;
+    this.maxReconnectAttempts = 5;
+    this.reconnectInterval = 5000;
     this.listeners = new Map();
     this.isConnected = false;
+  }
+
+  /**
+   * Get configuration from window.APP_CONFIG or fallback to localhost
+   */
+  getConfig() {
+    if (typeof window !== 'undefined' && window.APP_CONFIG) {
+      return window.APP_CONFIG;
+    }
+    
+    // Fallback for development
+    return {
+      BASE_URL: 'http://localhost:5000',
+      API_BASE_URL: 'http://localhost:5000/api',
+      WS_URL: 'http://localhost:5000'
+    };
   }
 
   /**
